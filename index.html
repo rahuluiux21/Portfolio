@@ -1046,14 +1046,33 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
 /* ============================================================
    CASE STUDY PAGE OVERLAY
    ============================================================ */
+/* -- Case page scrim (dim behind the panel) -- */
+.case-scrim {
+  position: fixed; inset: 0; z-index: 8190;
+  background: rgba(10,8,30,0.45);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.case-scrim.active { opacity: 1; pointer-events: auto; }
+
 .case-page {
   position: fixed; inset: 0; z-index: 8200;
   background: var(--bg);
-  transform: translateX(100%);
-  transition: transform 0.55s cubic-bezier(0.77,0,0.175,1);
+  opacity: 0;
+  transform: translateY(60px) scale(0.97);
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   overflow-y: auto; overflow-x: hidden;
+  pointer-events: none;
+  will-change: transform, opacity;
 }
-.case-page.open { transform: translateX(0); }
+.case-page.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
 
 .case-page-header {
   position: sticky; top: 0; z-index: 10;
@@ -1829,9 +1848,9 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
   </a>
 
   <div class="work-cta reveal" style="transition-delay:0.32s">
-    <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="btn-outline work-all-btn">
+    <button class="btn-outline work-all-btn">
       View all projects <i class="ti ti-arrow-right"></i>
-    </a>
+    </button>
   </div>
 
 </section>
@@ -2610,6 +2629,7 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
 <!-- ======================================================
      CASE STUDY OVERLAY
      ====================================================== -->
+<div class="case-scrim" id="caseScrim"></div>
 <div class="case-page" id="casePage">
 
   <div class="case-page-header" id="casePageHeader">
@@ -3073,7 +3093,7 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
   });
 
   document.getElementById('contactPageBack').addEventListener('click', closeContact);
-  document.getElementById('contactBackInline').addEventListener('click', closeContact);
+  var cbi = document.getElementById('contactBackInline'); if (cbi) cbi.addEventListener('click', closeContact);
   document.getElementById('contactPageClose').addEventListener('click', closeContact);
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && contactPage.classList.contains('open')) closeContact();
@@ -3546,14 +3566,30 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
     }
 
     casePage.classList.remove('scrolled');
-    casePage.classList.add('open');
-    document.body.style.overflow = 'hidden';
     casePage.scrollTop = 0;
+    casePage.classList.add('open');
+    document.getElementById('caseScrim').classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    /* Hero content stagger after panel settles */
+    gsap.fromTo('#caseHeroType',
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0, duration: 0.5, delay: 0.32, ease: 'power3.out', clearProps: 'all' });
+    gsap.fromTo('#caseHeroTitle',
+      { opacity: 0, y: 28 },
+      { opacity: 1, y: 0, duration: 0.6, delay: 0.40, ease: 'power3.out', clearProps: 'all' });
+    gsap.fromTo('#caseHeroTagline',
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.5, delay: 0.50, ease: 'power3.out', clearProps: 'all' });
+    gsap.fromTo('.case-meta-strip',
+      { opacity: 0, y: 12 },
+      { opacity: 1, y: 0, duration: 0.45, delay: 0.58, ease: 'power3.out', clearProps: 'all' });
   }
 
   function closeCase() {
     casePage.classList.remove('open');
     casePage.classList.remove('scrolled');
+    document.getElementById('caseScrim').classList.remove('active');
     document.body.style.overflow = '';
   }
 
