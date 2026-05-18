@@ -797,9 +797,16 @@ body.dark .contact-page-header { background: rgba(14,14,15,0.92); }
 }
 .contact-page-close-btn:hover { background: var(--purple); border-color: var(--purple); color: white; }
 
-.contact-page-body { padding: 80px 6vw 100px; }
+.contact-page {
+  display: flex; flex-direction: column;
+}
+.contact-page-body {
+  padding: 28px 6vw 24px;
+  flex: 1; display: flex; flex-direction: column;
+}
 .contact-page-grid {
-  display: grid; grid-template-columns: 1fr 380px; gap: 8%; align-items: start;
+  display: grid; grid-template-columns: 1fr 360px; gap: 6%; align-items: start;
+  flex: 1;
 }
 
 /* -- Intro headline -- */
@@ -814,22 +821,22 @@ body.dark .contact-page-header { background: rgba(14,14,15,0.92); }
 .page-back-inline:hover { color: var(--purple); transform: translateX(-5px); }
 .page-back-inline i { font-size: 16px; }
 
-.contact-page-intro { margin-bottom: 56px; }
+.contact-page-intro { margin-bottom: 20px; }
 .contact-page-intro h2 {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(36px,5vw,60px); font-weight: 700;
-  color: var(--text); line-height: 1.1; margin-bottom: 12px;
+  font-size: clamp(26px,3.5vw,42px); font-weight: 700;
+  color: var(--text); line-height: 1.1; margin-bottom: 8px;
 }
-.contact-page-intro p { font-size: 16px; color: var(--text-muted); }
+.contact-page-intro p { font-size: 14px; color: var(--text-muted); }
 
 /* -- Form -- */
-.cf-form { display: flex; flex-direction: column; gap: 24px; }
+.cf-form { display: flex; flex-direction: column; gap: 12px; }
 
-.cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
-.cf-field { display: flex; flex-direction: column; gap: 8px; }
+.cf-field { display: flex; flex-direction: column; gap: 5px; }
 .cf-field label {
-  font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
   text-transform: uppercase; color: var(--text-muted);
 }
 .cf-field input,
@@ -837,10 +844,10 @@ body.dark .contact-page-header { background: rgba(14,14,15,0.92); }
 .cf-field textarea {
   background: transparent;
   border: 1.5px solid rgba(60,52,137,0.18);
-  border-radius: 12px;
-  padding: 14px 18px;
+  border-radius: 10px;
+  padding: 10px 14px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 15px; color: var(--text);
+  font-size: 14px; color: var(--text);
   transition: border-color 0.2s, box-shadow 0.2s;
   outline: none; width: 100%;
 }
@@ -864,12 +871,12 @@ body.dark .cf-field textarea {
   background-repeat: no-repeat; background-position: right 14px center;
   padding-right: 40px; cursor: none;
 }
-.cf-field textarea { resize: vertical; min-height: 140px; line-height: 1.6; }
+.cf-field textarea { resize: vertical; min-height: 100px; line-height: 1.5; }
 
 .cf-submit {
   background: var(--purple); color: white;
   border: none; border-radius: 100px;
-  padding: 16px 40px; font-size: 16px; font-weight: 600;
+  padding: 12px 32px; font-size: 14px; font-weight: 600;
   display: inline-flex; align-items: center; gap: 8px;
   cursor: none; align-self: flex-start;
   transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
@@ -890,27 +897,27 @@ body.dark .cf-field textarea {
 .cf-success p { font-size: 15px; color: var(--text-muted); }
 
 /* -- Right info panel -- */
-.contact-info-panel { display: flex; flex-direction: column; gap: 12px; }
+.contact-info-panel { display: flex; flex-direction: column; gap: 8px; }
 .contact-info-card {
   border: 1.5px solid rgba(60,52,137,0.1);
-  border-radius: 16px; padding: 20px 22px;
-  display: flex; align-items: center; gap: 16px;
+  border-radius: 14px; padding: 13px 18px;
+  display: flex; align-items: center; gap: 14px;
   transition: border-color 0.25s;
 }
 body.dark .contact-info-card { border-color: rgba(255,255,255,0.08); }
 .contact-info-card:hover { border-color: var(--teal); }
-.contact-info-card i { font-size: 22px; color: var(--teal); flex-shrink: 0; }
+.contact-info-card i { font-size: 20px; color: var(--teal); flex-shrink: 0; }
 .contact-info-card-label {
-  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 4px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 2px;
 }
-.contact-info-card-value { font-size: 14px; color: var(--text); font-weight: 500; }
-.contact-info-divider { height: 1px; background: rgba(60,52,137,0.08); margin: 12px 0; }
-.contact-info-socials { display: flex; flex-direction: column; gap: 10px; }
+.contact-info-card-value { font-size: 13px; color: var(--text); font-weight: 500; }
+.contact-info-divider { height: 1px; background: rgba(60,52,137,0.08); margin: 6px 0; }
+.contact-info-socials { display: flex; flex-direction: column; gap: 4px; }
 .contact-info-social {
   display: flex; align-items: center; gap: 10px;
-  color: var(--text-muted); font-size: 14px;
-  padding: 12px 16px; border-radius: 12px;
+  color: var(--text-muted); font-size: 13px;
+  padding: 9px 14px; border-radius: 10px;
   transition: background 0.2s, color 0.2s;
 }
 .contact-info-social:hover { background: rgba(60,52,137,0.06); color: var(--purple); }
@@ -922,7 +929,7 @@ body.dark .contact-info-card { border-color: rgba(255,255,255,0.08); }
 }
 @media (max-width: 600px) {
   .cf-row { grid-template-columns: 1fr; }
-  .contact-page-body { padding: 48px 5vw 80px; }
+  .contact-page-body { padding: 20px 5vw 20px; }
 }
 
 /* ============================================================
@@ -2240,9 +2247,6 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
 
   <div class="contact-page-body">
     <div class="contact-page-intro">
-      <button class="page-back-inline" id="contactBackInline">
-        <i class="ti ti-arrow-left"></i> Back
-      </button>
       <h2>Let's build something<br>great together.</h2>
       <p>Available for full-time roles and select freelance projects. Usually reply within 24 hours.</p>
     </div>
