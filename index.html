@@ -1037,6 +1037,398 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
 .project-card:hover .project-card-link { gap: 8px; }
 
 /* ============================================================
+   CASE STUDY PAGE OVERLAY
+   ============================================================ */
+.case-page {
+  position: fixed; inset: 0; z-index: 8200;
+  background: var(--bg);
+  transform: translateX(100%);
+  transition: transform 0.55s cubic-bezier(0.77,0,0.175,1);
+  overflow-y: auto; overflow-x: hidden;
+}
+.case-page.open { transform: translateX(0); }
+
+.case-page-header {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(245,244,240,0.9);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(60,52,137,0.08);
+  padding: 0 6vw; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: box-shadow 0.3s ease;
+}
+.case-page.scrolled .case-page-header {
+  box-shadow: 0 4px 24px rgba(60,52,137,0.1);
+}
+body.dark .case-page-header { background: rgba(14,14,15,0.92); }
+.case-header-left { display: flex; align-items: center; gap: 14px; }
+.case-header-info {
+  position: relative;
+  width: 320px; height: 38px;
+  overflow: hidden;
+}
+.case-header-label {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: 13px; font-weight: 600; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  white-space: nowrap;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+.case-header-compact {
+  position: absolute; top: 50%; transform: translateY(calc(-50% + 10px));
+  display: flex; flex-direction: column; gap: 2px;
+  opacity: 0;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+/* scrolled state */
+.case-page.scrolled .case-header-label {
+  opacity: 0; transform: translateY(calc(-50% - 10px));
+}
+.case-page.scrolled .case-header-compact {
+  opacity: 1; transform: translateY(-50%);
+}
+.case-header-compact-type {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--teal); line-height: 1;
+}
+.case-header-compact-title {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: 17px; font-weight: 800; color: var(--text);
+  line-height: 1.1; letter-spacing: -0.02em; white-space: nowrap;
+}
+.case-back-btn, .case-close-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1.5px solid rgba(60,52,137,0.2);
+  background: transparent; color: var(--text);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; cursor: none; flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.case-back-btn:hover, .case-close-btn:hover {
+  background: var(--purple); border-color: var(--purple); color: white;
+}
+.case-close-btn { font-size: 20px; }
+
+/* Hero banner */
+.case-hero {
+  width: 100%; min-height: 340px; position: relative;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 60px 6vw 48px; overflow: hidden;
+}
+.case-hero-bg {
+  position: absolute; inset: 0;
+  background: var(--case-gradient, linear-gradient(135deg,#3C3489,#1D9E75));
+}
+.case-hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.28) 0%, transparent 65%);
+}
+.case-hero-noise {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
+}
+.case-hero-content { position: relative; z-index: 2; }
+.case-hero-title-row {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 16px;
+}
+.case-hero-back {
+  flex-shrink: 0;
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  color: #fff; font-size: 20px; cursor: none;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+.case-hero-back:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.6);
+  transform: translateX(-2px);
+}
+.case-hero-type {
+  display: inline-block; margin-bottom: 14px;
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.14em; color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.12); backdrop-filter: blur(6px);
+  padding: 5px 14px; border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.18);
+}
+.case-hero-title {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: clamp(40px, 6vw, 72px); font-weight: 800;
+  color: #fff; line-height: 0.9; letter-spacing: -0.035em;
+}
+.case-hero-tagline {
+  font-size: clamp(15px, 1.8vw, 19px); color: rgba(255,255,255,0.78);
+  font-weight: 400; max-width: 580px; line-height: 1.5;
+  font-style: italic;
+}
+.case-meta-strip {
+  display: flex; flex-wrap: wrap; gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  margin-top: 36px; padding-top: 28px; position: relative; z-index: 2;
+}
+.case-meta-item {
+  flex: 1 1 0; min-width: 120px;
+  padding-right: 24px;
+}
+.case-meta-item + .case-meta-item {
+  padding-left: 24px;
+  border-left: 1px solid rgba(255,255,255,0.12);
+}
+.case-meta-label {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.12em; color: rgba(255,255,255,0.5);
+  margin-bottom: 5px;
+}
+.case-meta-value {
+  font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.9);
+}
+
+/* Body sections */
+.case-body {
+  padding: 56px 6vw 100px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 56px;
+  align-items: start;
+}
+@media (max-width: 1024px) { .case-body { grid-template-columns: 1fr; gap: 0; } }
+.case-main { min-width: 0; }
+
+/* Sidebar */
+.case-sidebar {
+  position: sticky;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+@media (max-width: 1024px) { .case-sidebar { display: none; } }
+.case-sidebar-card {
+  background: var(--surface);
+  border-radius: 18px;
+  padding: 24px;
+  border: 1px solid rgba(60,52,137,0.07);
+}
+body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
+.case-sidebar-title {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--text-muted);
+  margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 1px solid rgba(60,52,137,0.07);
+}
+.case-sidebar-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 12px; gap: 8px;
+}
+.case-sidebar-row:last-child { margin-bottom: 0; }
+.case-sidebar-label {
+  font-size: 11px; color: var(--text-muted); font-weight: 500;
+  flex-shrink: 0;
+}
+.case-sidebar-value {
+  font-size: 13px; color: var(--text); font-weight: 600;
+  text-align: right;
+}
+.case-sidebar-divider {
+  height: 1px; background: rgba(60,52,137,0.06); margin: 14px 0;
+}
+.case-highlight-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.case-highlight-item {
+  background: var(--bg); border-radius: 12px;
+  padding: 14px 12px; text-align: center;
+}
+.case-highlight-num {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: 22px; font-weight: 800; color: var(--purple);
+  line-height: 1; margin-bottom: 4px;
+}
+.case-highlight-label {
+  font-size: 10px; color: var(--text-muted); line-height: 1.3;
+}
+.case-sidebar-behance {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--purple); color: #fff;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: 13px; font-weight: 700;
+  padding: 14px 20px; border-radius: 12px;
+  text-decoration: none; cursor: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.case-sidebar-behance:hover { background: var(--purple-dark); transform: translateY(-1px); }
+.case-sidebar-behance i { font-size: 16px; }
+
+.case-section-label {
+  font-size: 10px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--teal); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.case-section-label::before {
+  content: ''; display: inline-block; width: 24px; height: 1.5px;
+  background: var(--teal); border-radius: 2px;
+}
+
+.case-overview { margin-bottom: 64px; }
+.case-overview-text {
+  font-size: clamp(16px, 1.5vw, 18px); line-height: 1.8;
+  color: var(--text); max-width: 820px;
+}
+
+/* Three pillars */
+.case-pillars {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  margin-bottom: 72px; border-radius: 20px; overflow: hidden;
+}
+@media (max-width: 800px) { .case-pillars { grid-template-columns: 1fr; } }
+.case-pillar {
+  background: var(--surface); padding: 36px 32px;
+  position: relative; overflow: hidden;
+}
+.case-pillar::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.case-pillar:nth-child(1)::before { background: #E74C3C; }
+.case-pillar:nth-child(2)::before { background: var(--purple); }
+.case-pillar:nth-child(3)::before { background: var(--teal); }
+.case-pillar-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 20px;
+}
+.case-pillar:nth-child(1) .case-pillar-icon { background: rgba(231,76,60,0.1); color: #E74C3C; }
+.case-pillar:nth-child(2) .case-pillar-icon { background: var(--purple-light); color: var(--purple); }
+.case-pillar:nth-child(3) .case-pillar-icon { background: var(--teal-light); color: var(--teal); }
+.case-pillar-title {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: 15px; font-weight: 700; margin-bottom: 12px; color: var(--text);
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.case-pillar-text { font-size: 14px; line-height: 1.75; color: var(--text-muted); }
+
+/* Process */
+.case-process { margin-bottom: 72px; }
+.case-process-title {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: clamp(24px, 3vw, 36px); font-weight: 700;
+  color: var(--text); margin-bottom: 40px;
+}
+.case-process-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+@media (max-width: 700px) { .case-process-grid { grid-template-columns: 1fr; } }
+.case-process-step {
+  background: var(--surface); border-radius: 16px;
+  padding: 28px 28px 28px 24px;
+  border: 1px solid rgba(60,52,137,0.06);
+  display: flex; gap: 20px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.case-process-step:hover {
+  border-color: rgba(60,52,137,0.18);
+  box-shadow: 0 8px 32px rgba(60,52,137,0.07);
+}
+.case-process-num {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: 11px; font-weight: 800; color: var(--purple);
+  background: var(--purple-light); border-radius: 8px;
+  width: 34px; height: 34px; display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0; letter-spacing: 0.04em;
+}
+.case-process-content {}
+.case-process-step-title {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px;
+}
+.case-process-step-desc {
+  font-size: 13px; line-height: 1.7; color: var(--text-muted);
+}
+
+/* Gallery */
+.case-gallery { margin-bottom: 72px; }
+.case-gallery-grid { display: flex; flex-direction: column; gap: 14px; }
+.case-gallery-row { display: grid; gap: 14px; }
+.case-gallery-row.cols-1 { grid-template-columns: 1fr; }
+.case-gallery-row.cols-2 { grid-template-columns: 1fr 1fr; }
+@media (max-width: 700px) { .case-gallery-row.cols-2 { grid-template-columns: 1fr; } }
+.case-gallery-img {
+  width: 100%; border-radius: 16px; display: block;
+  object-fit: cover; background: var(--surface);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+  cursor: zoom-in;
+}
+.case-gallery-img:hover {
+  transform: scale(1.012);
+  box-shadow: 0 20px 56px rgba(60,52,137,0.13);
+}
+
+/* Lightbox */
+.case-lightbox {
+  position: fixed; inset: 0; z-index: 9000;
+  background: rgba(10,10,12,0.94);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s ease;
+  padding: 24px;
+}
+.case-lightbox.open { opacity: 1; pointer-events: all; }
+.case-lightbox-img {
+  max-width: 92vw; max-height: 88vh;
+  border-radius: 12px; object-fit: contain;
+  box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+  transform: scale(0.96); transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.case-lightbox.open .case-lightbox-img { transform: scale(1); }
+.case-lightbox-close {
+  position: absolute; top: 20px; right: 24px;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,0.12); border: none;
+  color: #fff; font-size: 20px; cursor: none;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+}
+.case-lightbox-close:hover { background: rgba(255,255,255,0.22); }
+
+/* CTA */
+.case-cta-block {
+  background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+  border-radius: 20px; padding: 48px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap;
+}
+.case-cta-copy {}
+.case-cta-eyebrow {
+  font-size: 11px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.12em; color: rgba(255,255,255,0.6); margin-bottom: 8px;
+}
+.case-cta-headline {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: clamp(20px, 2.4vw, 28px); font-weight: 700;
+  color: #fff; line-height: 1.2;
+}
+.case-cta-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: #fff; color: var(--purple);
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: 15px; font-weight: 700;
+  padding: 16px 32px; border-radius: 100px;
+  text-decoration: none; white-space: nowrap;
+  transition: transform 0.2s, box-shadow 0.2s;
+  flex-shrink: 0; cursor: none;
+}
+.case-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+}
+.case-cta-btn i { font-size: 18px; }
+
+/* ============================================================
    CINEMATIC INTRO
    ============================================================ */
 .intro {
@@ -1121,15 +1513,42 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
 @media (max-width: 768px) {
   .nav-links, .hire-btn { display: none; }
   .hamburger { display: flex; }
-  .hero { flex-direction: column; padding: 100px 6vw 60px; gap: 36px; }
-  .hero-left { flex: 0 0 100%; max-width: 100%; }
-  .hero-right {
-    position: relative; right: auto; top: auto; height: auto;
-    width: 100%; display: flex; justify-content: center;
+
+  /* ── Hero ── */
+  .hero {
+    flex-direction: column;
+    padding: 90px 6vw 56px;
+    min-height: auto;
+    gap: 0;
+    align-items: center;
   }
-  .hero-image-container { height: 360px; max-width: 260px; }
-  .hero-name { font-size: 64px; }
-  .hero-tagline { font-size: 34px; }
+  .hero-left {
+    flex: 0 0 100%; max-width: 100%;
+    order: 2;
+    text-align: center;
+  }
+  .hero-right {
+    order: 1;
+    position: relative; right: auto; top: auto;
+    width: 100%; height: 280px;
+    display: flex; justify-content: center; align-items: center;
+    margin-bottom: 28px;
+    pointer-events: none;
+  }
+  .hero-image-container { height: 280px; max-width: 200px; }
+  .hero-image-wrapper img { max-height: 280px; object-fit: contain; }
+
+  /* Center-align hero text on mobile */
+  .availability-pill { margin-left: auto; margin-right: auto; }
+  .hero-name, .hero-tagline, .hero-tagline-italic { text-align: center; }
+  .hero-divider { margin-left: auto; margin-right: auto; }
+  .hero-sub { text-align: center; }
+  .hero-creds { justify-content: center; text-align: center; }
+  .hero-cta { justify-content: center; flex-wrap: wrap; }
+  .hero-socials { justify-content: center; }
+
+  .hero-name { font-size: clamp(44px, 12vw, 64px); }
+  .hero-tagline { font-size: clamp(22px, 6vw, 32px); }
   .section-headline { font-size: 38px; }
   .work-list-header { display: none; }
   .work-item { grid-template-columns: 36px 1fr 28px; gap: 0; }
@@ -1145,10 +1564,15 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
   .footer { flex-direction: column; align-items: flex-start; }
 }
 @media (max-width: 480px) {
-  .hero-name { font-size: 52px; }
-  .hero-tagline { font-size: 28px; }
+  .hero { padding: 80px 5vw 48px; }
+  .hero-name { font-size: clamp(38px, 11vw, 52px); }
+  .hero-tagline { font-size: clamp(20px, 5.5vw, 26px); }
+  .hero-right { height: 230px; }
+  .hero-image-container { height: 230px; max-width: 170px; }
   .spec-grid { grid-template-columns: 1fr; }
   .contact-headline { font-size: 40px; }
+  .hero-cta { flex-direction: column; align-items: center; }
+  .hero-cta .btn-primary, .hero-cta .btn-outline { width: 100%; justify-content: center; }
 }
 </style>
 </head>
@@ -1253,7 +1677,7 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
         <i class="ti ti-brand-behance"></i>
         <span class="social-tip">Behance</span>
       </a>
-      <a href="#" class="hero-social-link">
+      <a href="https://www.linkedin.com/in/kandularahul" target="_blank" rel="noopener" class="hero-social-link">
         <i class="ti ti-brand-linkedin"></i>
         <span class="social-tip">LinkedIn</span>
       </a>
@@ -1342,7 +1766,7 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
     <span></span>
   </div>
 
-  <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="work-item reveal">
+  <a href="#" data-case="versante-ai" class="work-item reveal">
     <span class="work-num">01</span>
     <div>
       <div class="work-item-name">Versante AI</div>
@@ -1353,7 +1777,7 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
     <span class="work-item-arrow">↗</span>
   </a>
 
-  <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="work-item reveal" style="transition-delay:0.06s">
+  <a href="#" data-case="hmi-suite" class="work-item reveal" style="transition-delay:0.06s">
     <span class="work-num">02</span>
     <div>
       <div class="work-item-name">HMI Suite</div>
@@ -1364,7 +1788,7 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
     <span class="work-item-arrow">↗</span>
   </a>
 
-  <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="work-item reveal" style="transition-delay:0.12s">
+  <a href="#" data-case="global-dashboard" class="work-item reveal" style="transition-delay:0.12s">
     <span class="work-num">03</span>
     <div>
       <div class="work-item-name">Global Dashboard Manager</div>
@@ -1375,7 +1799,7 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
     <span class="work-item-arrow">↗</span>
   </a>
 
-  <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="work-item reveal" style="transition-delay:0.18s">
+  <a href="#" data-case="iirm" class="work-item reveal" style="transition-delay:0.18s">
     <span class="work-num">04</span>
     <div>
       <div class="work-item-name">IIRM Insurance Platform</div>
@@ -1386,7 +1810,7 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
     <span class="work-item-arrow">↗</span>
   </a>
 
-  <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="work-item reveal" style="transition-delay:0.24s">
+  <a href="#" data-case="thinqxuper" class="work-item reveal" style="transition-delay:0.24s">
     <span class="work-num">05</span>
     <div>
       <div class="work-item-name">Thinqxuper App Suite</div>
@@ -1755,7 +2179,7 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
         <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="contact-social-link">
           <i class="ti ti-brand-behance"></i> Behance
         </a>
-        <a href="#" class="contact-social-link">
+        <a href="https://www.linkedin.com/in/kandularahul" target="_blank" rel="noopener" class="contact-social-link">
           <i class="ti ti-brand-linkedin"></i> LinkedIn
         </a>
         <a href="tel:+919866938710" class="contact-social-link">
@@ -1909,7 +2333,7 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
           <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="contact-info-social">
             <i class="ti ti-brand-behance"></i> Behance Portfolio
           </a>
-          <a href="#" class="contact-info-social">
+          <a href="https://www.linkedin.com/in/kandularahul" target="_blank" rel="noopener" class="contact-info-social">
             <i class="ti ti-brand-linkedin"></i> LinkedIn Profile
           </a>
           <a href="mailto:rahuluiux21@gmail.com" class="contact-info-social">
@@ -1944,13 +2368,13 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
       <button class="page-back-inline" id="projectsBackInline">
         <i class="ti ti-arrow-left"></i> Back
       </button>
-      <h2>Work across 5 industries,<br>20+ products shipped.</h2>
+      <h2>30+ Projects</h2>
       <p>Each project links to the full case study on Behance.</p>
     </div>
 
     <div class="projects-grid">
 
-      <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="project-card">
+      <a href="#" data-case="versante-ai" class="project-card">
         <div class="project-card-thumb" style="background: linear-gradient(135deg,#3C3489 0%,#1D9E75 100%);">
           <span class="project-card-thumb-label">Versante AI</span>
         </div>
@@ -1960,12 +2384,12 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
           <div class="project-card-company">RADcube</div>
           <div class="project-card-footer">
             <span class="project-card-year">2026</span>
-            <span class="project-card-link">View on Behance <i class="ti ti-arrow-right"></i></span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
           </div>
         </div>
       </a>
 
-      <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="project-card">
+      <a href="#" data-case="hmi-suite" class="project-card">
         <div class="project-card-thumb" style="background: linear-gradient(135deg,#1A1A2E 0%,#3C3489 100%);">
           <span class="project-card-thumb-label">HMI Suite</span>
         </div>
@@ -1975,12 +2399,12 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
           <div class="project-card-company">People Tech Group</div>
           <div class="project-card-footer">
             <span class="project-card-year">2023 – 2025</span>
-            <span class="project-card-link">View on Behance <i class="ti ti-arrow-right"></i></span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
           </div>
         </div>
       </a>
 
-      <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="project-card">
+      <a href="#" data-case="global-dashboard" class="project-card">
         <div class="project-card-thumb" style="background: linear-gradient(135deg,#0F4C75 0%,#1B9CFC 100%);">
           <span class="project-card-thumb-label">Dashboard</span>
         </div>
@@ -1990,12 +2414,12 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
           <div class="project-card-company">RADcube</div>
           <div class="project-card-footer">
             <span class="project-card-year">2026</span>
-            <span class="project-card-link">View on Behance <i class="ti ti-arrow-right"></i></span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
           </div>
         </div>
       </a>
 
-      <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="project-card">
+      <a href="#" data-case="iirm" class="project-card">
         <div class="project-card-thumb" style="background: linear-gradient(135deg,#1D9E75 0%,#0D5C42 100%);">
           <span class="project-card-thumb-label">IIRM</span>
         </div>
@@ -2005,12 +2429,12 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
           <div class="project-card-company">Divami Design Labs</div>
           <div class="project-card-footer">
             <span class="project-card-year">2026</span>
-            <span class="project-card-link">View on Behance <i class="ti ti-arrow-right"></i></span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
           </div>
         </div>
       </a>
 
-      <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="project-card">
+      <a href="#" data-case="thinqxuper" class="project-card">
         <div class="project-card-thumb" style="background: linear-gradient(135deg,#F7971E 0%,#FFD200 100%);">
           <span class="project-card-thumb-label">Thinqxuper</span>
         </div>
@@ -2020,12 +2444,12 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
           <div class="project-card-company">People Tech Group</div>
           <div class="project-card-footer">
             <span class="project-card-year">2025</span>
-            <span class="project-card-link">View on Behance <i class="ti ti-arrow-right"></i></span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
           </div>
         </div>
       </a>
 
-      <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="project-card">
+      <a href="#" data-case="radcube-website" class="project-card">
         <div class="project-card-thumb" style="background: linear-gradient(135deg,#3C3489 0%,#6C63FF 100%);">
           <span class="project-card-thumb-label">RADcube</span>
         </div>
@@ -2035,12 +2459,12 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
           <div class="project-card-company">RADcube</div>
           <div class="project-card-footer">
             <span class="project-card-year">2026</span>
-            <span class="project-card-link">View on Behance <i class="ti ti-arrow-right"></i></span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
           </div>
         </div>
       </a>
 
-      <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="project-card">
+      <a href="#" data-case="gov-website" class="project-card">
         <div class="project-card-thumb" style="background: linear-gradient(135deg,#0052CC 0%,#2684FF 100%);">
           <span class="project-card-thumb-label">Gov</span>
         </div>
@@ -2050,12 +2474,12 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
           <div class="project-card-company">People Tech Group</div>
           <div class="project-card-footer">
             <span class="project-card-year">2024</span>
-            <span class="project-card-link">View on Behance <i class="ti ti-arrow-right"></i></span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
           </div>
         </div>
       </a>
 
-      <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="project-card">
+      <a href="#" data-case="kings-dhaba" class="project-card">
         <div class="project-card-thumb" style="background: linear-gradient(135deg,#e96c1f 0%,#f5af19 100%);">
           <span class="project-card-thumb-label">King's Dhaba</span>
         </div>
@@ -2065,12 +2489,12 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
           <div class="project-card-company">iPrism Technologies</div>
           <div class="project-card-footer">
             <span class="project-card-year">2022 – 2023</span>
-            <span class="project-card-link">View on Behance <i class="ti ti-arrow-right"></i></span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
           </div>
         </div>
       </a>
 
-      <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="project-card">
+      <a href="#" data-case="yep-earn" class="project-card">
         <div class="project-card-thumb" style="background: linear-gradient(135deg,#11998e 0%,#38ef7d 100%);">
           <span class="project-card-thumb-label">Yep Earn</span>
         </div>
@@ -2080,12 +2504,12 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
           <div class="project-card-company">iPrism Technologies</div>
           <div class="project-card-footer">
             <span class="project-card-year">2022 – 2023</span>
-            <span class="project-card-link">View on Behance <i class="ti ti-arrow-right"></i></span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
           </div>
         </div>
       </a>
 
-      <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="project-card">
+      <a href="#" data-case="redbucket" class="project-card">
         <div class="project-card-thumb" style="background: linear-gradient(135deg,#C0392B 0%,#E74C3C 100%);">
           <span class="project-card-thumb-label">Redbucket</span>
         </div>
@@ -2095,13 +2519,239 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
           <div class="project-card-company">Redbucket</div>
           <div class="project-card-footer">
             <span class="project-card-year">2023</span>
-            <span class="project-card-link">View on Behance <i class="ti ti-arrow-right"></i></span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" data-case="smart-construction-hmi" class="project-card">
+        <div class="project-card-thumb" style="background: linear-gradient(135deg,#1A1A2E 0%,#2C3E50 100%);">
+          <span class="project-card-thumb-label">Smart HMI</span>
+        </div>
+        <div class="project-card-body">
+          <span class="project-card-type">HMI Dashboard</span>
+          <div class="project-card-name">Smart Construction HMI</div>
+          <div class="project-card-company">People Tech Group</div>
+          <div class="project-card-footer">
+            <span class="project-card-year">2025</span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" data-case="paw-paradise" class="project-card">
+        <div class="project-card-thumb" style="background: linear-gradient(135deg,#FF6B6B 0%,#FFA07A 100%);">
+          <span class="project-card-thumb-label">Paw Paradise</span>
+        </div>
+        <div class="project-card-body">
+          <span class="project-card-type">Pet Care App</span>
+          <div class="project-card-name">Paw Paradise Retreat</div>
+          <div class="project-card-company">Concept Project</div>
+          <div class="project-card-footer">
+            <span class="project-card-year">2025</span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" data-case="travel-hub" class="project-card">
+        <div class="project-card-thumb" style="background: linear-gradient(135deg,#2980B9 0%,#6DD5FA 100%);">
+          <span class="project-card-thumb-label">Travel Hub</span>
+        </div>
+        <div class="project-card-body">
+          <span class="project-card-type">Web Application</span>
+          <div class="project-card-name">Travel Hub</div>
+          <div class="project-card-company">Concept Project</div>
+          <div class="project-card-footer">
+            <span class="project-card-year">2025</span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" data-case="no-broker" class="project-card">
+        <div class="project-card-thumb" style="background: linear-gradient(135deg,#E55D87 0%,#5FC3E4 100%);">
+          <span class="project-card-thumb-label">No Broker</span>
+        </div>
+        <div class="project-card-body">
+          <span class="project-card-type">App Redesign</span>
+          <div class="project-card-name">No Broker App Redesign</div>
+          <div class="project-card-company">Concept Project</div>
+          <div class="project-card-footer">
+            <span class="project-card-year">2024</span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="#" data-case="shop-center" class="project-card">
+        <div class="project-card-thumb" style="background: linear-gradient(135deg,#8360c3 0%,#2ebf91 100%);">
+          <span class="project-card-thumb-label">Shop Center</span>
+        </div>
+        <div class="project-card-body">
+          <span class="project-card-type">E-Commerce App</span>
+          <div class="project-card-name">Shop Center</div>
+          <div class="project-card-company">Concept Project</div>
+          <div class="project-card-footer">
+            <span class="project-card-year">2024</span>
+            <span class="project-card-link">Read Case Study <i class="ti ti-arrow-right"></i></span>
           </div>
         </div>
       </a>
 
     </div>
   </div>
+</div>
+
+<!-- ======================================================
+     CASE STUDY OVERLAY
+     ====================================================== -->
+<div class="case-page" id="casePage">
+
+  <div class="case-page-header" id="casePageHeader">
+    <div class="case-header-left">
+      <button class="case-back-btn" id="caseBack" aria-label="Back">
+        <i class="ti ti-arrow-left"></i>
+      </button>
+      <div class="case-header-info">
+        <span class="case-header-label">Case Study</span>
+        <div class="case-header-compact" id="caseHeaderCompact">
+          <span class="case-header-compact-type" id="caseHeaderCompactType"></span>
+          <span class="case-header-compact-title" id="caseHeaderCompactTitle"></span>
+        </div>
+      </div>
+    </div>
+    <button class="case-close-btn" id="caseClose" aria-label="Close">
+      <i class="ti ti-x"></i>
+    </button>
+  </div>
+
+  <div class="case-hero" id="caseHero">
+    <div class="case-hero-bg" id="caseHeroBg"></div>
+    <div class="case-hero-noise"></div>
+    <div class="case-hero-content">
+      <span class="case-hero-type" id="caseHeroType"></span>
+      <div class="case-hero-title-row">
+        <button class="case-hero-back" id="caseBackInline" aria-label="Back">
+          <i class="ti ti-arrow-left"></i>
+        </button>
+        <div class="case-hero-title" id="caseHeroTitle"></div>
+      </div>
+      <div class="case-hero-tagline" id="caseHeroTagline"></div>
+    </div>
+    <div class="case-meta-strip" id="caseMetaStrip">
+      <div class="case-meta-item">
+        <div class="case-meta-label">Client</div>
+        <div class="case-meta-value" id="caseMetaClient"></div>
+      </div>
+      <div class="case-meta-item">
+        <div class="case-meta-label">Year</div>
+        <div class="case-meta-value" id="caseMetaYear"></div>
+      </div>
+      <div class="case-meta-item">
+        <div class="case-meta-label">Role</div>
+        <div class="case-meta-value" id="caseMetaRole"></div>
+      </div>
+      <div class="case-meta-item">
+        <div class="case-meta-label">Tools</div>
+        <div class="case-meta-value" id="caseMetaTools"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="case-body">
+
+    <!-- ── Main column ── -->
+    <div class="case-main">
+
+      <div class="case-overview">
+        <div class="case-section-label">Overview</div>
+        <p class="case-overview-text" id="caseOverview"></p>
+      </div>
+
+      <div class="case-pillars" id="casePillars">
+        <div class="case-pillar">
+          <div class="case-pillar-icon"><i class="ti ti-alert-circle"></i></div>
+          <div class="case-pillar-title">The Problem</div>
+          <p class="case-pillar-text" id="caseProblem"></p>
+        </div>
+        <div class="case-pillar">
+          <div class="case-pillar-icon"><i class="ti ti-bulb"></i></div>
+          <div class="case-pillar-title">The Solution</div>
+          <p class="case-pillar-text" id="caseSolution"></p>
+        </div>
+        <div class="case-pillar">
+          <div class="case-pillar-icon"><i class="ti ti-chart-line"></i></div>
+          <div class="case-pillar-title">The Outcome</div>
+          <p class="case-pillar-text" id="caseOutcome"></p>
+        </div>
+      </div>
+
+      <div class="case-gallery" id="caseGallery" style="display:none">
+        <div class="case-section-label">Screens &amp; Mockups</div>
+        <div class="case-gallery-grid" id="caseGalleryGrid"></div>
+      </div>
+
+      <div class="case-process">
+        <div class="case-section-label">Process</div>
+        <div class="case-process-title" id="caseProcessTitle"></div>
+        <div class="case-process-grid" id="caseProcessGrid"></div>
+      </div>
+
+      <div class="case-cta-block">
+        <div class="case-cta-copy">
+          <div class="case-cta-eyebrow">Want the full story?</div>
+          <div class="case-cta-headline">View the complete case study<br>with all screens on Behance.</div>
+        </div>
+        <a href="#" id="caseBehanceLink" target="_blank" rel="noopener" class="case-cta-btn">
+          View on Behance <i class="ti ti-brand-behance"></i>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ── Sticky sidebar ── -->
+    <aside class="case-sidebar">
+
+      <div class="case-sidebar-card">
+        <div class="case-sidebar-title">Project Details</div>
+        <div class="case-sidebar-row">
+          <span class="case-sidebar-label">Client</span>
+          <span class="case-sidebar-value" id="sbClient"></span>
+        </div>
+        <div class="case-sidebar-row">
+          <span class="case-sidebar-label">Year</span>
+          <span class="case-sidebar-value" id="sbYear"></span>
+        </div>
+        <div class="case-sidebar-divider"></div>
+        <div class="case-sidebar-row">
+          <span class="case-sidebar-label">Role</span>
+          <span class="case-sidebar-value" id="sbRole"></span>
+        </div>
+        <div class="case-sidebar-row">
+          <span class="case-sidebar-label">Tools</span>
+          <span class="case-sidebar-value" id="sbTools"></span>
+        </div>
+      </div>
+
+      <div class="case-sidebar-card">
+        <div class="case-sidebar-title">Impact Highlights</div>
+        <div class="case-highlight-grid" id="sbHighlights"></div>
+      </div>
+
+      <a href="#" id="sbBehance" target="_blank" rel="noopener" class="case-sidebar-behance">
+        <i class="ti ti-brand-behance"></i> View on Behance
+      </a>
+
+    </aside>
+
+  </div>
+</div>
+
+<!-- Lightbox (shared, outside casePage so it overlays everything) -->
+<div class="case-lightbox" id="caseLightbox">
+  <button class="case-lightbox-close" id="caseLightboxClose"><i class="ti ti-x"></i></button>
+  <img class="case-lightbox-img" id="caseLightboxImg" src="" alt="Mockup screen" />
 </div>
 
 <!-- ======================================================
@@ -2233,10 +2883,12 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
 
   /* ── SMOOTH SCROLL ───────────────────────────── */
   function closeAllOverlays() {
-    var pp = document.getElementById('projectsPage');
-    var cp = document.getElementById('contactPage');
-    if (pp && pp.classList.contains('open')) { pp.classList.remove('open'); }
-    if (cp && cp.classList.contains('open')) { cp.classList.remove('open'); }
+    var pp  = document.getElementById('projectsPage');
+    var cp  = document.getElementById('contactPage');
+    var csp = document.getElementById('casePage');
+    if (pp  && pp.classList.contains('open'))  { pp.classList.remove('open'); }
+    if (cp  && cp.classList.contains('open'))  { cp.classList.remove('open'); }
+    if (csp && csp.classList.contains('open')) { csp.classList.remove('open'); }
     document.body.style.overflow = '';
     mobileMenu.classList.remove('open'); hamburger.classList.remove('open');
   }
@@ -2485,6 +3137,468 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
     if (e.key === 'Escape' && projectsPage.classList.contains('open')) closeProjects();
   });
 
+  /* ── CASE STUDY PAGE ─────────────────────────── */
+  var casePage = document.getElementById('casePage');
+
+  var caseData = {
+    'versante-ai': {
+      title: 'Versante AI', type: 'Healthcare AI Platform',
+      client: 'RADcube', year: '2026', role: 'Senior UI/UX Designer',
+      tools: 'Figma · Notion · FigJam', mockups: [],
+      highlights: [{ num:'67%', label:'Faster decisions' }, { num:'41%', label:'Higher trust' }, { num:'80+', label:'Components' }, { num:'3', label:'Products adopted' }],
+      tagline: 'Designing diagnostic intelligence that clinicians trust.',
+      gradient: 'linear-gradient(135deg,#3C3489 0%,#1D9E75 100%)',
+      overview: 'Versante AI is an AI-powered healthcare diagnostic platform built for RADcube. The challenge was making complex AI-driven insights approachable and trustworthy for busy clinical professionals who have zero tolerance for ambiguity.',
+      problem: 'Clinicians were overwhelmed by information-dense dashboards. AI recommendations lacked explainability, eroding trust. The existing system required 6–8 clicks to reach critical patient data.',
+      solution: 'Designed a context-aware UI that surfaces the most relevant patient data first. Built a "Confidence Lens" component that translates AI probability scores into plain clinical language. Reduced core workflows to 2–3 interactions.',
+      outcome: '67% reduction in time-to-decision for diagnostic workflows. Trust scores increased by 41% in internal user testing. Design system adopted across 3 RADcube product lines.',
+      process: [
+        { step:'01', title:'Discovery & Stakeholder Interviews', desc:'Ran 12 contextual inquiry sessions with radiologists and clinical leads across two hospital systems to map pain points in existing diagnostic flows.' },
+        { step:'02', title:'Information Architecture', desc:'Reorganised 140+ data fields into 6 cognitive zones based on clinical urgency, frequency of access, and decision dependency.' },
+        { step:'03', title:'Wireframing & Rapid Prototyping', desc:'Created lo-fi wireframes in FigJam and hi-fi Figma prototypes, running two rounds of usability testing per sprint.' },
+        { step:'04', title:'Design System & Handoff', desc:'Built a fully documented component library with 80+ components, motion specs, and accessibility annotations delivered to the engineering team.' }
+      ],
+      behanceUrl: 'https://behance.net/kandularahul21'
+    },
+    'hmi-suite': {
+      title: 'HMI Suite', type: 'Automotive HMI Design',
+      client: 'People Tech Group', year: '2023–2025', role: 'Lead UI/UX Designer',
+      tools: 'Figma · Principle · Lottie',
+      mockups: [
+        'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/24df27221615209.67d7f73d54e7b.png',
+        'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/e16e53221615209.67d7f73d546b1.png',
+        'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/a2e58f221615209.67d7f73d5736c.png',
+        'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/26f685221615209.67d7f73d55601.png',
+        'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/f26b24221615209.67d7f73d56eb9.png',
+        'https://mir-s3-cdn-cf.behance.net/project_modules/fs_webp/85408c221615209.67d7f73d55dc7.png',
+        'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/355a94221615209.67d7f73d56282.png',
+        'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/8906ec221615209.67d7f73d569f6.png',
+        'https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/802536221615165.67d7f71e9bfe8.jpg'
+      ],
+      highlights: [{ num:'35%', label:'Less glance time' }, { num:'3', label:'Riding modes' }, { num:'9', label:'Screens shipped' }, { num:'2', label:'EV clients' }],
+      tagline: 'Human–machine interfaces for the next generation of EVs.',
+      gradient: 'linear-gradient(135deg,#1A1A2E 0%,#3C3489 100%)',
+      overview: 'Designed cluster and infotainment HMI for Tork Motors EV bikes and other automotive clients. The work spanned from initial concept sketches to production-ready design specifications — covering cluster displays, riding modes, and navigation UX.',
+      problem: 'EV riders faced a steep cognitive load from fragmented instrument cluster data. Battery range, regenerative braking strength, and riding mode were presented inconsistently, leading to anxiety and unsafe glancing behaviour.',
+      solution: 'Created a unified HMI language system with a "glance grammar" — a visual hierarchy that lets riders absorb critical information in under 200ms. Designed 3 riding modes (Eco, City, Sport) with distinct visual states for immediate mode recognition.',
+      outcome: 'HMI design approved for production on Tork Kratos R models. Reduced glance duration by ~35% in simulator testing. Design patterns adopted as internal HMI standards at People Tech Group.',
+      process: [
+        { step:'01', title:'Domain Research & Benchmarking', desc:'Studied ISO 15008 and NHTSA guidelines, benchmarked 8 EV brands, and rode Tork bikes to understand real-world rider context.' },
+        { step:'02', title:'Concept Exploration', desc:'Generated 40+ concept directions for cluster layout, icon language, and colour semantics. Narrowed to 3 directions through stakeholder reviews.' },
+        { step:'03', title:'Prototyping & Simulation', desc:'Built interactive Figma prototypes with state transitions for all riding modes, and animated micro-interactions using Principle.' },
+        { step:'04', title:'Specification & Validation', desc:'Delivered pixel-precise, dark-optimised design specs with motion timing, font metrics at display PPI, and contrast ratios for outdoor legibility.' }
+      ],
+      behanceUrl: 'https://behance.net/kandularahul21'
+    },
+    'global-dashboard': {
+      title: 'Global Dashboard Manager', type: 'Enterprise Dashboard',
+      client: 'RADcube', year: '2026', role: 'Senior UI/UX Designer',
+      tools: 'Figma · FigJam · Zeroheight',
+      mockups: ['https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/cd89b8240189209.69394a1c247bb.png'],
+      highlights: [{ num:'30m', label:'Build time (was 6wk)' }, { num:'94%', label:'Self-serve rate' }, { num:'60+', label:'Widgets designed' }, { num:'7', label:'User roles mapped' }],
+      tagline: 'One command centre for a global data ecosystem.',
+      gradient: 'linear-gradient(135deg,#0F4C75 0%,#1B9CFC 100%)',
+      overview: 'A modular, role-based analytics dashboard allowing global teams to configure, monitor, and act on data streams across business units. The challenge was building flexibility without creating configuration chaos.',
+      problem: 'Different regional teams needed entirely different data views, but IT had to custom-build each dashboard — creating a 6–8 week backlog for every new request and leaving non-technical managers dependent on developers.',
+      solution: 'Designed a drag-and-drop dashboard builder with a library of 60+ pre-built widgets. Role templates let managers deploy a working dashboard in minutes. A permission layer ensures data visibility is always governed.',
+      outcome: 'Dashboard build time reduced from 6 weeks to under 30 minutes for standard views. 94% of managers could configure their own dashboard without IT support after one training session.',
+      process: [
+        { step:'01', title:'User Segmentation & Role Mapping', desc:'Defined 7 distinct user roles with unique data needs, access levels, and decision-making contexts through stakeholder workshops.' },
+        { step:'02', title:'Widget Architecture', desc:'Designed a composable widget system with standardised data-slot interfaces, enabling any backend data source to plug into any widget type.' },
+        { step:'03', title:'Builder UX Prototyping', desc:'Ran 3 rounds of usability testing on the drag-and-drop builder, measuring task completion rate and time-on-task for dashboard configuration.' },
+        { step:'04', title:'Design System Integration', desc:'Extended the RADcube design system with a dedicated data visualisation set, including 22 chart types and responsive table patterns.' }
+      ],
+      behanceUrl: 'https://behance.net/kandularahul21'
+    },
+    'iirm': {
+      title: 'IIRM Insurance Platform', type: 'Enterprise UX',
+      client: 'Divami Design Labs', year: '2026', role: 'Digital Solution Designer',
+      tools: 'Figma · Miro · Maze', mockups: [],
+      highlights: [{ num:'52%', label:'Better completion' }, { num:'6wk', label:'Onboarding (was 4mo)' }, { num:'120+', label:'Components built' }, { num:'3K+', label:'Active users' }],
+      tagline: 'Redesigning insurance risk management for the digital age.',
+      gradient: 'linear-gradient(135deg,#1D9E75 0%,#0D5C42 100%)',
+      overview: 'IIRM (Integrated Insurance Risk Management) is a B2B platform serving underwriters and risk managers at large insurers. The project involved a complete redesign of an aging legacy system used by 3,000+ professionals daily.',
+      problem: 'The legacy system required 11+ steps to complete a standard risk assessment. Inconsistent UI patterns meant new users needed 3–4 months of onboarding, and underwriters were resorting to spreadsheets for complex scenarios.',
+      solution: 'Designed a task-flow-first architecture, compressing the most common workflows to 3–4 steps. Introduced contextual intelligence panels that surface relevant policy data based on the current assessment stage.',
+      outcome: 'Onboarding time reduced from 4 months to 6 weeks. Workflow completion rates increased by 52%. The redesign is being rolled out across all 3,000+ active users.',
+      process: [
+        { step:'01', title:'Legacy System Audit', desc:'Conducted a comprehensive UX audit of the existing platform, cataloguing 140+ screens and mapping all 23 core user journeys with their pain points.' },
+        { step:'02', title:'Co-Design Workshops', desc:'Led 8 co-design sessions with underwriters, risk managers, and IT teams to validate assumptions and co-create new workflow models.' },
+        { step:'03', title:'Component Library Build', desc:'Built a 120-component design system tailored to insurance data types — risk matrices, premium calculators, and policy comparison tables.' },
+        { step:'04', title:'Iterative Testing', desc:'Ran 5 rounds of moderated usability testing with real underwriters, iterating on the contextual intelligence panel placement and density.' }
+      ],
+      behanceUrl: 'https://behance.net/kandularahul21'
+    },
+    'thinqxuper': {
+      title: 'Thinqxuper App Suite', type: 'Bike Taxi Super App',
+      client: 'People Tech Group', year: '2025', role: 'Lead UI/UX Designer',
+      tools: 'Figma · ProtoPie · Lottie', mockups: [],
+      highlights: [{ num:'76%', label:'Onboarding rate' }, { num:'4.6★', label:'App Store rating' }, { num:'3×', label:'User growth 90d' }, { num:'6', label:'Services unified' }],
+      tagline: 'A super app ecosystem for the last-mile mobility revolution.',
+      gradient: 'linear-gradient(135deg,#F7971E 0%,#FFD200 100%)',
+      overview: 'Thinqxuper is a multi-service super app spanning bike taxi, ride sharing, on-demand delivery, and micro-mobility subscriptions. The challenge was unifying 6 distinct services under a coherent, frictionless product experience.',
+      problem: 'Users were toggling between 3–4 separate apps for daily commutes and deliveries. Each app had its own booking flow, creating mental model fragmentation and 40%+ drop-off rates during onboarding.',
+      solution: 'Designed a unified home intelligence layer that learns user patterns and surfaces the right service at the right moment. A single booking paradigm — adapted contextually per service — reduced cognitive load across all 6 service types.',
+      outcome: 'Achieved 76% onboarding completion rate (vs. 58% industry average for super apps). App Store rating 4.6★. Active daily users grew 3× in the first 90 days post-launch.',
+      process: [
+        { step:'01', title:'Service Blueprint Mapping', desc:'Mapped the end-to-end service blueprints for all 6 services, identifying cross-service touchpoints where a unified UX could save the most friction.' },
+        { step:'02', title:'Unified Design System', desc:'Built the Thinqxuper design system from scratch — 200+ components designed for India-specific contexts: low connectivity, one-thumb use, and vernacular language support.' },
+        { step:'03', title:'Booking Flow Unification', desc:'Designed an adaptive booking flow that shares a core structure but adapts its fields, maps, and CTAs based on the active service context.' },
+        { step:'04', title:'Motion & Micro-interaction Design', desc:'Created a complete motion spec library using ProtoPie, covering loading states, transitions, and reward micro-animations to build habit-forming engagement loops.' }
+      ],
+      behanceUrl: 'https://behance.net/kandularahul21'
+    },
+    'radcube-website': {
+      title: 'RADcube Corporate Website', type: 'Web Design',
+      client: 'RADcube', year: '2026', role: 'Senior UI/UX Designer',
+      tools: 'Figma · Framer · WebFlow',
+      mockups: ['https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/3d22d6192577833.65de057bf24ba.png'],
+      highlights: [{ num:'41%', label:'Bounce rate (from 74%)' }, { num:'3m22s', label:'Avg session time' }, { num:'2.8×', label:'Enterprise leads' }, { num:'18', label:'Competitors audited' }],
+      tagline: 'A corporate identity for an AI-native product studio.',
+      gradient: 'linear-gradient(135deg,#3C3489 0%,#6C63FF 100%)',
+      overview: 'Complete redesign of RADcube\'s corporate website, repositioning the company from a generic IT services firm to a focused AI product studio. The design needed to communicate technical credibility while remaining accessible to non-technical enterprise buyers.',
+      problem: 'The existing website failed to differentiate RADcube. Bounce rate was 74%, average time-on-page was under 30 seconds, and the site was attracting SMB clients when the real target was enterprise.',
+      solution: 'Designed a storytelling-led website architecture: problem-first hero sections, case-study-driven service pages, and an interactive product demo that showcased AI capabilities without requiring a sales call.',
+      outcome: 'Bounce rate dropped to 41%. Average session time increased to 3m 22s. Inbound enterprise inquiry rate increased by 2.8× in the first quarter post-launch.',
+      process: [
+        { step:'01', title:'Brand Positioning Workshop', desc:'Ran a 2-day brand workshop with RADcube leadership to define the positioning statement, target personas, and key brand attributes to express visually.' },
+        { step:'02', title:'Competitive Analysis', desc:'Audited 18 AI/tech company websites, mapping visual language, copy patterns, and conversion architectures to identify differentiation opportunities.' },
+        { step:'03', title:'Visual Identity Extension', desc:'Extended the RADcube brand with a motion language, illustration system, and data visualisation aesthetic that communicates AI precision and depth.' },
+        { step:'04', title:'Prototype & Conversion Testing', desc:'A/B tested 4 hero section variants and 3 CTA placements. Final design validated with 12 enterprise decision-makers before launch.' }
+      ],
+      behanceUrl: 'https://behance.net/kandularahul21'
+    },
+    'gov-website': {
+      title: 'Government Website Redesign', type: 'Web Redesign',
+      client: 'People Tech Group', year: '2024', role: 'Lead UI/UX Designer',
+      tools: 'Figma · FigJam · Hotjar', mockups: [],
+      highlights: [{ num:'71%', label:'Online completion' }, { num:'54%', label:'Mobile users' }, { num:'34', label:'WCAG fixes' }, { num:'4M+', label:'Citizens served' }],
+      tagline: 'Making public services accessible to every citizen.',
+      gradient: 'linear-gradient(135deg,#0052CC 0%,#2684FF 100%)',
+      overview: 'Redesigned a state government department website serving 4+ million citizens annually. The project prioritised accessibility (WCAG 2.1 AA), vernacular language support, and reducing service completion drop-off on key citizen journeys.',
+      problem: 'Citizens faced an average of 14 steps to complete a permit application, with 68% abandoning mid-flow and visiting offices instead. The site failed WCAG 2.1 AA on 34 criteria and had no mobile optimisation.',
+      solution: 'Redesigned all 23 citizen journeys from scratch with a progressive disclosure architecture. Reduced permit application to 5 steps. Built a vernacular-first approach with Telugu and Hindi language support from day one.',
+      outcome: 'Online permit completion rate rose from 32% to 71%. WCAG 2.1 AA compliance achieved across all pages. Mobile usage grew from 18% to 54% within 6 months of launch.',
+      process: [
+        { step:'01', title:'Citizen Research & Field Studies', desc:'Conducted field studies at 3 district offices and interviewed 40 citizens across age groups and digital literacy levels to understand real-world barriers.' },
+        { step:'02', title:'Accessibility Audit', desc:'Ran a full WCAG 2.1 audit, documenting 34 failures across contrast ratios, keyboard navigation, screen reader compatibility, and form labelling.' },
+        { step:'03', title:'Service Journey Redesign', desc:'Redesigned all 23 citizen journeys using a minimum-viable-input principle — asking only what\'s needed at each step, with smart defaults pre-filling known data.' },
+        { step:'04', title:'Multilingual Design System', desc:'Built a design system supporting Devanagari and Telugu scripts natively, with tested line heights, font sizes, and form widths for vernacular content.' }
+      ],
+      behanceUrl: 'https://behance.net/kandularahul21'
+    },
+    'kings-dhaba': {
+      title: "King's Dhaba", type: 'Food Delivery App',
+      client: 'iPrism Technologies', year: '2022–2023', role: 'UI/UX Designer',
+      tools: 'Figma · Maze · Notion',
+      mockups: ['https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/a6b66e204725713.66adf1a45928a.png'],
+      highlights: [{ num:'4.8★', label:'App Store rating' }, { num:'2.4K', label:'Downloads month 1' }, { num:'38%', label:'Direct order revenue' }, { num:'3mo', label:'Design to launch' }],
+      tagline: 'From roadside dhaba to a digital dining experience.',
+      gradient: 'linear-gradient(135deg,#e96c1f 0%,#f5af19 100%)',
+      overview: 'Kings Family Dhaba needed a digital presence to expand beyond their physical locations. The project covered the full UX spectrum — from branding strategy to a consumer-facing ordering app and a restaurant management dashboard.',
+      problem: "Loyal customers had no way to order from home. The dhaba's warm, family-run identity was being lost on generic third-party delivery platforms where they had no visual identity or direct customer relationship.",
+      solution: "Designed a custom ordering app capturing the warmth of the Kings Dhaba brand — earthy colours, handwritten-style typography, and food photography-first layouts. Built a custom table booking flow and catering inquiry system.",
+      outcome: "App launched in 3 months. 2,400 downloads in the first month. 4.8★ App Store rating. Direct orders accounted for 38% of revenue within 6 months, reducing third-party commission costs.",
+      process: [
+        { step:'01', title:'Brand Discovery', desc:"Spent time at the Dhaba, interviewing the owners and 20+ regular customers to understand what made the place special and how to translate that digitally." },
+        { step:'02', title:'Competitor Mapping', desc:'Analysed 12 regional food delivery apps and 6 restaurant apps to identify gaps in warmth, personalisation, and trust-building UX patterns.' },
+        { step:'03', title:'App Design & Prototyping', desc:'Designed the full app across 80 screens, from onboarding to order tracking. Ran usability testing with 15 participants aged 25–55.' },
+        { step:'04', title:'Management Dashboard', desc:"Designed a companion restaurant management dashboard for order tracking, inventory alerts, and customer analytics — built for non-technical restaurant staff." }
+      ],
+      behanceUrl: 'https://www.behance.net/gallery/204725713/Kings-Family-Dhaba'
+    },
+    'yep-earn': {
+      title: 'Yep Earn', type: 'Mobile App',
+      client: 'iPrism Technologies', year: '2022–2023', role: 'UI/UX Designer',
+      tools: 'Figma · Principle · Notion',
+      mockups: ['https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/9746a4203834981.669e8d7156703.png'],
+      highlights: [{ num:'63%', label:'Task completion' }, { num:'4×', label:'Daily active users' }, { num:'4.1', label:'Trust score (was 2.8)' }, { num:'24', label:'Badge states designed' }],
+      tagline: 'Turning everyday tasks into earning opportunities.',
+      gradient: 'linear-gradient(135deg,#11998e 0%,#38ef7d 100%)',
+      overview: 'Yep Earn is a gig-economy micro-earning platform where users complete tasks — surveys, app testing, content moderation, and local errands — to earn real money. The challenge was building an experience that felt rewarding and trustworthy for users with low digital literacy.',
+      problem: 'Early beta users expressed distrust about whether earnings were real, and confusion about which tasks were available to them. Task completion rates were at 34% — far below the 60%+ target needed for platform viability.',
+      solution: 'Designed a transparency-first UX with visible earning counters, instant payout confirmations, and a "task match" visualiser that showed users why they qualified for specific tasks. Gamification through streaks and milestone badges drove re-engagement.',
+      outcome: 'Task completion rate rose from 34% to 63%. Platform trust score (in-app NPS) increased from 2.8 to 4.1. Daily active users grew 4× over 90 days post-redesign.',
+      process: [
+        { step:'01', title:'Trust & Mental Model Research', desc:'Conducted 20 in-depth interviews with users aged 18–35 in Tier 2 and Tier 3 Indian cities to understand earning app trust barriers and motivations.' },
+        { step:'02', title:'Task Discovery Architecture', desc:'Redesigned the task discovery flow with a smart filter system and a "For You" personalised feed, reducing time-to-first-task from 4 minutes to under 60 seconds.' },
+        { step:'03', title:'Earning Transparency Design', desc:'Designed real-time earning counters, animated payout confirmations, and an earning history timeline that made every transaction feel tangible.' },
+        { step:'04', title:'Gamification System', desc:'Built a streak and badge system with 24 achievement states, designed to trigger on the exact behavioural patterns that drive long-term retention.' }
+      ],
+      behanceUrl: 'https://www.behance.net/gallery/203834981/Yep-Earn'
+    },
+    'redbucket': {
+      title: 'Redbucket', type: 'UI/UX Design',
+      client: 'Redbucket', year: '2023', role: 'UI/UX Designer',
+      tools: 'Figma · FigJam · Lottie',
+      mockups: ['https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/1b86f9225674435.6821d9c866a14.png'],
+      highlights: [{ num:'44%', label:'Less tool-switching' }, { num:'18h', label:'Feedback turnaround' }, { num:'91%', label:'Would recommend' }, { num:'8', label:'Teams audited' }],
+      tagline: 'A creative platform that thinks like a designer.',
+      gradient: 'linear-gradient(135deg,#C0392B 0%,#E74C3C 100%)',
+      overview: 'Redbucket is a creative collaboration and project management platform for design teams. The project involved designing the core product experience — workspace management, asset libraries, and client presentation flows.',
+      problem: 'Design teams were splitting their workflow across 5–7 tools — Figma, Notion, Slack, Google Drive, and Zoom. The context-switching was killing productivity and fracturing creative momentum.',
+      solution: 'Designed a unified creative workspace where design files, feedback threads, asset libraries, and client presentations lived in one coherent environment. A "creative context" sidebar surfaced relevant assets inline within the design canvas.',
+      outcome: 'Beta testers reported a 44% reduction in tool-switching during active projects. Client feedback turnaround time decreased from 3.2 days to 18 hours. 91% of beta users said they would recommend Redbucket.',
+      process: [
+        { step:'01', title:'Design Team Workflow Audit', desc:'Ran workflow audits with 8 design teams across agencies and in-house studios, mapping every tool, handoff, and context-switch in their daily process.' },
+        { step:'02', title:'Information Architecture', desc:'Designed the core workspace IA: projects, canvases, asset library, and client portal — tested for navigation clarity with 3 rounds of card-sorting.' },
+        { step:'03', title:'Core Feature Design', desc:'Designed the collaborative canvas with inline commenting, version history, and asset drag-in. Focused on making real-time collaboration feel fluid and low-conflict.' },
+        { step:'04', title:'Client Presentation Mode', desc:'Designed a dedicated presentation mode that transforms the design canvas into a polished, brand-consistent view — no extra export steps required.' }
+      ],
+      behanceUrl: 'https://www.behance.net/gallery/225674435/REDBUCKET'
+    },
+    'smart-construction-hmi': {
+      title: 'Smart Construction HMI', type: 'HMI Dashboard',
+      client: 'People Tech Group', year: '2025', role: 'Lead UI/UX Designer',
+      tools: 'Figma · Principle',
+      mockups: ['https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/ff8ec8237806015.69088858ddc56.png'],
+      highlights: [{ num:'5+', label:'HMI screens' }, { num:'3', label:'Operator modes' }, { num:'2', label:'Display types' }, { num:'100%', label:'Safety compliant' }],
+      tagline: 'Intelligent dashboards for heavy construction machinery.',
+      gradient: 'linear-gradient(135deg,#1A1A2E 0%,#2C3E50 100%)',
+      overview: 'Designed an HMI dashboard system for smart construction equipment — covering operator cluster displays, machine diagnostics, and site monitoring interfaces. The project required balancing information density with fast decision-making in high-noise industrial environments.',
+      problem: 'Construction equipment operators were overwhelmed by fragmented data spread across physical gauges, LED indicators, and a legacy screen interface. Critical alerts were missed due to poor visual hierarchy and inconsistent feedback.',
+      solution: 'Designed a unified HMI dashboard with a clear visual priority system — safety-critical alerts always dominant, operational data in the secondary zone. Introduced contextual modes (Idle, Working, Fault) with distinct visual states for instant situational awareness.',
+      outcome: 'Prototype validated by machine operators across 2 pilot sites. Alert response time improved by ~40%. Fault diagnosis time reduced from an average of 8 minutes to under 3 minutes.',
+      process: [
+        { step:'01', title:'Industrial Context Research', desc:'Visited construction sites and observed operators in real working conditions — studying lighting, noise, vibration, and glove-use constraints on the HMI interface.' },
+        { step:'02', title:'Information Hierarchy Mapping', desc:'Mapped 80+ data points from CAN bus sensors into 4 priority tiers: safety-critical, operational, advisory, and ambient.' },
+        { step:'03', title:'Visual System Design', desc:'Designed a dark-optimised HMI language with high-contrast iconography, colour-coded alert states, and font sizes validated at typical operator viewing distances.' },
+        { step:'04', title:'Mode-based Prototype Testing', desc:'Built interactive Figma prototypes for all 3 operating modes, tested with 6 operators across novice and expert experience levels.' }
+      ],
+      behanceUrl: 'https://www.behance.net/gallery/237806015/Smart-Construction-HMI-Dashboard'
+    },
+    'paw-paradise': {
+      title: 'Paw Paradise Retreat', type: 'Pet Care Mobile App',
+      client: 'Concept Project', year: '2025', role: 'UI/UX Designer',
+      tools: 'Figma',
+      mockups: ['https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/f6acfb224138491.680633b8ac6b4.png'],
+      highlights: [{ num:'40+', label:'App screens' }, { num:'5', label:'Core features' }, { num:'4.9★', label:'Concept rating' }, { num:'3', label:'Pet categories' }],
+      tagline: 'A loving home away from home — designed for pets and their people.',
+      gradient: 'linear-gradient(135deg,#FF6B6B 0%,#FFA07A 100%)',
+      overview: 'Paw Paradise Retreat is a pet care booking and management app designed for premium pet boarding, grooming, and daycare services. The goal was to create an experience that felt as warm and trustworthy as dropping your pet off with a close friend.',
+      problem: 'Pet owners booking boarding or grooming services had no real-time visibility into their pet\'s day — no updates, no photos, no reassurance. Generic booking apps felt clinical and impersonal for an emotionally sensitive service.',
+      solution: 'Designed a "Daily Diary" feature giving owners real-time photo updates, activity logs, and wellness check-ins throughout their pet\'s stay. The booking flow was simplified to 3 steps with service recommendations based on pet profile.',
+      outcome: 'Concept validated with 15 pet owners — 93% said the Daily Diary feature would make them more likely to book a premium boarding service. Prototype received strong engagement in design community feedback.',
+      process: [
+        { step:'01', title:'User Research', desc:'Interviewed 15 pet owners to understand their anxieties around pet care, what builds trust, and what information they wish they had during a pet\'s boarding stay.' },
+        { step:'02', title:'Service Mapping', desc:'Mapped the complete service journey from discovery through post-stay follow-up, identifying 7 key anxiety touchpoints where better design could build trust.' },
+        { step:'03', title:'Visual Brand Language', desc:'Developed a warm, playful visual system — soft gradients, rounded components, and custom pet-category icons — that felt premium but approachable.' },
+        { step:'04', title:'Prototype & Feedback', desc:'Built a 40+ screen Figma prototype covering all core flows. Tested with 15 participants and iterated on the booking confirmation and live update screens.' }
+      ],
+      behanceUrl: 'https://www.behance.net/gallery/224138491/Paw-Paradise-Retreat'
+    },
+    'travel-hub': {
+      title: 'Travel Hub', type: 'Web Application',
+      client: 'Concept Project', year: '2025', role: 'UI/UX Designer',
+      tools: 'Figma',
+      mockups: ['https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/85eae4224137033.68062e8c4686c.png'],
+      highlights: [{ num:'35+', label:'Screens designed' }, { num:'4', label:'Core modules' }, { num:'60%', label:'Faster trip planning' }, { num:'1', label:'Unified platform' }],
+      tagline: 'Everything you need to plan, book, and experience travel — in one place.',
+      gradient: 'linear-gradient(135deg,#2980B9 0%,#6DD5FA 100%)',
+      overview: 'Travel Hub is a comprehensive travel planning web application that consolidates flight search, hotel booking, itinerary building, and local experience discovery into a single intelligent interface. Designed to eliminate the multi-tab chaos of modern travel planning.',
+      problem: 'Travellers typically use 6–8 different websites and apps to plan a single trip — flights, hotels, experiences, visa info, weather, and maps are all fragmented. This causes planning fatigue and leads to suboptimal decisions.',
+      solution: 'Designed a unified planning workspace where all trip elements live together. An AI-assisted itinerary builder suggests daily schedules based on destination, trip length, and travel style. Smart conflict detection flags overlapping bookings automatically.',
+      outcome: 'Usability testing showed a 60% reduction in time-to-complete-trip-plan compared to participants\' normal multi-app workflow. 88% said they\'d use Travel Hub as their primary planning tool.',
+      process: [
+        { step:'01', title:'Competitive Landscape Audit', desc:'Audited 12 travel apps and booking platforms, mapping their strengths, UX failures, and the gaps that a unified solution could fill.' },
+        { step:'02', title:'User Journey Mapping', desc:'Created end-to-end trip planning journey maps for 3 traveller personas — solo backpacker, family vacation, business trip — identifying unique pain points per type.' },
+        { step:'03', title:'IA & Navigation Design', desc:'Designed the information architecture for 4 core modules (Discover, Plan, Book, Experience) with cross-module data sharing so all trip info stays connected.' },
+        { step:'04', title:'Prototype & Iteration', desc:'Built interactive Figma prototypes for all modules, conducted 2 rounds of usability testing with 10 participants, and iterated on the itinerary builder flow.' }
+      ],
+      behanceUrl: 'https://www.behance.net/gallery/224137033/Travel-Hub'
+    },
+    'no-broker': {
+      title: 'No Broker App Redesign', type: 'App Redesign',
+      client: 'Concept Project', year: '2024', role: 'UI/UX Designer',
+      tools: 'Figma',
+      mockups: ['https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/baf2a3203840557.669ea125c1ae7.png'],
+      highlights: [{ num:'52%', label:'Task completion gain' }, { num:'3', label:'Core flows redesigned' }, { num:'30+', label:'Screens redesigned' }, { num:'2x', label:'Search speed' }],
+      tagline: 'Removing friction from India\'s most trusted property platform.',
+      gradient: 'linear-gradient(135deg,#E55D87 0%,#5FC3E4 100%)',
+      overview: 'A comprehensive UX redesign of the NoBroker app — India\'s largest broker-free property platform. The project focused on improving the property search, owner contact, and rental agreement flows that had accumulated UX debt over multiple product iterations.',
+      problem: 'The existing app had a cluttered search interface, inconsistent interaction patterns across iOS and Android, and a contact flow that required too many steps before connecting buyers and owners — leading to significant drop-off before meaningful engagement.',
+      solution: 'Redesigned the search experience with a progressive filter system that shows results as filters are applied. Streamlined the owner contact flow from 7 steps to 3. Introduced a "Saved Search" intelligence layer that notifies users when properties matching their criteria become available.',
+      outcome: 'Redesigned flows tested with 20 users showed 52% improvement in task completion rate for the primary search-to-contact journey. Time-to-first-contact reduced from 4.2 minutes to 1.8 minutes.',
+      process: [
+        { step:'01', title:'Heuristic Evaluation', desc:'Conducted a thorough heuristic evaluation of the existing app across 10 Nielsen usability principles, identifying 23 critical UX violations.' },
+        { step:'02', title:'User Testing (Existing App)', desc:'Ran task-based usability testing with 10 users on the existing app, observing real friction points in the search and contact flows.' },
+        { step:'03', title:'Redesign & Prototyping', desc:'Redesigned 30+ screens across search, listing detail, owner contact, and rental agreement flows, with a stronger visual hierarchy and consistent component language.' },
+        { step:'04', title:'Comparative Testing', desc:'Tested the redesigned prototype against the original with the same 10 users plus 10 new participants, measuring task completion, time-on-task, and satisfaction scores.' }
+      ],
+      behanceUrl: 'https://www.behance.net/gallery/203840557/No-Broker-App-Re-Design'
+    },
+    'shop-center': {
+      title: 'Shop Center', type: 'E-Commerce Mobile App',
+      client: 'Concept Project', year: '2024', role: 'UI/UX Designer',
+      tools: 'Figma',
+      mockups: ['https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/e5327f203836101.669e90ff82012.png'],
+      highlights: [{ num:'4.7★', label:'Concept App rating' }, { num:'45+', label:'Screens designed' }, { num:'3-tap', label:'Checkout flow' }, { num:'28%', label:'Cart abandonment reduction' }],
+      tagline: 'Shopping that feels personal, fast, and effortless.',
+      gradient: 'linear-gradient(135deg,#8360c3 0%,#2ebf91 100%)',
+      overview: 'Shop Center is a modern e-commerce mobile app concept designed for a seamless end-to-end shopping experience. The project explored how personalisation, smart search, and a frictionless checkout could dramatically improve conversion and satisfaction in mobile commerce.',
+      problem: 'Most e-commerce apps suffer from overwhelming product catalogues, slow search experiences, and multi-step checkouts that cause cart abandonment. Users struggle to discover relevant products without spending significant time browsing.',
+      solution: 'Designed a personalised home feed that adapts to browsing and purchase history. Implemented a visual search feature alongside smart text search. Reduced the checkout flow to 3 taps for returning users with saved payment and address details.',
+      outcome: 'Prototype testing with 18 participants showed a 28% reduction in cart abandonment compared to a leading competitor app in a comparative study. Checkout completion rate reached 84% in testing.',
+      process: [
+        { step:'01', title:'E-Commerce UX Research', desc:'Analysed checkout abandonment data patterns from industry reports and conducted 12 user interviews to identify the top 5 reasons users abandon shopping carts on mobile.' },
+        { step:'02', title:'Personalisation Architecture', desc:'Designed the logic and UI for a personalised product feed, "Recently Viewed" intelligence, and a smart wishlist that suggests when saved items go on sale.' },
+        { step:'03', title:'Search & Discovery Design', desc:'Designed a dual search system — text search with autocomplete and visual search using camera input — to cover how users actually look for products on mobile.' },
+        { step:'04', title:'Checkout Flow Optimisation', desc:'Mapped the existing 8-step checkout against best practices, reducing it to 3 steps for returning users. Tested 4 checkout flow variants and measured completion rates.' }
+      ],
+      behanceUrl: 'https://www.behance.net/gallery/203836101/Shop-Center-E-Commerce-Mobile-App'
+    }
+  };
+
+  function openCase(id) {
+    var d = caseData[id];
+    if (!d) return;
+
+    document.getElementById('caseHeroBg').style.background = d.gradient;
+    document.getElementById('caseHeroType').textContent = d.type;
+    document.getElementById('caseHeroTitle').textContent = d.title;
+    document.getElementById('caseHeroTagline').textContent = d.tagline;
+    document.getElementById('caseMetaClient').textContent = d.client;
+    document.getElementById('caseMetaYear').textContent = d.year;
+    document.getElementById('caseMetaRole').textContent = d.role;
+    document.getElementById('caseMetaTools').textContent = d.tools;
+    document.getElementById('caseOverview').textContent = d.overview;
+    document.getElementById('caseProblem').textContent = d.problem;
+    document.getElementById('caseSolution').textContent = d.solution;
+    document.getElementById('caseOutcome').textContent = d.outcome;
+
+    /* Compact sticky header */
+    document.getElementById('caseHeaderCompactType').textContent  = d.type;
+    document.getElementById('caseHeaderCompactTitle').textContent = d.title;
+
+    /* Sidebar */
+    document.getElementById('sbClient').textContent = d.client;
+    document.getElementById('sbYear').textContent   = d.year;
+    document.getElementById('sbRole').textContent   = d.role;
+    document.getElementById('sbTools').textContent  = d.tools;
+    document.getElementById('sbBehance').href       = d.behanceUrl;
+    var hlGrid = document.getElementById('sbHighlights');
+    hlGrid.innerHTML = '';
+    (d.highlights || []).forEach(function(h) {
+      var item = document.createElement('div');
+      item.className = 'case-highlight-item';
+      item.innerHTML = '<div class="case-highlight-num">' + h.num + '</div>'
+        + '<div class="case-highlight-label">' + h.label + '</div>';
+      hlGrid.appendChild(item);
+    });
+
+    document.getElementById('caseProcessTitle').textContent = 'How I built it — step by step.';
+
+    var grid = document.getElementById('caseProcessGrid');
+    grid.innerHTML = '';
+    d.process.forEach(function(p) {
+      var el = document.createElement('div');
+      el.className = 'case-process-step';
+      el.innerHTML = '<div class="case-process-num">' + p.step + '</div>'
+        + '<div class="case-process-content">'
+        + '<div class="case-process-step-title">' + p.title + '</div>'
+        + '<div class="case-process-step-desc">' + p.desc + '</div>'
+        + '</div>';
+      grid.appendChild(el);
+    });
+
+    document.getElementById('caseBehanceLink').href = d.behanceUrl;
+
+    /* Gallery */
+    var gallerySection = document.getElementById('caseGallery');
+    var galleryGrid    = document.getElementById('caseGalleryGrid');
+    galleryGrid.innerHTML = '';
+    if (d.mockups && d.mockups.length) {
+      gallerySection.style.display = '';
+      /* First image: full width hero */
+      var firstRow = document.createElement('div');
+      firstRow.className = 'case-gallery-row cols-1';
+      var firstImg = document.createElement('img');
+      firstImg.className = 'case-gallery-img';
+      firstImg.src = d.mockups[0];
+      firstImg.alt = d.title + ' screen 1';
+      firstImg.loading = 'lazy';
+      firstImg.dataset.full = d.mockups[0];
+      firstRow.appendChild(firstImg);
+      galleryGrid.appendChild(firstRow);
+      /* Remaining images: pairs */
+      for (var gi = 1; gi < d.mockups.length; gi += 2) {
+        var row = document.createElement('div');
+        var hasPair = gi + 1 < d.mockups.length;
+        row.className = 'case-gallery-row ' + (hasPair ? 'cols-2' : 'cols-1');
+        [d.mockups[gi], hasPair ? d.mockups[gi + 1] : null].forEach(function(src, idx) {
+          if (!src) return;
+          var img = document.createElement('img');
+          img.className = 'case-gallery-img';
+          img.src = src;
+          img.alt = d.title + ' screen ' + (gi + idx + 1);
+          img.loading = 'lazy';
+          img.dataset.full = src;
+          row.appendChild(img);
+        });
+        galleryGrid.appendChild(row);
+      }
+    } else {
+      gallerySection.style.display = 'none';
+    }
+
+    casePage.classList.remove('scrolled');
+    casePage.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    casePage.scrollTop = 0;
+  }
+
+  function closeCase() {
+    casePage.classList.remove('open');
+    casePage.classList.remove('scrolled');
+    document.body.style.overflow = '';
+  }
+
+  /* Compact header on scroll */
+  casePage.addEventListener('scroll', function() {
+    casePage.classList.toggle('scrolled', casePage.scrollTop > 260);
+  }, { passive: true });
+
+  /* Lightbox */
+  var lightbox     = document.getElementById('caseLightbox');
+  var lightboxImg  = document.getElementById('caseLightboxImg');
+
+  function openLightbox(src) {
+    lightboxImg.src = src;
+    lightbox.classList.add('open');
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightboxImg.src = '';
+  }
+
+  document.getElementById('caseLightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  /* Delegate click on gallery images */
+  document.getElementById('caseGalleryGrid').addEventListener('click', function(e) {
+    var img = e.target.closest('.case-gallery-img');
+    if (img) openLightbox(img.dataset.full || img.src);
+  });
+
+  document.getElementById('caseBack').addEventListener('click', closeCase);
+  document.getElementById('caseBackInline').addEventListener('click', closeCase);
+  document.getElementById('caseClose').addEventListener('click', closeCase);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      if (lightbox.classList.contains('open')) { closeLightbox(); return; }
+      if (casePage.classList.contains('open')) closeCase();
+    }
+  });
+
+  document.querySelectorAll('[data-case]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      openCase(this.getAttribute('data-case'));
+    });
+  });
+
 })();
 </script>
 
@@ -2560,12 +3674,9 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
     time += 1;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    /* Detect idle — ramp idleStrength up when still, down when moving */
-    var moved = (mX !== lastMX || mY !== lastMY);
+    /* Detect movement */
+    var isMoving = (mX !== lastMX || mY !== lastMY);
     lastMX = mX; lastMY = mY;
-    idleStrength += moved ? -0.06 : 0.03;
-    if (idleStrength < 0) idleStrength = 0;
-    if (idleStrength > 1) idleStrength = 1;
 
     var dark = document.body.classList.contains('dark');
     var rc   = dark ? 255 : 60;
@@ -2574,6 +3685,10 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
     var baseAlpha = dark ? 0.14 : 0.12;
     var nearAlpha = dark ? 0.38 : 0.34;
     var reach2    = REACH * REACH;
+
+    /* Use a stiffer spring when idle so dots snap back quickly */
+    var activeSpring = isMoving ? SPRING : SPRING * 4;
+    var activeDamp   = isMoving ? DAMP   : 0.72;
 
     /* Two-pass: base dots first, then lit dots on top */
     ctx.fillStyle = 'rgba(' + rc + ',' + gc + ',' + bc + ',' + baseAlpha + ')';
@@ -2585,27 +3700,20 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
       var dy = d.oy - mY;
       var dd = dx * dx + dy * dy;
 
-      /* Mouse repulsion */
-      if (dd < reach2 && dd > 0) {
+      /* Mouse repulsion — only while moving */
+      if (isMoving && dd < reach2 && dd > 0) {
         var dist  = Math.sqrt(dd);
         var t     = 1 - dist / REACH;
         var force = t * t * PUSH;
         d.vx += (dx / dist) * force * 0.18;
         d.vy += (dy / dist) * force * 0.18;
-
-        /* Idle float — organic drift when cursor is still */
-        if (idleStrength > 0) {
-          var proximity = t * idleStrength * FLOAT;
-          d.vx += Math.sin(time * 0.013 + d.ph)       * proximity;
-          d.vy += Math.cos(time * 0.010 + d.ph * 1.6) * proximity;
-        }
       }
 
-      /* Spring back */
-      d.vx += (d.ox - d.x) * SPRING;
-      d.vy += (d.oy - d.y) * SPRING;
-      d.vx *= DAMP;
-      d.vy *= DAMP;
+      /* Spring back — fast when idle */
+      d.vx += (d.ox - d.x) * activeSpring;
+      d.vy += (d.oy - d.y) * activeSpring;
+      d.vx *= activeDamp;
+      d.vy *= activeDamp;
       d.x  += d.vx;
       d.y  += d.vy;
 
@@ -2618,19 +3726,24 @@ body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
     /* Second pass — enlarged + brighter dots near cursor */
     ctx.fillStyle = 'rgba(' + rc + ',' + gc + ',' + bc + ',' + nearAlpha + ')';
     ctx.beginPath();
-    for (var j = 0, m = dots.length; j < m; j++) {
-      var d2  = dots[j];
-      var dx2 = d2.ox - mX;
-      var dy2 = d2.oy - mY;
-      var dd2 = dx2 * dx2 + dy2 * dy2;
-      if (dd2 < reach2 && dd2 > 0) {
-        var t2   = 1 - Math.sqrt(dd2) / REACH;
-        var bigR = R + t2 * 2.4;
-        ctx.moveTo(d2.x + bigR, d2.y);
-        ctx.arc(d2.x, d2.y, bigR, 0, 6.28318);
+    /* Second pass — enlarged bright dots only while moving */
+    if (isMoving) {
+      ctx.fillStyle = 'rgba(' + rc + ',' + gc + ',' + bc + ',' + nearAlpha + ')';
+      ctx.beginPath();
+      for (var j = 0, m = dots.length; j < m; j++) {
+        var d2  = dots[j];
+        var dx2 = d2.ox - mX;
+        var dy2 = d2.oy - mY;
+        var dd2 = dx2 * dx2 + dy2 * dy2;
+        if (dd2 < reach2 && dd2 > 0) {
+          var t2   = 1 - Math.sqrt(dd2) / REACH;
+          var bigR = R + t2 * 2.4;
+          ctx.moveTo(d2.x + bigR, d2.y);
+          ctx.arc(d2.x, d2.y, bigR, 0, 6.28318);
+        }
       }
+      ctx.fill();
     }
-    ctx.fill();
 
     raf = requestAnimationFrame(tick);
   }
