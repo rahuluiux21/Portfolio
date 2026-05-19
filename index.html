@@ -61,6 +61,40 @@ button { cursor: none; }
 img { max-width: 100%; display: block; }
 
 /* ============================================================
+   FLOATING MASCOT
+   ============================================================ */
+.mascot-float {
+  position: fixed;
+  bottom: 0;
+  right: 40px;
+  z-index: 7999;
+  width: 220px;
+  pointer-events: none;
+  transform-origin: bottom center;
+  filter: drop-shadow(0 16px 40px rgba(60,52,137,0.22));
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.mascot-float.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: mascot-float 4s ease-in-out infinite;
+}
+.mascot-img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+}
+@keyframes mascot-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+@media (max-width: 768px) {
+  .mascot-float { width: 150px; right: 16px; }
+}
+
+/* ============================================================
    CUSTOM CURSOR
    ============================================================ */
 .cursor-dot {
@@ -1498,13 +1532,14 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
   margin-bottom: 24px; opacity: 0; transform: translateY(14px);
 }
 .intro-name {
-  display: block; font-family: 'Cabinet Grotesk', sans-serif;
-  font-size: clamp(4.5rem, 19vw, 21rem);
-  font-weight: 800; line-height: 0.85;
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255,255,255,0.48);
-  letter-spacing: -0.04em;
+  display: block;
   opacity: 0; transform: translateY(56px);
+  line-height: 1;
+}
+#introVaporCanvas {
+  display: block;
+  margin: 0 auto;
+  pointer-events: none;
 }
 .intro-role {
   display: block; font-family: 'DM Sans', sans-serif;
@@ -1614,7 +1649,7 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
   <div class="intro-vignette"></div>
   <div class="intro-content">
     <span class="intro-eyebrow">Portfolio &nbsp;✦&nbsp; 2026</span>
-    <span class="intro-name">RAHUL.</span>
+    <div class="intro-name"><canvas id="introVaporCanvas"></canvas></div>
     <span class="intro-role">Senior UI/UX Designer &nbsp;·&nbsp; HMI Designer</span>
   </div>
   <div class="intro-bottom">
@@ -1622,6 +1657,11 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
     <span class="intro-bottom-item">Available for work</span>
   </div>
   <div class="intro-progress" id="introProgress"></div>
+</div>
+
+<!-- Floating mascot -->
+<div class="mascot-float" id="mascotFloat">
+  <img src="mascot-fullbody.png" alt="Rahul mascot" class="mascot-img" />
 </div>
 
 <!-- Cursor -->
@@ -2793,22 +2833,162 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
   function runIntro() {
     if (typeof gsap === 'undefined') { finishIntro(); return; }
 
-    /* Lock scroll during intro */
     document.body.style.overflow = 'hidden';
+
+    var vaporState = null;
+    document.fonts.ready.then(function() {
+      vaporState = initIntroVapor();
+    });
 
     var tl = gsap.timeline({ onComplete: finishIntro });
 
-    /* progress bar fills over entire duration */
-    tl.to('#introProgress', { width: '100%', duration: 2.8, ease: 'none' }, 0);
-
-    /* staggered text reveals */
+    tl.to('#introProgress',     { width: '100%', duration: 4.0, ease: 'none' }, 0);
     tl.to('.intro-eyebrow',     { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out' }, 0.25)
       .to('.intro-name',        { opacity: 1, y: 0, duration: 0.9,  ease: 'power3.out' }, 0.45)
       .to('.intro-role',        { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, 0.95)
       .to('.intro-bottom-item', { opacity: 1, stagger: 0.12, duration: 0.45, ease: 'power2.out' }, 0.75);
 
-    /* clean slide-up exit — no clip-path glitch */
-    tl.to('#intro', { yPercent: -100, duration: 1.0, ease: 'power3.inOut' }, 2.6);
+    /* Vapor dissolve — starts at 1.6s so user sees full 1.8s of animation before slide */
+    tl.call(function() { if (vaporState) startIntroVapor(vaporState); }, null, 1.6);
+
+    /* Slide up only after vapor completes (~1.6 + 1.8 = 3.4s) */
+    tl.to('#intro', { yPercent: -100, duration: 1.0, ease: 'power3.inOut' }, 3.5);
+  }
+
+  /* ── INTRO VAPOR PARTICLE SYSTEM ──────────────────────────── */
+  function initIntroVapor() {
+    var canvas = document.getElementById('introVaporCanvas');
+    if (!canvas) return null;
+
+    var dpr = Math.min(window.devicePixelRatio * 1.5, 3);
+    var remBase = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    var viewW = window.innerWidth;
+    var fontSize = Math.min(Math.max(viewW * 0.19, remBase * 4.5), remBase * 21);
+
+    var canvasW = Math.min(viewW * 0.92, 1400);
+    var canvasH = fontSize * 1.35;
+
+    canvas.style.width  = canvasW + 'px';
+    canvas.style.height = canvasH + 'px';
+    canvas.width  = Math.floor(canvasW * dpr);
+    canvas.height = Math.floor(canvasH * dpr);
+
+    var ctx = canvas.getContext('2d');
+    var fontStr = '800 ' + (fontSize * dpr) + 'px "Cabinet Grotesk", sans-serif';
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.font = fontStr;
+    if ('letterSpacing' in ctx) ctx.letterSpacing = (-0.04 * fontSize * dpr) + 'px';
+    ctx.textAlign    = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle    = 'rgba(255,255,255,0.92)';
+    ctx.fillText('RAHUL.', canvas.width / 2, canvas.height / 2);
+
+    var imgData    = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var data       = imgData.data;
+    var particles  = [];
+    var sampleRate = Math.max(1, Math.round(dpr * 0.75));
+
+    for (var y = 0; y < canvas.height; y += sampleRate) {
+      for (var x = 0; x < canvas.width; x += sampleRate) {
+        var idx   = (y * canvas.width + x) * 4;
+        var alpha = data[idx + 3];
+        if (alpha > 20) {
+          var oa = (alpha / 255) * (sampleRate / dpr);
+          particles.push({
+            x: x, y: y, ox: x, oy: y,
+            r: data[idx], g: data[idx+1], b: data[idx+2],
+            a: oa, oa: oa,
+            vx: 0, vy: 0, spd: 0, quick: false
+          });
+        }
+      }
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    /* Draw static particles immediately */
+    _introRender(ctx, particles, dpr);
+
+    return { canvas: canvas, ctx: ctx, particles: particles, dpr: dpr };
+  }
+
+  function _introRender(ctx, particles, dpr) {
+    ctx.save();
+    ctx.scale(dpr, dpr);
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      if (p.a > 0.002) {
+        ctx.fillStyle = 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + p.a + ')';
+        ctx.fillRect(p.x / dpr, p.y / dpr, 1, 1);
+      }
+    }
+    ctx.restore();
+  }
+
+  function startIntroVapor(vs) {
+    if (!vs) return;
+    var canvas    = vs.canvas;
+    var ctx       = vs.ctx;
+    var particles = vs.particles;
+    var dpr       = vs.dpr;
+    var lastTime  = performance.now();
+    var progress  = 0;
+    var DURATION  = 1.8;
+    var SPREAD    = 2.8;
+    var animId;
+
+    function loop(now) {
+      var dt = Math.min((now - lastTime) / 1000, 0.05);
+      lastTime = now;
+      progress = Math.min(1.15, progress + dt / DURATION);
+
+      var vaporX  = canvas.width * Math.min(1, progress);
+      var allDone = true;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.scale(dpr, dpr);
+
+      for (var i = 0; i < particles.length; i++) {
+        var p = particles[i];
+        var shouldVaporize = p.ox <= vaporX;
+
+        if (shouldVaporize) {
+          if (p.spd === 0) {
+            var angle = Math.random() * Math.PI * 2;
+            p.spd  = (Math.random() * 1.2 + 0.4) * SPREAD;
+            p.vx   = Math.cos(angle) * p.spd;
+            p.vy   = Math.sin(angle) * p.spd;
+            p.quick = Math.random() > 0.5;
+          }
+          if (p.quick) {
+            p.a = Math.max(0, p.a - dt * 3.5);
+          } else {
+            p.vx += (Math.random() - 0.5) * SPREAD * 2.2;
+            p.vy += (Math.random() - 0.5) * SPREAD * 2.2;
+            p.vx *= 0.93;
+            p.vy *= 0.93;
+            p.x  += p.vx * dt * 24;
+            p.y  += p.vy * dt * 14;
+            p.a   = Math.max(0, p.a - dt * 0.6);
+          }
+          if (p.a > 0.008) allDone = false;
+        } else {
+          allDone = false;
+        }
+
+        if (p.a > 0.002) {
+          ctx.fillStyle = 'rgba(' + p.r + ',' + p.g + ',' + p.b + ',' + p.a + ')';
+          ctx.fillRect(p.x / dpr, p.y / dpr, 1, 1);
+        }
+      }
+
+      ctx.restore();
+      if (!allDone) animId = requestAnimationFrame(loop);
+    }
+
+    animId = requestAnimationFrame(loop);
   }
 
   function finishIntro() {
@@ -2873,6 +3053,14 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
   var nav = document.getElementById('navbar');
   window.addEventListener('scroll', function () {
     nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  /* ── MASCOT SHOW AFTER HERO ──────────────────── */
+  var mascot   = document.getElementById('mascotFloat');
+  var heroSect = document.getElementById('home') || document.querySelector('.hero');
+  window.addEventListener('scroll', function () {
+    var heroH = heroSect ? heroSect.offsetHeight : window.innerHeight;
+    mascot.classList.toggle('visible', window.scrollY > heroH * 0.8);
   }, { passive: true });
 
   /* ── DARK MODE ───────────────────────────────── */
