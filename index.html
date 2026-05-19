@@ -74,17 +74,47 @@ img { max-width: 100%; display: block; }
   z-index: 7999;
   width: 220px;
   pointer-events: none;
-  transform-origin: bottom center;
+  transform-origin: bottom right;
   filter: drop-shadow(0 16px 40px rgba(60,52,137,0.22));
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-radius 0.4s ease, bottom 0.4s ease, right 0.4s ease;
 }
-.mascot-float.visible {
+
+/* Full mascot — shown in work/2nd section */
+.mascot-float.visible:not(.mini) {
   opacity: 1;
   transform: translateY(0);
   animation: mascot-float 4s ease-in-out infinite;
+  pointer-events: none;
 }
+
+/* Mini icon — shown past work section */
+.mascot-float.visible.mini {
+  opacity: 1;
+  animation: none;
+  transform: scale(0.26);
+  transform-origin: bottom right;
+  pointer-events: auto;
+  cursor: pointer;
+  border-radius: 50%;
+  overflow: hidden;
+  bottom: -20px;
+  right: 10px;
+  filter: drop-shadow(0 4px 16px rgba(60,52,137,0.35));
+}
+
+/* Hover — expand back to full mascot */
+.mascot-float.visible.mini:hover {
+  transform: scale(1);
+  border-radius: 0;
+  overflow: visible;
+  bottom: 0;
+  right: 40px;
+  animation: mascot-float 4s ease-in-out infinite;
+}
+
 .mascot-img {
   width: 100%;
   display: block;
@@ -95,7 +125,9 @@ img { max-width: 100%; display: block; }
   50%       { transform: translateY(-12px); }
 }
 @media (max-width: 768px) {
-  .mascot-float { width: 150px; right: 16px; }
+  .mascot-float { width: 160px; right: 16px; }
+  .mascot-float.visible.mini { right: 0px; }
+  .mascot-float.visible.mini:hover { right: 16px; }
 }
 
 /* ============================================================
@@ -2287,7 +2319,7 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
 
   <div class="footer">
     <img src="hero-photo-nobg.webp" alt="Kandula Rahul" style="width:36px;height:36px;border-radius:50%;object-fit:cover;object-position:top center;border:1.5px solid rgba(255,255,255,0.25);">
-    <span class="footer-copy">© 2026 Kandula Rahul &nbsp;·&nbsp; Built with Claude Code</span>
+    <span class="footer-copy">© 2026 Kandula Rahul</span>
   </div>
 </section>
 
@@ -3059,12 +3091,27 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
     nav.classList.toggle('scrolled', window.scrollY > 60);
   }, { passive: true });
 
-  /* ── MASCOT SHOW AFTER HERO ──────────────────── */
-  var mascot   = document.getElementById('mascotFloat');
-  var heroSect = document.getElementById('home') || document.querySelector('.hero');
+  /* ── MASCOT SCROLL STATES ────────────────────── */
+  var mascot    = document.getElementById('mascotFloat');
+  var heroSect  = document.querySelector('.hero');
+  var workSect  = document.getElementById('work');
+
   window.addEventListener('scroll', function () {
-    var heroH = heroSect ? heroSect.offsetHeight : window.innerHeight;
-    mascot.classList.toggle('visible', window.scrollY > heroH * 0.8);
+    var heroBottom = heroSect ? heroSect.offsetTop + heroSect.offsetHeight : window.innerHeight;
+    var workBottom = workSect ? workSect.offsetTop + workSect.offsetHeight : heroBottom * 2;
+    var scrollY    = window.scrollY;
+
+    if (scrollY < heroBottom * 0.8) {
+      /* In hero — hidden */
+      mascot.classList.remove('visible', 'mini');
+    } else if (scrollY < workBottom - 80) {
+      /* In work section — full mascot */
+      mascot.classList.add('visible');
+      mascot.classList.remove('mini');
+    } else {
+      /* Past work section — mini icon */
+      mascot.classList.add('visible', 'mini');
+    }
   }, { passive: true });
 
   /* ── DARK MODE ───────────────────────────────── */
