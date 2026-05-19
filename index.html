@@ -2910,9 +2910,11 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
     var pp  = document.getElementById('projectsPage');
     var cp  = document.getElementById('contactPage');
     var csp = document.getElementById('casePage');
+    var scrim = document.getElementById('caseScrim');
     if (pp  && pp.classList.contains('open'))  { pp.classList.remove('open'); }
     if (cp  && cp.classList.contains('open'))  { cp.classList.remove('open'); }
     if (csp && csp.classList.contains('open')) { csp.classList.remove('open'); }
+    if (scrim) scrim.classList.remove('active');
     document.body.style.overflow = '';
     mobileMenu.classList.remove('open'); hamburger.classList.remove('open');
   }
