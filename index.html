@@ -2557,8 +2557,8 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
 </div>
 
 <!-- Cursor -->
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-follower" id="cursorFollower"></div>
+<div class="cursor-dot" id="cursorDot" style="display:none"></div>
+<div class="cursor-follower" id="cursorFollower" style="display:none"></div>
 
 <!-- ======================================================
      NAVIGATION
@@ -3954,6 +3954,8 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
   var isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
   if (!isTouchDevice) {
+    dot.style.display = '';
+    follower.style.display = '';
     document.addEventListener('mousemove', function (e) {
       mouse.x = e.clientX; mouse.y = e.clientY;
       dot.style.left = mouse.x + 'px'; dot.style.top = mouse.y + 'px';
