@@ -480,7 +480,11 @@ body.dark .nav-avail { color: var(--text); }
   min-height: 100vh;
   display: flex; align-items: center;
   padding: 120px 6vw 100px;
-  position: relative; overflow: hidden;
+  position: sticky; top: 0;
+  overflow: hidden;
+  z-index: 1;
+  transform-origin: center top;
+  will-change: transform;
 }
 /* Soft asymmetric ambient lighting */
 .hero::before {
@@ -764,7 +768,7 @@ body.dark .nav-avail { color: var(--text); }
 /* ============================================================
    WORK — 2×2 GRID
    ============================================================ */
-.work { padding: 0; }
+.work { padding: 0; position: relative; z-index: 2; background: var(--bg); }
 .work-header { padding: 120px 6vw 56px; }
 .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 0 6vw; }
 .work-cta { display: flex; justify-content: center; padding: 64px 6vw; }
@@ -787,10 +791,25 @@ body.dark .nav-avail { color: var(--text); }
   border: 1px solid rgba(0,0,0,0.07);
   box-shadow: 0 2px 16px rgba(0,0,0,0.05);
   cursor: none;
-  transition: transform 0.5s cubic-bezier(0.22,1,0.36,1),
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(0.22,1,0.36,1),
+              opacity 0.6s ease,
               box-shadow 0.5s cubic-bezier(0.22,1,0.36,1),
               border-color 0.4s ease;
 }
+
+/* Shuffle-in initial positions — cards stacked near grid center */
+.wc:nth-child(1) { transform: translate(46%, 44%) rotate(-6deg) scale(0.88); }
+.wc:nth-child(2) { transform: translate(-46%, 44%) rotate(7deg) scale(0.88); }
+.wc:nth-child(3) { transform: translate(46%, -44%) rotate(5deg) scale(0.88); }
+.wc:nth-child(4) { transform: translate(-46%, -44%) rotate(-7deg) scale(0.88); }
+
+/* Cards settle into place */
+.work-grid.cards-in .wc { opacity: 1; transform: none; }
+.work-grid.cards-in .wc:nth-child(1) { transition-delay: 0s; }
+.work-grid.cards-in .wc:nth-child(2) { transition-delay: 0.1s; }
+.work-grid.cards-in .wc:nth-child(3) { transition-delay: 0.18s; }
+.work-grid.cards-in .wc:nth-child(4) { transition-delay: 0.26s; }
 body.dark .wc { background: #1a1a1f; border-color: rgba(255,255,255,0.07); box-shadow: none; }
 
 .wc:hover {
@@ -880,7 +899,6 @@ body.dark .wc-foot { background: #1a1a1f; border-top-color: rgba(255,255,255,0.0
   transition: color 0.35s ease;
 }
 body.dark .wc-name { color: rgba(255,255,255,0.88); }
-.wc:hover .wc-name { color: var(--ac); }
 
 /* Subtitle tags */
 .wc-sub { display: flex; flex-wrap: wrap; gap: 5px; }
@@ -906,14 +924,14 @@ body.dark .wc-tag { background: rgba(255,255,255,0.07); color: rgba(255,255,255,
 }
 body.dark .wc-cta { border-color: rgba(255,255,255,0.13); color: rgba(255,255,255,0.35); }
 .wc:hover .wc-cta {
-  background: var(--ac); border-color: var(--ac); color: #fff;
+  background: var(--purple); border-color: var(--purple); color: #fff;
   transform: rotate(-45deg) scale(1.1);
 }
 
 /* ============================================================
    SPECIALIZATIONS
    ============================================================ */
-.specializations { padding: 120px 6vw; background: var(--purple); }
+.specializations { padding: 120px 6vw; background: var(--purple); position: relative; z-index: 2; }
 .specializations .section-label { color: var(--teal); }
 .specializations .section-headline { color: white; }
 .spec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 0; }
@@ -933,7 +951,7 @@ body.dark .wc-cta { border-color: rgba(255,255,255,0.13); color: rgba(255,255,25
 /* ============================================================
    ABOUT
    ============================================================ */
-.about { padding: 120px 0 120px 6vw; overflow: hidden; }
+.about { padding: 120px 0 120px 6vw; overflow: hidden; position: relative; z-index: 2; background: var(--bg); }
 .about-grid {
   display: grid; grid-template-columns: 1fr 40%;
   gap: 4%; align-items: center;
@@ -1056,7 +1074,7 @@ body.dark .process-step-featured {
 /* ============================================================
    SKILLS
    ============================================================ */
-.skills { padding: 120px 6vw; }
+.skills { padding: 120px 6vw; position: relative; z-index: 2; background: var(--bg); }
 .skills-clusters {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 0 6%; margin-top: 64px;
@@ -1095,7 +1113,7 @@ body.dark .skill-pill:hover { color: var(--purple); }
 /* ============================================================
    EXPERIENCE
    ============================================================ */
-.experience { padding: 120px 6vw; }
+.experience { padding: 120px 6vw; position: relative; z-index: 2; background: var(--bg); }
 .timeline { position: relative; margin-top: 64px; }
 .timeline::before {
   content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
@@ -1136,7 +1154,7 @@ body.dark .skill-pill:hover { color: var(--purple); }
 /* ============================================================
    CONTACT
    ============================================================ */
-.contact { padding: 120px 6vw; background: #0E0E0F; }
+.contact { padding: 120px 6vw; background: #0E0E0F; position: relative; z-index: 2; }
 .contact .section-label { color: var(--teal); }
 .contact-headline {
   font-family: 'Playfair Display', serif;
@@ -1182,6 +1200,7 @@ body.dark .skill-pill:hover { color: var(--purple); }
   border-top: 1px solid rgba(255,255,255,0.06);
   padding-top: 32px; margin-top: 80px;
   display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+  position: relative; z-index: 2;
 }
 .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
 
@@ -2092,6 +2111,7 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
   .hero {
     flex-direction: column; align-items: center;
     padding: 96px 6vw 80px; min-height: 100svh; gap: 0;
+    position: relative; /* disable sticky on mobile */
   }
   .hero-left  { flex: 0 0 100%; max-width: 100%; order: 2; text-align: center; }
   .hero-right {
@@ -2115,9 +2135,9 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
   /* WORK — mobile */
   .work-header { padding: 72px 6vw 40px; }
   .work-grid { grid-template-columns: 1fr; gap: 12px; padding: 0 6vw; }
-  .wc { min-height: auto; border-radius: 20px; padding: 28px; }
+  .wc { min-height: 360px; border-radius: 16px; padding: 0; }
+  .wc-thumb { min-height: 260px; }
   .wc-name { font-size: clamp(14px, 4vw, 18px); }
-  .wc-bg-num { font-size: clamp(72px, 20vw, 110px); bottom: 16px; right: 16px; }
   .work-cta { padding: 48px 6vw; }
 
   /* SPECIALIZATIONS */
@@ -2862,7 +2882,7 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
   <div class="work-grid">
 
       <!-- CARD 01 — Tork HMI -->
-      <a href="#" data-case="hmi-suite" class="wc wc--hmi reveal">
+      <a href="#" data-case="hmi-suite" class="wc wc--hmi">
         <div class="wc-thumb">
           <img src="Tork.png" alt="Tork HMI" loading="lazy">
         </div>
@@ -2878,7 +2898,7 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
       </a>
 
       <!-- CARD 02 — IIRM Insurance -->
-      <a href="#" data-case="iirm" class="wc wc--iirm reveal" style="transition-delay:0.08s">
+      <a href="#" data-case="iirm" class="wc wc--iirm">
         <div class="wc-thumb">
           <img src="IIRM.png" alt="IIRM Insurance Platform" loading="lazy">
         </div>
@@ -2894,7 +2914,7 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
       </a>
 
       <!-- CARD 03 — Thinqxuper -->
-      <a href="#" data-case="thinqxuper" class="wc wc--thinqxuper reveal" style="transition-delay:0.04s">
+      <a href="#" data-case="thinqxuper" class="wc wc--thinqxuper">
         <div class="wc-thumb">
           <img src="Thinqx.png" alt="Thinqxuper App Suite" loading="lazy">
         </div>
@@ -2913,7 +2933,7 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
       </a>
 
       <!-- CARD 04 — Redbucket Biriyani -->
-      <a href="#" data-case="redbucket" class="wc wc--redbucket reveal" style="transition-delay:0.12s">
+      <a href="#" data-case="redbucket" class="wc wc--redbucket">
         <div class="wc-thumb">
           <img src="Redbucket.png" alt="Redbucket Biriyani" loading="lazy">
         </div>
@@ -4112,8 +4132,22 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
     lastScrollY = currentY;
   }, { passive: true });
 
-  /* ── WORK CARD CURSOR SPOTLIGHT ─────────────── */
+  /* ── WORK CARD SHUFFLE ANIMATION ────────────── */
   (function () {
+    var grid = document.querySelector('.work-grid');
+    if (!grid) return;
+    var obs = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        grid.classList.add('cards-in');
+        obs.unobserve(grid);
+      }
+    }, { threshold: 0.15 });
+    obs.observe(grid);
+  }());
+
+  /* ── WORK CARD CURSOR SPOTLIGHT (desktop only) ─ */
+  (function () {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     document.querySelectorAll('.wc').forEach(function (card) {
       card.addEventListener('mousemove', function (e) {
         var r = card.getBoundingClientRect();
@@ -4144,6 +4178,33 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
 
     window.addEventListener('scroll', syncActive, { passive: true });
     syncActive();
+  }());
+
+  /* ── HERO SCALE-DOWN ON SCROLL ──────────────── */
+  (function () {
+    var hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    var isDesktop = window.matchMedia('(min-width: 768px) and (hover: hover)');
+
+    function updateScale() {
+      if (!isDesktop.matches) {
+        hero.style.transform = '';
+        hero.style.borderRadius = '';
+        return;
+      }
+      var y   = window.scrollY;
+      var h   = hero.offsetHeight;
+      var p   = Math.max(0, Math.min(y / h, 1));
+      var scale  = 1 - p * 0.1;
+      var radius = p * 28;
+      hero.style.transform    = 'scale(' + scale + ')';
+      hero.style.borderRadius = radius + 'px';
+    }
+
+    window.addEventListener('scroll', updateScale, { passive: true });
+    isDesktop.addEventListener('change', updateScale);
+    updateScale();
   }());
 
   /* ── HERO SCROLL HINT ───────────────────────── */
