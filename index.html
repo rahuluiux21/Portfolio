@@ -480,9 +480,8 @@ body.dark .nav-avail { color: var(--text); }
   min-height: 100vh;
   display: flex; align-items: center;
   padding: 120px 6vw 100px;
-  position: sticky; top: 0;
+  position: relative;
   overflow: hidden;
-  z-index: 1;
   transform-origin: center top;
   will-change: transform;
 }
@@ -1154,6 +1153,111 @@ body.dark .skill-pill:hover { color: var(--purple); }
 /* ============================================================
    CONTACT
    ============================================================ */
+/* ============================================================
+   BEYOND THE SCREEN
+   ============================================================ */
+.beyond { padding: 120px 6vw; position: relative; z-index: 2; background: var(--bg); }
+
+.beyond-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 40px;
+  align-items: center;
+  overflow: visible;
+}
+.beyond-left { position: relative; z-index: 2; }
+.beyond-right { overflow: visible; }
+
+/* ── BEYOND — editorial layout ── */
+.bx-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--text-muted);
+  display: block; margin-bottom: 12px;
+}
+
+.bx-rule {
+  width: 32px; height: 2px;
+  background: var(--text-muted); opacity: 0.4;
+  margin-bottom: 36px;
+}
+
+.bx-heading {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: clamp(42px, 5.2vw, 76px);
+  font-weight: 800; line-height: 1.0; letter-spacing: -0.04em;
+  color: var(--text);
+  margin-bottom: 40px;
+}
+
+.bx-list {
+  list-style: none; padding: 0; margin: 0 0 44px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.bx-list li {
+  font-size: clamp(15px, 1.5vw, 19px);
+  font-weight: 400; color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.bx-quote {
+  font-size: clamp(13px, 1.2vw, 16px);
+  font-weight: 400; color: var(--text-muted);
+  line-height: 1.7;
+  border-left: 2px solid #C9A96E;
+  padding-left: 16px;
+  margin-bottom: 28px;
+}
+
+.bx-footer {
+  font-size: clamp(14px, 1.3vw, 17px);
+  font-weight: 400; color: var(--text-muted);
+  line-height: 1.7;
+}
+.bx-footer strong {
+  font-weight: 700; color: var(--text);
+}
+
+/* Right — image area */
+.beyond-img-wrap {
+  width: calc(100% + 12vw + 25%);
+  margin-right: -12vw;
+  margin-left: -25%;
+  position: relative;
+}
+.beyond-img-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.beyond-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, var(--bg) 0%, transparent 28%),
+    linear-gradient(to left,  var(--bg) 0%, transparent 12%),
+    linear-gradient(to bottom, var(--bg) 0%, transparent 14%),
+    linear-gradient(to top,   var(--bg) 0%, transparent 22%);
+}
+.beyond-img-placeholder {
+  width: 100%; height: 100%;
+  background: var(--surface);
+  border: 2px dashed rgba(0,0,0,0.12);
+  border-radius: 24px;
+  display: flex; align-items: center; justify-content: center;
+}
+body.dark .beyond-img-placeholder { border-color: rgba(255,255,255,0.1); }
+.beyond-img-placeholder span {
+  font-size: 13px; color: var(--text-muted); font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .beyond-grid { grid-template-columns: 1fr; gap: 40px; }
+  .beyond-right { order: -1; }
+  .beyond-img-wrap { aspect-ratio: 4 / 3; }
+}
+
 .contact { padding: 120px 6vw; background: #0E0E0F; position: relative; z-index: 2; }
 .contact .section-label { color: var(--teal); }
 .contact-headline {
@@ -2111,7 +2215,6 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
   .hero {
     flex-direction: column; align-items: center;
     padding: 96px 6vw 80px; min-height: 100svh; gap: 0;
-    position: relative; /* disable sticky on mobile */
   }
   .hero-left  { flex: 0 0 100%; max-width: 100%; order: 2; text-align: center; }
   .hero-right {
@@ -2960,48 +3063,6 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
 
 </section>
 
-<!-- ======================================================
-     SPECIALIZATIONS
-     ====================================================== -->
-<section class="specializations">
-  <div class="reveal">
-    <span class="section-label">Expertise</span>
-    <h2 class="section-headline">Design expertise across industries.</h2>
-  </div>
-  <br>
-  <div class="spec-grid">
-    <div class="spec-card reveal">
-      <i class="ti ti-steering-wheel"></i>
-      <h3>Automotive HMI</h3>
-      <p>Bike, Car &amp; Tork HMI — navigation, battery, embedded interfaces and adaptive displays.</p>
-    </div>
-    <div class="spec-card reveal" style="transition-delay:0.08s">
-      <i class="ti ti-heartbeat"></i>
-      <h3>Healthcare UX</h3>
-      <p>AI chatbots and clinical tools designed for real patient contexts and care workflows.</p>
-    </div>
-    <div class="spec-card reveal" style="transition-delay:0.16s">
-      <i class="ti ti-robot"></i>
-      <h3>AI-Powered Products</h3>
-      <p>Claude Code &amp; Codex — design-to-code, vibe coding workflows and prompt-driven UI.</p>
-    </div>
-    <div class="spec-card reveal" style="transition-delay:0.08s">
-      <i class="ti ti-layout-dashboard"></i>
-      <h3>Enterprise SaaS</h3>
-      <p>Complex dashboards and multi-role admin workflow systems built for scale.</p>
-    </div>
-    <div class="spec-card reveal" style="transition-delay:0.16s">
-      <i class="ti ti-chart-bar"></i>
-      <h3>Dashboard Design</h3>
-      <p>Real-time data visualization with role-based access and actionable insights.</p>
-    </div>
-    <div class="spec-card reveal" style="transition-delay:0.24s">
-      <i class="ti ti-accessible"></i>
-      <h3>Accessibility</h3>
-      <p>WCAG-compliant inclusive design — baked in, not bolted on. For every user.</p>
-    </div>
-  </div>
-</section>
 
 <!-- ======================================================
      ABOUT
@@ -3250,6 +3311,43 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
       <div class="timeline-bullets">
         <span class="timeline-bullet">Digital creatives and social media assets</span>
         <span class="timeline-bullet">Typography, layout and visual hierarchy foundations</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======================================================
+     BEYOND THE SCREEN
+     ====================================================== -->
+<section class="beyond" id="beyond">
+  <div class="beyond-grid">
+
+    <!-- LEFT — text -->
+    <div class="beyond-left reveal">
+
+      <span class="bx-label">Outside Design</span>
+      <div class="bx-rule"></div>
+
+      <h2 class="bx-heading">Not always<br>designing.</h2>
+
+      <ul class="bx-list">
+        <li>probably playing volleyball.</li>
+        <li>watching cinema.</li>
+        <li>chasing another random idea.</li>
+        <li>late-night creative chaos.</li>
+      </ul>
+
+      <p class="bx-quote">That's usually where<br>the best ideas begin.</p>
+
+      <p class="bx-footer"><strong>So yeah —</strong> if you ever reach out, it doesn't always have to be about work.</p>
+
+    </div>
+
+    <!-- RIGHT — image placeholder -->
+    <div class="beyond-right reveal" style="transition-delay:0.12s">
+      <div class="beyond-img-wrap">
+        <img src="Volleyball.png" alt="Beyond the screen" loading="lazy">
       </div>
     </div>
 
