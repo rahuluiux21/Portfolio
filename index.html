@@ -40,12 +40,6 @@ body.dark {
 }
 
 /* ── Dark mode overrides ── */
-body.dark .nav {
-  background: rgba(14,14,15,0.82);
-}
-body.dark .nav.scrolled {
-  background: rgba(14,14,15,0.96);
-}
 body.dark .contact-page-header,
 body.dark .projects-page-header,
 body.dark .case-page-header {
@@ -341,45 +335,104 @@ img { max-width: 100%; display: block; }
    NAVIGATION
    ============================================================ */
 .nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 9000;
-  padding: 0 6vw; height: 72px;
-  display: flex; align-items: center; justify-content: space-between;
-  background: rgba(245,244,240,0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 1px 0 rgba(60,52,137,0.06);
-  transition: background 0.4s ease, box-shadow 0.4s ease;
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  z-index: 9000;
+  padding: 6px 8px;
+  height: auto; width: auto; max-width: calc(100vw - 40px);
+  display: flex; align-items: center; gap: 2px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 100px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.06);
+  transition: background 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
 }
 .nav.scrolled {
-  background: rgba(245,244,240,0.94);
-  box-shadow: 0 1px 0 rgba(60,52,137,0.1);
+  background: rgba(255,255,255,0.97);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.08);
 }
-body.dark .nav { background: rgba(14,14,15,0.82) !important; }
-body.dark .nav.scrolled { background: rgba(14,14,15,0.96) !important; }
-body.dark .nav { background: rgba(14,14,15,0.72); }
-body.dark .nav.scrolled { background: rgba(14,14,15,0.94); }
+body.dark .nav { background: rgba(18,18,20,0.9) !important; box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08) !important; }
+body.dark .nav.scrolled { background: rgba(18,18,20,0.97) !important; box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.1) !important; }
 
-.nav-logo { display: flex; align-items: center; }
+.nav-logo { display: flex; align-items: center; margin-right: 6px; flex-shrink: 0; }
 .nav-logo-avatar {
-  width: 42px; height: 42px; border-radius: 50%;
+  width: 34px; height: 34px; border-radius: 50%;
   object-fit: cover; object-position: top center;
-  border: 2px solid var(--purple);
-  display: block;
-  transition: border-color 0.2s, transform 0.2s;
+  border: 2px solid var(--purple); display: block;
+  transition: border-color 0.22s, transform 0.22s;
 }
 .nav-logo:hover .nav-logo-avatar { border-color: var(--teal); transform: scale(1.06); }
-.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
 .nav-links a {
-  color: var(--text); font-size: 14px; font-weight: 500;
-  position: relative; padding-bottom: 2px;
+  color: var(--text-muted); font-size: 14px; font-weight: 500;
+  padding: 9px 18px; border-radius: 100px;
+  transition: color 0.2s, background 0.2s;
+  position: relative;
 }
-.nav-links a::after {
-  content: ''; position: absolute; bottom: -2px; left: 0;
-  width: 0; height: 1px; background: var(--purple);
-  transition: width 0.3s ease;
+.nav-links a::after { display: none; }
+.nav-links a:hover { color: var(--text); background: rgba(60,52,137,0.06); }
+.nav-links a.active { color: var(--purple); background: var(--purple-light); font-weight: 600; }
+body.dark .nav-links a.active { background: rgba(60,52,137,0.22); color: #a89cf7; }
+body.dark .nav-links a:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+.nav-divider { width: 1px; height: 20px; background: rgba(60,52,137,0.12); margin: 0 4px; flex-shrink: 0; }
+body.dark .nav-divider { background: rgba(255,255,255,0.1); }
+.nav-right { display: flex; align-items: center; gap: 2px; }
+.nav-social-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  color: var(--text-muted); font-size: 18px;
+  transition: color 0.2s, background 0.2s, max-width 0.4s ease, opacity 0.3s ease; flex-shrink: 0;
+  max-width: 40px; overflow: hidden;
 }
-.nav-links a:hover::after { width: 100%; }
-.nav-right { display: flex; align-items: center; gap: 14px; }
+.nav-social-btn:hover { color: var(--purple); background: var(--purple-light); }
+body.dark .nav-social-btn:hover { background: rgba(60,52,137,0.22); color: #a89cf7; }
+.nav-resume-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 7px 14px 7px 11px; border-radius: 100px;
+  background: var(--purple); color: #fff;
+  font-size: 12.5px; font-weight: 600; letter-spacing: 0.01em;
+  transition: background 0.22s, transform 0.22s, max-width 0.4s ease, opacity 0.3s ease, padding 0.4s ease; flex-shrink: 0;
+  max-width: 120px; overflow: hidden;
+}
+.nav-resume-btn i { font-size: 15px; }
+.nav-resume-btn:hover { background: var(--purple-dark); transform: translateY(-1px); }
+
+/* ── NAV AVAIL (mini state label) ─── */
+.nav-avail {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 500; color: var(--text);
+  white-space: nowrap; overflow: hidden;
+  max-width: 0; opacity: 0;
+  pointer-events: none;
+  transition: max-width 0.45s cubic-bezier(0.4,0,0.2,1) 0.1s, opacity 0.35s ease 0.1s;
+  margin-right: 2px;
+  padding-right: 10px;
+}
+.nav-avail-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--teal); flex-shrink: 0;
+  animation: pulse-anim 2.8s ease-in-out infinite;
+}
+body.dark .nav-avail { color: var(--text); }
+
+/* ── NAV COLLAPSIBLE ITEMS ─── */
+.nav-links {
+  display: flex; align-items: center; gap: 2px; list-style: none;
+  overflow: hidden;
+  max-width: 500px;
+  transition: max-width 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease;
+}
+.nav > .nav-divider {
+  transition: max-width 0.4s ease, opacity 0.3s ease, margin 0.4s ease;
+  overflow: hidden;
+}
+
+/* ── MINI STATE ─── */
+.nav.mini .nav-links          { max-width: 0; opacity: 0; pointer-events: none; }
+.nav.mini > .nav-divider      { max-width: 0; opacity: 0; margin: 0; }
+.nav.mini .nav-social-btn     { max-width: 0; opacity: 0; pointer-events: none; }
+.nav.mini .nav-resume-btn     { max-width: 0; opacity: 0; pointer-events: none; padding-left: 0; padding-right: 0; }
+.nav.mini .nav-right .nav-divider { max-width: 0; opacity: 0; margin: 0; }
+.nav.mini .nav-avail          { max-width: 230px; opacity: 1; pointer-events: auto; }
 .theme-toggle {
   background: none; border: none; color: var(--text-muted);
   font-size: 20px; padding: 8px; border-radius: 50%;
@@ -709,72 +762,153 @@ body.dark .nav.scrolled { background: rgba(14,14,15,0.94); }
 .section-sub { font-size: 16px; color: var(--text-muted); margin-bottom: 64px; }
 
 /* ============================================================
-   WORK — LIST STYLE
+   WORK — 2×2 GRID
    ============================================================ */
-.work { padding: 120px 6vw; }
-
-.work-list-header {
-  display: grid;
-  grid-template-columns: 52px 1fr 200px 96px 28px;
-  padding: 12px 0; align-items: center;
-  border-top: 1px solid rgba(60,52,137,0.1);
-  border-bottom: 1px solid rgba(60,52,137,0.1);
-  font-size: 10px; text-transform: uppercase;
-  letter-spacing: 0.14em; color: var(--text-muted);
-}
-
-.work-item {
-  display: grid;
-  grid-template-columns: 52px 1fr 200px 96px 28px;
-  align-items: center; padding: 30px 0;
-  border-bottom: 1px solid rgba(60,52,137,0.07);
-  cursor: none; color: inherit; position: relative;
-  transition: padding-left 0.3s ease;
-}
-.work-item::after {
-  content: ''; position: absolute; inset: 0;
-  background: var(--purple-light); opacity: 0;
-  transition: opacity 0.35s ease; z-index: 0;
-}
-body.dark .work-item::after { background: rgba(60,52,137,0.09); }
-.work-item:hover::after { opacity: 1; }
-.work-item > * { position: relative; z-index: 1; }
-
-.work-num { font-size: 11px; color: var(--text-muted); font-weight: 500; }
-
-.work-item-name {
-  font-family: 'Cabinet Grotesk', sans-serif;
-  font-size: clamp(1.15rem, 2vw, 1.7rem); font-weight: 700;
-  color: var(--text); line-height: 1.1;
-  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-.work-item:hover .work-item-name { transform: translateX(14px); }
-
-.work-item-company {
-  font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 400;
-}
-
-.work-item-type {
-  font-size: 12px; color: var(--text-muted);
-  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-.work-item:hover .work-item-type { transform: translateX(-10px); }
-
-.work-item-year {
-  font-size: 12px; color: var(--text-muted);
-  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-.work-item:hover .work-item-year { transform: translateX(-10px); }
-
-.work-item-arrow {
-  font-size: 18px; color: var(--purple);
-  opacity: 0; transform: translate(-6px, 6px);
-  transition: opacity 0.28s ease, transform 0.32s cubic-bezier(0.25,0.46,0.45,0.94);
-}
-.work-item:hover .work-item-arrow { opacity: 1; transform: translate(0,0); }
-
-.work-cta { display: flex; justify-content: center; padding-top: 52px; }
+.work { padding: 0; }
+.work-header { padding: 120px 6vw 56px; }
+.work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 0 6vw; }
+.work-cta { display: flex; justify-content: center; padding: 64px 6vw; }
 .work-all-btn { pointer-events: auto; }
+
+/* Accent colours — used only on hover states */
+.wc--hmi        { --ac: #5C52D9; --ac-rgb: 92,82,217; }
+.wc--iirm       { --ac: #0A9E72; --ac-rgb: 10,158,114; }
+.wc--thinqxuper { --ac: #0B7EC9; --ac-rgb: 11,126,201; }
+.wc--redbucket  { --ac: #D64F35; --ac-rgb: 214,79,53; }
+
+/* Base card — warm off-white, editorial */
+.wc {
+  --mx: 50%; --my: 50%;
+  min-height: 54vh; border-radius: 20px;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  padding: 0;
+  background: #F8F7F4;
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  cursor: none;
+  transition: transform 0.5s cubic-bezier(0.22,1,0.36,1),
+              box-shadow 0.5s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.4s ease;
+}
+body.dark .wc { background: #1a1a1f; border-color: rgba(255,255,255,0.07); box-shadow: none; }
+
+.wc:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 56px rgba(0,0,0,0.11);
+}
+body.dark .wc:hover {
+  box-shadow: 0 20px 56px rgba(0,0,0,0.4);
+}
+
+/* Cursor-tracking spotlight */
+.wc::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(
+    500px circle at var(--mx) var(--my),
+    rgba(var(--ac-rgb), 0.07),
+    transparent 60%
+  );
+  opacity: 0; transition: opacity 0.4s ease;
+  pointer-events: none; z-index: 0; border-radius: inherit;
+}
+.wc:hover::before { opacity: 1; }
+
+/* Accent wash at bottom on hover */
+.wc::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 45%;
+  background: linear-gradient(to top, rgba(var(--ac-rgb), 0.04), transparent);
+  opacity: 0; transition: opacity 0.5s ease;
+  pointer-events: none; z-index: 0;
+}
+.wc:hover::after { opacity: 1; }
+
+/* Image / placeholder fill area */
+.wc-thumb {
+  flex: 1; overflow: hidden; position: relative;
+  background: #EDECEA;
+}
+body.dark .wc-thumb { background: #222228; }
+.wc--redbucket  .wc-thumb { background: linear-gradient(145deg, #1A0603 0%, #3D0D07 55%, #6E1A0E 100%); }
+
+/* Default floating-contain image (HMI + any future cards) */
+.wc-thumb img {
+  width: 76%; height: 76%;
+  object-fit: contain;
+  display: block;
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  transition: transform 0.65s cubic-bezier(0.22,1,0.36,1);
+  filter: drop-shadow(0 10px 28px rgba(0,0,0,0.15));
+}
+.wc:hover .wc-thumb img { transform: translate(-50%, -50%) scale(1.05); }
+
+/* Full-bleed cover for scene photos (Thinqx + Redbucket + IIRM) */
+.wc--thinqxuper .wc-thumb img,
+.wc--redbucket  .wc-thumb img,
+.wc--iirm       .wc-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  top: 0; left: 0;
+  transform: scale(1); filter: none;
+  transform-origin: center center;
+}
+.wc--thinqxuper:hover .wc-thumb img,
+.wc--redbucket:hover  .wc-thumb img,
+.wc--iirm:hover       .wc-thumb img {
+  transform: scale(1.05);
+}
+
+/* Footer strip */
+.wc-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 18px 24px;
+  background: #FFFFFF;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  position: relative; z-index: 2; flex-shrink: 0;
+}
+body.dark .wc-foot { background: #1a1a1f; border-top-color: rgba(255,255,255,0.07); }
+
+.wc-foot-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+
+/* Project title */
+.wc-name {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: clamp(15px, 1.3vw, 20px); font-weight: 700;
+  color: #1a1a1f; letter-spacing: -0.018em; line-height: 1.2;
+  transition: color 0.35s ease;
+}
+body.dark .wc-name { color: rgba(255,255,255,0.88); }
+.wc:hover .wc-name { color: var(--ac); }
+
+/* Subtitle tags */
+.wc-sub { display: flex; flex-wrap: wrap; gap: 5px; }
+.wc-tag {
+  font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em;
+  color: #888;
+  background: rgba(0,0,0,0.05);
+  padding: 3px 9px; border-radius: 100px;
+  white-space: nowrap;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+body.dark .wc-tag { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.4); }
+.wc:hover .wc-tag { background: rgba(var(--ac-rgb), 0.1); color: var(--ac); }
+
+/* CTA arrow circle */
+.wc-cta {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+  border: 1.5px solid rgba(0,0,0,0.12); color: #aaa;
+  font-size: 15px;
+  transition: background 0.35s ease, border-color 0.35s ease,
+              color 0.35s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+body.dark .wc-cta { border-color: rgba(255,255,255,0.13); color: rgba(255,255,255,0.35); }
+.wc:hover .wc-cta {
+  background: var(--ac); border-color: var(--ac); color: #fff;
+  transform: rotate(-45deg) scale(1.1);
+}
 
 /* ============================================================
    SPECIALIZATIONS
@@ -1268,13 +1402,6 @@ body.dark .contact-info-card { border-color: rgba(255,255,255,0.08); }
 }
 body.dark .projects-page-header { background: rgba(14,14,15,0.92); }
 
-.projects-page-title {
-  font-family: 'Cabinet Grotesk', sans-serif;
-  font-size: 18px; font-weight: 700; color: var(--text);
-}
-.projects-header-left {
-  display: flex; align-items: center; gap: 14px;
-}
 .projects-back-btn {
   width: 40px; height: 40px; border-radius: 50%;
   border: 1.5px solid rgba(60,52,137,0.2);
@@ -1946,11 +2073,12 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
    ============================================================ */
 @media (max-width: 768px) {
   /* NAV */
-  .nav-links, .hire-btn { display: none; }
+  .nav { top: 14px; left: auto; right: 14px; transform: none; padding: 4px 6px; }
+  .nav-links, .hire-btn, .nav-divider, .nav-social-btn, .nav-resume-btn { display: none; }
   .hamburger { display: flex; }
 
   /* GLOBAL SECTION SPACING */
-  .work        { padding: 72px 6vw; }
+  .work        { padding: 0; }
   .specializations { padding: 72px 6vw; }
   .about       { padding: 72px 6vw; }
   .process     { padding: 72px 6vw; }
@@ -1984,12 +2112,13 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
   .hero-socials { justify-content: center; }
   .hero-scroll-hint { bottom: 18px; }
 
-  /* WORK */
-  .work-list-header { display: none; }
-  .work-item  { grid-template-columns: 36px 1fr 28px; gap: 0; padding: 20px 0; }
-  .work-item-type, .work-item-year { display: none; }
-  .work-item-name { font-size: clamp(1rem, 4.5vw, 1.3rem); }
-  .work-item-arrow { opacity: 1; transform: none; }
+  /* WORK — mobile */
+  .work-header { padding: 72px 6vw 40px; }
+  .work-grid { grid-template-columns: 1fr; gap: 12px; padding: 0 6vw; }
+  .wc { min-height: auto; border-radius: 20px; padding: 28px; }
+  .wc-name { font-size: clamp(14px, 4vw, 18px); }
+  .wc-bg-num { font-size: clamp(72px, 20vw, 110px); bottom: 16px; right: 16px; }
+  .work-cta { padding: 48px 6vw; }
 
   /* SPECIALIZATIONS */
   .spec-grid  { grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -2051,7 +2180,10 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
    ============================================================ */
 @media (max-width: 480px) {
   /* GLOBAL SECTION SPACING */
-  .work, .specializations, .skills, .experience { padding: 56px 5vw; }
+  .work { padding: 0; }
+  .work-header { padding: 56px 5vw 32px; }
+  .work-grid { padding: 0 5vw; }
+  .specializations, .skills, .experience { padding: 56px 5vw; }
   .process, .about, .contact { padding: 56px 5vw; }
 
   /* HERO */
@@ -2567,14 +2699,22 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
   <a href="#home" class="nav-logo" aria-label="Kandula Rahul">
     <img class="nav-logo-avatar" src="hero-photo-nobg.webp" alt="Kandula Rahul">
   </a>
+  <span class="nav-avail" aria-hidden="true">
+    Available for work <span class="nav-avail-dot"></span>
+  </span>
   <ul class="nav-links">
+    <li><a href="#home" class="active">Home</a></li>
     <li><a href="#work">Work</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#process">Process</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#" data-open-contact>Contact</a></li>
   </ul>
+  <div class="nav-divider"></div>
   <div class="nav-right">
+    <a href="#" class="nav-resume-btn" aria-label="Download Resume">
+      <i class="ti ti-download"></i> Resume
+    </a>
+    <div class="nav-divider"></div>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
       <i class="ti ti-sun" id="themeIcon"></i>
     </button>
@@ -2586,9 +2726,9 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
 
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
+  <a href="#home" class="mobile-link">Home</a>
   <a href="#work" class="mobile-link">Work</a>
   <a href="#about" class="mobile-link">About</a>
-  <a href="#process" class="mobile-link">Process</a>
   <a href="#skills" class="mobile-link">Skills</a>
   <a href="#" class="mobile-link" data-open-contact>Contact</a>
 </div>
@@ -2608,12 +2748,12 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
 
     <span class="hero-name hero-word">Rahul Kandula</span>
 
-    <span class="hero-tagline hero-word">I design systems people</span>
-    <span class="hero-tagline hero-tagline-italic hero-word">never have to think about.</span>
+    <span class="hero-tagline hero-word">Designing clarity inside</span>
+    <span class="hero-tagline hero-tagline-italic hero-word">complex systems.</span>
 
     <div class="hero-divider"></div>
 
-    <p class="hero-sub">Senior UI/UX Designer crafting AI-driven products, enterprise systems, and intelligent experiences through design, systems thinking, and modern frontend workflows.</p>
+    <p class="hero-sub">Product designer focused on enterprise platforms, operational workflows, and AI-driven digital experiences.</p>
 
     <div class="hero-creds">
       <span class="hero-cred">4+ Years Experience</span>
@@ -2623,11 +2763,6 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
       <span class="hero-cred">AI-Assisted Workflow</span>
       <span class="hero-cred-sep">·</span>
       <span class="hero-cred">Enterprise UX Systems</span>
-    </div>
-
-    <div class="hero-cta">
-      <a href="#work" class="btn-primary">Explore Selected Work <i class="ti ti-arrow-right"></i></a>
-      <a href="#process" class="btn-outline">Inside My Process</a>
     </div>
 
     <div class="hero-socials">
@@ -2715,77 +2850,89 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
      WORK
      ====================================================== -->
 <section class="work" id="work">
-  <div class="reveal">
+
+  <!-- HEADER -->
+  <div class="work-header reveal">
     <span class="section-label">Selected Work</span>
     <h2 class="section-headline">Products I've shaped.</h2>
     <p class="section-sub">4 years. 5 industries. 20+ products shipped.</p>
   </div>
 
-  <!-- LIST HEADER -->
-  <div class="work-list-header">
-    <span></span>
-    <span>Project</span>
-    <span>Type</span>
-    <span>Year</span>
-    <span></span>
-  </div>
+  <!-- 2×2 GRID -->
+  <div class="work-grid">
 
-  <a href="#" data-case="versante-ai" class="work-item reveal">
-    <span class="work-num">01</span>
-    <div>
-      <div class="work-item-name">Versante AI</div>
-      <div class="work-item-company">RADcube</div>
-    </div>
-    <span class="work-item-type">Healthcare AI</span>
-    <span class="work-item-year">2026</span>
-    <span class="work-item-arrow">↗</span>
-  </a>
+      <!-- CARD 01 — Tork HMI -->
+      <a href="#" data-case="hmi-suite" class="wc wc--hmi reveal">
+        <div class="wc-thumb">
+          <img src="Tork.png" alt="Tork HMI" loading="lazy">
+        </div>
+        <div class="wc-foot">
+          <div class="wc-foot-text">
+            <h3 class="wc-name">Tork HMI</h3>
+            <div class="wc-sub">
+              <span class="wc-tag">HMI Cluster Design</span>
+            </div>
+          </div>
+          <span class="wc-cta"><i class="ti ti-arrow-up-right"></i></span>
+        </div>
+      </a>
 
-  <a href="#" data-case="hmi-suite" class="work-item reveal" style="transition-delay:0.06s">
-    <span class="work-num">02</span>
-    <div>
-      <div class="work-item-name">HMI Suite</div>
-      <div class="work-item-company">People Tech Group</div>
-    </div>
-    <span class="work-item-type">Automotive HMI</span>
-    <span class="work-item-year">2023–25</span>
-    <span class="work-item-arrow">↗</span>
-  </a>
+      <!-- CARD 02 — IIRM Insurance -->
+      <a href="#" data-case="iirm" class="wc wc--iirm reveal" style="transition-delay:0.08s">
+        <div class="wc-thumb">
+          <img src="IIRM.png" alt="IIRM Insurance Platform" loading="lazy">
+        </div>
+        <div class="wc-foot">
+          <div class="wc-foot-text">
+            <h3 class="wc-name">IIRM Insurance (HR Portal)</h3>
+            <div class="wc-sub">
+              <span class="wc-tag">Admin Panel</span>
+            </div>
+          </div>
+          <span class="wc-cta"><i class="ti ti-arrow-up-right"></i></span>
+        </div>
+      </a>
 
-  <a href="#" data-case="global-dashboard" class="work-item reveal" style="transition-delay:0.12s">
-    <span class="work-num">03</span>
-    <div>
-      <div class="work-item-name">Global Dashboard Manager</div>
-      <div class="work-item-company">RADcube</div>
-    </div>
-    <span class="work-item-type">Enterprise Dashboard</span>
-    <span class="work-item-year">2026</span>
-    <span class="work-item-arrow">↗</span>
-  </a>
+      <!-- CARD 03 — Thinqxuper -->
+      <a href="#" data-case="thinqxuper" class="wc wc--thinqxuper reveal" style="transition-delay:0.04s">
+        <div class="wc-thumb">
+          <img src="Thinqx.png" alt="Thinqxuper App Suite" loading="lazy">
+        </div>
+        <div class="wc-foot">
+          <div class="wc-foot-text">
+            <h3 class="wc-name">Thinqxuper App Suite</h3>
+            <div class="wc-sub">
+              <span class="wc-tag">Website</span>
+              <span class="wc-tag">Admin Panel</span>
+              <span class="wc-tag">Super App</span>
+              <span class="wc-tag">HMI Cluster Design</span>
+            </div>
+          </div>
+          <span class="wc-cta"><i class="ti ti-arrow-up-right"></i></span>
+        </div>
+      </a>
 
-  <a href="#" data-case="iirm" class="work-item reveal" style="transition-delay:0.18s">
-    <span class="work-num">04</span>
-    <div>
-      <div class="work-item-name">IIRM Insurance Platform</div>
-      <div class="work-item-company">Divami Design Labs</div>
-    </div>
-    <span class="work-item-type">Enterprise UX</span>
-    <span class="work-item-year">2026</span>
-    <span class="work-item-arrow">↗</span>
-  </a>
+      <!-- CARD 04 — Redbucket Biriyani -->
+      <a href="#" data-case="redbucket" class="wc wc--redbucket reveal" style="transition-delay:0.12s">
+        <div class="wc-thumb">
+          <img src="Redbucket.png" alt="Redbucket Biriyani" loading="lazy">
+        </div>
+        <div class="wc-foot">
+          <div class="wc-foot-text">
+            <h3 class="wc-name">Redbucket Biriyani</h3>
+            <div class="wc-sub">
+              <span class="wc-tag">Mobile App</span>
+              <span class="wc-tag">Web Application</span>
+            </div>
+          </div>
+          <span class="wc-cta"><i class="ti ti-arrow-up-right"></i></span>
+        </div>
+      </a>
 
-  <a href="#" data-case="thinqxuper" class="work-item reveal" style="transition-delay:0.24s">
-    <span class="work-num">05</span>
-    <div>
-      <div class="work-item-name">Thinqxuper App Suite</div>
-      <div class="work-item-company">People Tech Group</div>
-    </div>
-    <span class="work-item-type">Bike Taxi Super App</span>
-    <span class="work-item-year">2025</span>
-    <span class="work-item-arrow">↗</span>
-  </a>
+  </div><!-- /work-grid -->
 
-  <div class="work-cta reveal" style="transition-delay:0.32s">
+  <!-- CTA -->
+  <div class="work-cta reveal">
     <button class="btn-outline work-all-btn">
       View all projects <i class="ti ti-arrow-right"></i>
     </button>
@@ -2881,50 +3028,6 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
 <!-- ======================================================
      PROCESS
      ====================================================== -->
-<section class="process" id="process">
-  <div class="reveal">
-    <span class="section-label">How I work</span>
-    <h2 class="section-headline">From problem to pixel — and beyond.</h2>
-  </div>
-  <div class="process-steps">
-    <div class="process-step reveal">
-      <span class="step-num">01</span>
-      <i class="ti ti-search step-icon"></i>
-      <div class="step-title">Discover</div>
-      <p class="step-desc">AI research<br>Interviews<br>Audit</p>
-      <span class="step-badge">AI synthesizes data</span>
-    </div>
-    <div class="process-step reveal" style="transition-delay:0.08s">
-      <span class="step-num">02</span>
-      <i class="ti ti-bulb step-icon"></i>
-      <div class="step-title">Define</div>
-      <p class="step-desc">Personas<br>Journey maps<br>Problem brief</p>
-      <span class="step-badge">AI drafts personas</span>
-    </div>
-    <div class="process-step reveal" style="transition-delay:0.16s">
-      <span class="step-num">03</span>
-      <i class="ti ti-pencil step-icon"></i>
-      <div class="step-title">Design</div>
-      <p class="step-desc">Wireframes<br>Design system<br>High-fidelity UI</p>
-      <span class="step-badge">Figma + AI tokens</span>
-    </div>
-    <div class="process-step reveal process-step-featured" style="transition-delay:0.24s">
-      <span class="step-num">04</span>
-      <i class="ti ti-device-mobile step-icon"></i>
-      <div class="step-title">Prototype</div>
-      <p class="step-desc">Clickable flows<br>Usability tests<br>Vibe coding<br>Live UI in hours</p>
-      <span class="step-badge step-badge-featured">&#9733; Vibe coding</span>
-    </div>
-    <div class="process-step reveal" style="transition-delay:0.32s">
-      <span class="step-num">05</span>
-      <i class="ti ti-code step-icon"></i>
-      <div class="step-title">Ship</div>
-      <p class="step-desc">Dev handoff<br>Claude Code<br>Metrics review</p>
-      <span class="step-badge">AI-assisted handoff</span>
-    </div>
-  </div>
-  <p class="process-loop-label">↻ &nbsp;continuous feedback loop</p>
-</section>
 
 <!-- ======================================================
      SKILLS
@@ -3332,12 +3435,9 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
 <div class="projects-page" id="projectsPage">
 
   <div class="projects-page-header">
-    <div class="projects-header-left">
-      <button class="projects-back-btn" id="projectsBack" aria-label="Go back">
-        <i class="ti ti-arrow-left"></i>
-      </button>
-      <span class="projects-page-title">All Projects &nbsp;·&nbsp; Kandula Rahul</span>
-    </div>
+    <button class="projects-back-btn" id="projectsBack" aria-label="Go back">
+      <i class="ti ti-arrow-left"></i>
+    </button>
     <button class="projects-close-btn" id="projectsClose" aria-label="Close">
       <i class="ti ti-x"></i>
     </button>
@@ -3989,11 +4089,62 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
     }, { passive: true });
   }
 
-  /* ── NAVBAR SCROLL ───────────────────────────── */
+  /* ── NAVBAR SCROLL + MINI ───────────────────── */
   var nav = document.getElementById('navbar');
+  var lastScrollY = window.scrollY;
+
   window.addEventListener('scroll', function () {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
+    var currentY = window.scrollY;
+
+    nav.classList.toggle('scrolled', currentY > 60);
+
+    if (currentY <= 80) {
+      /* Back at the top — always full */
+      nav.classList.remove('mini');
+    } else if (currentY > lastScrollY) {
+      /* Scrolling down — shrink */
+      nav.classList.add('mini');
+    } else {
+      /* Scrolling up — expand */
+      nav.classList.remove('mini');
+    }
+
+    lastScrollY = currentY;
   }, { passive: true });
+
+  /* ── WORK CARD CURSOR SPOTLIGHT ─────────────── */
+  (function () {
+    document.querySelectorAll('.wc').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+  }());
+
+
+  /* ── ACTIVE NAV LINK ─────────────────────────── */
+  (function () {
+    var navAs = Array.from(document.querySelectorAll('.nav-links a[href^="#"]:not([data-open-contact])'));
+    var sectionMap = navAs.map(function (a) {
+      var id = a.getAttribute('href').slice(1);
+      return { a: a, el: document.getElementById(id) };
+    }).filter(function (s) { return s.el; });
+
+    function syncActive() {
+      var mid = window.scrollY + window.innerHeight * 0.35;
+      var active = sectionMap[0];
+      sectionMap.forEach(function (s) {
+        if (s.el.offsetTop <= mid) active = s;
+      });
+      navAs.forEach(function (a) { a.classList.remove('active'); });
+      if (active) active.a.classList.add('active');
+    }
+
+    window.addEventListener('scroll', syncActive, { passive: true });
+    syncActive();
+  }());
 
   /* ── HERO SCROLL HINT ───────────────────────── */
   var heroScrollHint = document.getElementById('heroScrollHint');
