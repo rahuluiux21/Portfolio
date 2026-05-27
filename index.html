@@ -22,7 +22,8 @@
 <link rel="preload" href="hero-photo-nobg.webp" as="image">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.11.0/tabler-icons.min.css">
+<link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js">
 <style>
 /* ============================================================
    CSS VARIABLES
@@ -2727,6 +2728,13 @@ body.dark .iirm-screen-img:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.45); }
   color: rgba(255,255,255,0.8); letter-spacing: 0.06em; text-transform: uppercase;
 }
 .cr-video-wrap:hover .cr-video-hint { opacity: 0; }
+.cr-video-hint-label-tap { display: none; }
+@media (hover: none) {
+  .cr-video-wrap:hover .cr-video-hint { opacity: 1; }
+  .cr-video-hint-label-hover { display: none; }
+  .cr-video-hint-label-tap { display: inline; }
+  .cr-video-wrap.cr-video--playing .cr-video-hint { opacity: 0; }
+}
 
 /* ── Mockup Tabs ──────────────────────────────────── */
 .cr-tabs-bar {
@@ -4114,7 +4122,7 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
 <!-- ======================================================
      SCRIPTS
      ====================================================== -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
 <script>
 (function () {
 
@@ -5420,15 +5428,16 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
 <div class="cr-section">
   <div class="cr-eyebrow">08 — App in Action</div>
   <h2 class="cr-title">Thinqx Delivery App</h2>
-  <p class="cr-sub">Hover to preview the delivery experience — from browsing to real-time tracking.</p>
+  <p class="cr-sub">Preview the delivery experience — from browsing to real-time tracking.</p>
   <div class="cr-video-wrap"
-    onmouseenter="var v=this.querySelector('video');v.play();this.querySelector('.cr-video-hint').style.opacity='0';"
-    onmouseleave="var v=this.querySelector('video');v.pause();this.querySelector('.cr-video-hint').style.opacity='1';">
+    onmouseenter="crVideoEnter(this)"
+    onmouseleave="crVideoLeave(this)"
+    onclick="crVideoTap(this)">
     <video src="Thinqx%20Delivery%20App.mp4" muted loop playsinline preload="metadata"></video>
     <div class="cr-video-hint">
       <div class="cr-video-hint-inner">
         <i class="ti ti-player-play-filled"></i>
-        <span>Hover to play</span>
+        <span><span class="cr-video-hint-label-hover">Hover to play</span><span class="cr-video-hint-label-tap">Tap to play</span></span>
       </div>
     </div>
   </div>
@@ -5875,6 +5884,24 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
       { opacity: 0, y: 12 },
       { opacity: 1, y: 0, duration: 0.45, delay: 0.58, ease: 'power3.out', clearProps: 'all' });
   }
+
+  var isTouchOnly = function() { return window.matchMedia('(hover: none)').matches; };
+  window.crVideoEnter = function(wrap) {
+    if (isTouchOnly()) return;
+    wrap.querySelector('video').play();
+    wrap.querySelector('.cr-video-hint').style.opacity = '0';
+  };
+  window.crVideoLeave = function(wrap) {
+    if (isTouchOnly()) return;
+    wrap.querySelector('video').pause();
+    wrap.querySelector('.cr-video-hint').style.opacity = '1';
+  };
+  window.crVideoTap = function(wrap) {
+    if (!isTouchOnly()) return;
+    var v = wrap.querySelector('video');
+    if (v.paused) { v.play(); wrap.classList.add('cr-video--playing'); }
+    else { v.pause(); wrap.classList.remove('cr-video--playing'); }
+  };
 
   window.crSwitchTab = function(btn, panelId) {
     var bar = btn.closest('.cr-tabs-bar');
