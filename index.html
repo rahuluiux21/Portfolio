@@ -2626,6 +2626,78 @@ body.dark .cr-badge-p1 { color: #FBBF24; }
 }
 body.dark .cr-divider { background: linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent); }
 
+/* ── IIRM Screen Grid ──────────────────────────────── */
+.cr-screen-group { margin-top: 40px; }
+.cr-screen-group-label {
+  font-family: 'Cabinet Grotesk', sans-serif; font-size: 11px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--purple);
+  margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+}
+.cr-screen-group-label::after {
+  content: ''; flex: 1; height: 1px; background: rgba(60,52,137,0.15);
+}
+body.dark .cr-screen-group-label::after { background: rgba(255,255,255,0.08); }
+
+.iirm-before-after {
+  margin-top: 32px;
+}
+.iirm-ba-card {
+  position: relative;
+}
+.iirm-ba-badge {
+  display: inline-flex; align-items: center;
+  font-family: 'Cabinet Grotesk', sans-serif; font-size: 11px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  padding: 5px 14px; border-radius: 100px; margin-bottom: 12px;
+}
+.iirm-ba-badge--before {
+  background: rgba(214,79,53,0.12); color: #D64F35;
+  border: 1px solid rgba(214,79,53,0.25);
+}
+.iirm-ba-divider {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; margin: 32px 0 20px;
+}
+.iirm-ba-arrow {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(10,158,114,0.1); border: 1px solid rgba(10,158,114,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: #0A9E72; font-size: 14px;
+}
+.iirm-ba-divider-label {
+  font-family: 'Cabinet Grotesk', sans-serif; font-size: 12px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.14em; color: #0A9E72;
+}
+.iirm-ba-new-label {
+  font-family: 'Cabinet Grotesk', sans-serif; font-size: 11px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  display: inline-flex; padding: 5px 14px; border-radius: 100px; margin-bottom: 20px;
+  background: rgba(10,158,114,0.12); color: #0A9E72;
+  border: 1px solid rgba(10,158,114,0.25);
+}
+
+.iirm-screen-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 32px;
+}
+@media (max-width: 680px) { .iirm-screen-grid { grid-template-columns: 1fr; } }
+.iirm-screen-item { display: flex; flex-direction: column; }
+.iirm-screen-img {
+  border-radius: 12px; overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  border: 1px solid rgba(0,0,0,0.07);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+  line-height: 0;
+}
+body.dark .iirm-screen-img { border-color: rgba(255,255,255,0.07); box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
+.iirm-screen-img:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 16px 48px rgba(0,0,0,0.16); }
+body.dark .iirm-screen-img:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.45); }
+.iirm-screen-img img { width: 100%; height: auto; display: block; }
+.iirm-screen-lbl {
+  font-family: 'Cabinet Grotesk', sans-serif; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text-muted); text-align: center; margin-top: 10px;
+}
+
 /* ── Video section ──────────────────────────────────── */
 .cr-video-wrap {
   position: relative; border-radius: 20px; overflow: hidden;
@@ -2763,7 +2835,7 @@ body.dark .cr-phone { border-color: rgba(255,255,255,0.1); }
 @media (max-width: 600px) { .cr-phone-grid--wide { grid-template-columns: repeat(2, 1fr); } }
 
 .cr-phone-img-wrap {
-  border-radius: 11%; overflow: hidden;
+  border-radius: 6%; overflow: hidden;
   box-shadow: 0 12px 40px rgba(0,0,0,0.18);
   transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
   background: var(--bg);
@@ -4775,24 +4847,238 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
       behanceUrl: 'https://behance.net/kandularahul21'
     },
     'iirm': {
-      title: 'IIRM Insurance Platform', type: 'Enterprise UX',
+      title: 'IIRM Insurance HR Portal', type: 'Enterprise UX · HR Portal Redesign',
       client: 'Divami Design Labs', year: '2026', role: 'Digital Solution Designer',
-      tools: 'Figma · Miro · Maze', mockups: [],
-      heroMockup: { type: 'desktop', accent: '#0052CC' },
-      highlights: [{ num:'52%', label:'Better completion' }, { num:'6wk', label:'Onboarding (was 4mo)' }, { num:'120+', label:'Components built' }, { num:'3K+', label:'Active users' }],
-      tagline: 'Redesigning insurance risk management for the digital age.',
-      gradient: 'linear-gradient(135deg,#1D9E75 0%,#0D5C42 100%)',
-      overview: 'IIRM (Integrated Insurance Risk Management) is a B2B platform serving underwriters and risk managers at large insurers. The project involved a complete redesign of an aging legacy system used by 3,000+ professionals daily.',
-      problem: 'The legacy system required 11+ steps to complete a standard risk assessment. Inconsistent UI patterns meant new users needed 3–4 months of onboarding, and underwriters were resorting to spreadsheets for complex scenarios.',
-      solution: 'Designed a task-flow-first architecture, compressing the most common workflows to 3–4 steps. Introduced contextual intelligence panels that surface relevant policy data based on the current assessment stage.',
-      outcome: 'Onboarding time reduced from 4 months to 6 weeks. Workflow completion rates increased by 52%. The redesign is being rolled out across all 3,000+ active users.',
-      process: [
-        { step:'01', title:'Legacy System Audit', desc:'Conducted a comprehensive UX audit of the existing platform, cataloguing 140+ screens and mapping all 23 core user journeys with their pain points.' },
-        { step:'02', title:'Co-Design Workshops', desc:'Led 8 co-design sessions with underwriters, risk managers, and IT teams to validate assumptions and co-create new workflow models.' },
-        { step:'03', title:'Component Library Build', desc:'Built a 120-component design system tailored to insurance data types — risk matrices, premium calculators, and policy comparison tables.' },
-        { step:'04', title:'Iterative Testing', desc:'Ran 5 rounds of moderated usability testing with real underwriters, iterating on the contextual intelligence panel placement and density.' }
-      ],
-      behanceUrl: 'https://behance.net/kandularahul21'
+      tools: 'Figma · Claude Code · AI-assisted Workflow', mockups: [],
+      heroMockup: { type: 'desktop', accent: '#0052CC', img: 'IIRM.png' },
+      highlights: [{ num:'Clean', label:'Modern dashboard' }, { num:'AI+', label:'Hybrid workflow' }, { num:'6', label:'Key features' }, { num:'Full', label:'Enterprise UI system' }],
+      tagline: 'Reimagined the IIRM Insurance HR Portal for modern enterprise teams.',
+      gradient: 'linear-gradient(135deg,#0A3D8F 0%,#1565C0 60%,#0D47A1 100%)',
+      overview: '', problem: '', solution: '', outcome: '',
+      process: [{ step:'01', title:'', desc:'' }],
+      behanceUrl: 'https://behance.net/kandularahul21',
+      richHTML: `
+<div class="cr-section">
+  <div class="cr-eyebrow">01 — Overview</div>
+  <h2 class="cr-title">IRM Insurance HR Portal Redesign</h2>
+  <p class="cr-sub">Reimagined the IIRM Insurance HR Portal with a modern enterprise dashboard experience focused on insurance analytics, enrollment workflows, and claims management.</p>
+  <div class="cr-problem-block" style="margin-top:28px;">
+    <div class="cr-problem-label"><i class="ti ti-info-circle"></i> The Brief</div>
+    <p>I redesigned the platform to improve data readability, simplify HR operations, and create a scalable, user-friendly interface for managing employee insurance systems.</p>
+  </div>
+</div>
+
+<div class="cr-divider"></div>
+
+<div class="cr-section">
+  <div class="cr-eyebrow">02 — Workflow</div>
+  <h2 class="cr-title">A Hybrid Design Approach</h2>
+  <p class="cr-sub">This project combined traditional UX craft with AI-assisted rapid prototyping — moving faster without sacrificing design quality.</p>
+  <div class="cr-platforms" style="margin-top:24px;">
+    <div class="cr-platform">
+      <div class="cr-p-icon" style="background:rgba(10,158,114,0.1);"><i class="ti ti-pencil" style="color:#0A9E72;font-size:20px;"></i></div>
+      <div>
+        <h5>Manual UX/UI Design</h5>
+        <p>Full design process in Figma — research, wireframes, component systems, and high-fidelity UI built from first principles.</p>
+        <div class="cr-tags"><span class="cr-tag">Figma</span><span class="cr-tag">Wireframing</span><span class="cr-tag">Component Design</span></div>
+      </div>
+    </div>
+    <div class="cr-platform">
+      <div class="cr-p-icon" style="background:rgba(107,99,255,0.1);"><i class="ti ti-robot" style="color:#6C63FF;font-size:20px;"></i></div>
+      <div>
+        <h5>AI-Assisted Rapid Prototyping</h5>
+        <p>Used Claude Code to accelerate interface generation, iterate on layouts quickly, and prototype complex enterprise flows in a fraction of the usual time.</p>
+        <div class="cr-tags"><span class="cr-tag">Claude Code</span><span class="cr-tag">AI Prototyping</span><span class="cr-tag">Rapid Iteration</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cr-divider"></div>
+
+<div class="cr-section">
+  <div class="cr-eyebrow">03 — Contributions</div>
+  <h2 class="cr-title">My Contributions</h2>
+  <div class="cr-decisions" style="margin-top:24px;">
+    <div class="cr-decision open">
+      <div class="cr-decision-hdr">
+        <span class="cr-decision-num">01</span>
+        <span class="cr-decision-title">Dashboard UX Redesign</span>
+        <span class="cr-dtag cr-dtag-ux">UX Design</span>
+      </div>
+      <div class="cr-decision-body"><div class="cr-decision-inner">
+        <p>Restructured the entire dashboard architecture — improving information hierarchy, reducing cognitive load, and making key insurance data immediately scannable for HR teams.</p>
+      </div></div>
+    </div>
+    <div class="cr-decision open">
+      <div class="cr-decision-hdr">
+        <span class="cr-decision-num">02</span>
+        <span class="cr-decision-title">Claims & Enrollment Workflow Optimization</span>
+        <span class="cr-dtag cr-dtag-time">Workflow</span>
+      </div>
+      <div class="cr-decision-body"><div class="cr-decision-inner">
+        <p>Simplified multi-step claims and enrollment flows into clear, guided processes — reducing steps and eliminating ambiguity for both HR managers and employees.</p>
+      </div></div>
+    </div>
+    <div class="cr-decision open">
+      <div class="cr-decision-hdr">
+        <span class="cr-decision-num">03</span>
+        <span class="cr-decision-title">Analytics Visualization Improvements</span>
+        <span class="cr-dtag cr-dtag-ux">Data Design</span>
+      </div>
+      <div class="cr-decision-body"><div class="cr-decision-inner">
+        <p>Redesigned charts, tables, and KPI cards to surface meaningful insurance analytics — making policy coverage, risk data, and claims status instantly readable.</p>
+      </div></div>
+    </div>
+    <div class="cr-decision open">
+      <div class="cr-decision-hdr">
+        <span class="cr-decision-num">04</span>
+        <span class="cr-decision-title">Enterprise UI System Design</span>
+        <span class="cr-dtag cr-dtag-safe">Design System</span>
+      </div>
+      <div class="cr-decision-body"><div class="cr-decision-inner">
+        <p>Built a scalable, consistent UI system — components, patterns, and tokens designed specifically for enterprise insurance contexts with density and accessibility in mind.</p>
+      </div></div>
+    </div>
+    <div class="cr-decision open">
+      <div class="cr-decision-hdr">
+        <span class="cr-decision-num">05</span>
+        <span class="cr-decision-title">AI-Assisted Interface Generation</span>
+        <span class="cr-dtag cr-dtag-time">AI Workflow</span>
+      </div>
+      <div class="cr-decision-body"><div class="cr-decision-inner">
+        <p>Leveraged Claude Code to rapidly generate and iterate on interface variations — cutting prototype time significantly while maintaining design quality and consistency.</p>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<div class="cr-divider"></div>
+
+<div class="cr-section">
+  <div class="cr-eyebrow">04 — Features</div>
+  <h2 class="cr-title">Key Features</h2>
+  <div class="cr-metrics" style="margin-top:24px;">
+    <div class="cr-metric" style="padding:20px 24px;">
+      <div class="cr-metric-val" style="font-size:clamp(20px,2vw,26px);"><i class="ti ti-chart-bar" style="font-size:22px;color:#0A9E72;"></i></div>
+      <div class="cr-metric-lbl">Insurance Analytics Dashboard</div>
+      <div class="cr-metric-note">Real-time KPIs, policy coverage stats, and risk indicators in one unified view.</div>
+    </div>
+    <div class="cr-metric" style="padding:20px 24px;">
+      <div class="cr-metric-val" style="font-size:clamp(20px,2vw,26px);"><i class="ti ti-file-invoice" style="font-size:22px;color:#0A9E72;"></i></div>
+      <div class="cr-metric-lbl">Claims Management</div>
+      <div class="cr-metric-note">End-to-end claims tracking with status visibility, approvals, and history logs.</div>
+    </div>
+    <div class="cr-metric" style="padding:20px 24px;">
+      <div class="cr-metric-val" style="font-size:clamp(20px,2vw,26px);"><i class="ti ti-users" style="font-size:22px;color:#0A9E72;"></i></div>
+      <div class="cr-metric-lbl">Enrollment Tracking</div>
+      <div class="cr-metric-note">Employee enrollment flows with progress indicators, bulk actions, and deadline alerts.</div>
+    </div>
+    <div class="cr-metric" style="padding:20px 24px;">
+      <div class="cr-metric-val" style="font-size:clamp(20px,2vw,26px);"><i class="ti ti-shield-check" style="font-size:22px;color:#0A9E72;"></i></div>
+      <div class="cr-metric-lbl">Policy Overview System</div>
+      <div class="cr-metric-note">Comprehensive policy cards with coverage details, renewal dates, and plan comparisons.</div>
+    </div>
+    <div class="cr-metric" style="padding:20px 24px;">
+      <div class="cr-metric-val" style="font-size:clamp(20px,2vw,26px);"><i class="ti ti-building-hospital" style="font-size:22px;color:#0A9E72;"></i></div>
+      <div class="cr-metric-lbl">Risk & Hospital Management</div>
+      <div class="cr-metric-note">Network hospital directories, risk profiling, and utilisation reporting for HR teams.</div>
+    </div>
+    <div class="cr-metric" style="padding:20px 24px;">
+      <div class="cr-metric-val" style="font-size:clamp(20px,2vw,26px);"><i class="ti ti-devices" style="font-size:22px;color:#0A9E72;"></i></div>
+      <div class="cr-metric-lbl">Responsive Enterprise UI</div>
+      <div class="cr-metric-note">Fully responsive design — consistent experience across desktop, tablet, and large monitors.</div>
+    </div>
+  </div>
+</div>
+
+<div class="cr-divider"></div>
+
+<div class="cr-section">
+  <div class="cr-eyebrow">05 — Outcome</div>
+  <h2 class="cr-title">What We Achieved</h2>
+  <div class="cr-quote" style="margin-top:24px;">
+    <p>"Transformed a cluttered legacy portal into a clean, modern, and scalable HR insurance platform with improved usability, better analytics visibility, and a more intuitive enterprise experience."</p>
+  </div>
+  <div class="cr-tags" style="margin-top:24px;gap:10px;display:flex;flex-wrap:wrap;">
+    <span class="cr-tag" style="font-size:13px;padding:6px 14px;">Figma</span>
+    <span class="cr-tag" style="font-size:13px;padding:6px 14px;">Claude Code</span>
+    <span class="cr-tag" style="font-size:13px;padding:6px 14px;">AI-assisted Workflow</span>
+    <span class="cr-tag" style="font-size:13px;padding:6px 14px;">Enterprise UX</span>
+    <span class="cr-tag" style="font-size:13px;padding:6px 14px;">Design Systems</span>
+  </div>
+</div>
+
+<div class="cr-divider"></div>
+
+<div class="cr-section">
+  <div class="cr-eyebrow">06 — UI Screens</div>
+  <h2 class="cr-title">Interface Designs</h2>
+  <p class="cr-sub">A look at the redesigned portal — from analytics dashboards to claims workflows and enrollment management.</p>
+
+  <!-- Before / After -->
+  <div class="iirm-before-after">
+    <div class="iirm-ba-card">
+      <div class="iirm-ba-badge iirm-ba-badge--before">Before</div>
+      <div class="iirm-screen-img" style="border-radius:10px;">
+        <img src="IIRM%20Old.png" alt="Old IIRM UI" loading="lazy">
+      </div>
+      <div class="iirm-screen-lbl" style="margin-top:10px;">Legacy HR Portal — Old UI</div>
+    </div>
+  </div>
+
+  <div class="iirm-ba-divider">
+    <span class="iirm-ba-arrow"><i class="ti ti-arrow-down"></i></span>
+    <span class="iirm-ba-divider-label">Redesigned</span>
+    <span class="iirm-ba-arrow"><i class="ti ti-arrow-down"></i></span>
+  </div>
+
+  <div class="iirm-ba-new-label">New UI — 10 Screens</div>
+
+  <div class="iirm-screen-grid">
+    <div class="iirm-screen-item">
+      <div class="iirm-screen-img"><img src="IIRM%201.png" alt="Dashboard Overview" loading="lazy"></div>
+      <div class="iirm-screen-lbl">Dashboard Overview</div>
+    </div>
+    <div class="iirm-screen-item">
+      <div class="iirm-screen-img"><img src="IIRM%206.png" alt="Enrollment" loading="lazy"></div>
+      <div class="iirm-screen-lbl">Enrollment</div>
+    </div>
+    <div class="iirm-screen-item">
+      <div class="iirm-screen-img"><img src="IIRM%209.png" alt="Group Mediclaim Policy" loading="lazy"></div>
+      <div class="iirm-screen-lbl">Group Mediclaim Policy</div>
+    </div>
+    <div class="iirm-screen-item">
+      <div class="iirm-screen-img"><img src="IIRM%203.png" alt="All Claims" loading="lazy"></div>
+      <div class="iirm-screen-lbl">All Claims</div>
+    </div>
+    <div class="iirm-screen-item">
+      <div class="iirm-screen-img"><img src="IIRM%202%20.png" alt="Claim Detail" loading="lazy"></div>
+      <div class="iirm-screen-lbl">Claim Detail</div>
+    </div>
+    <div class="iirm-screen-item">
+      <div class="iirm-screen-img"><img src="IIRM%204.png" alt="CD Manage" loading="lazy"></div>
+      <div class="iirm-screen-lbl">CD Manage</div>
+    </div>
+    <div class="iirm-screen-item">
+      <div class="iirm-screen-img"><img src="IIRM%208.png" alt="Hospital Directory — Card View" loading="lazy"></div>
+      <div class="iirm-screen-lbl">Hospital Directory — Card View</div>
+    </div>
+    <div class="iirm-screen-item">
+      <div class="iirm-screen-img"><img src="IIRM%207.png" alt="Hospital Directory — Map View" loading="lazy"></div>
+      <div class="iirm-screen-lbl">Hospital Directory — Map View</div>
+    </div>
+    <div class="iirm-screen-item">
+      <div class="iirm-screen-img"><img src="IIRM%2010.png" alt="Employee Reports" loading="lazy"></div>
+      <div class="iirm-screen-lbl">Employee Reports</div>
+    </div>
+    <div class="iirm-screen-item">
+      <div class="iirm-screen-img"><img src="IIRM%205.png" alt="Demography Report" loading="lazy"></div>
+      <div class="iirm-screen-lbl">Demography Report</div>
+    </div>
+  </div>
+</div>
+`
     },
     'thinqxuper': {
       title: 'Thinqxuper App Suite', type: 'Superapp · Rural India',
@@ -5036,239 +5322,257 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
 
 <div class="cr-section">
   <div class="cr-eyebrow">07 — Screens</div>
-  <h2 class="cr-title">App Screens</h2>
-  <p class="cr-sub">Three platforms, one design system — each tuned for its user's real-world context.</p>
+  <h2 class="cr-title">Rider App — Full User Flow</h2>
+  <p class="cr-sub">Every screen in sequence — from first launch to delivery complete. Onboarding, auth, live delivery, and account management.</p>
 
-  <div class="cr-tabs-bar">
-    <button class="cr-tab-btn active" onclick="crSwitchTab(this,'cr-tab-customer')">
-      <i class="ti ti-device-mobile"></i> Customer App
-    </button>
-    <button class="cr-tab-btn" onclick="crSwitchTab(this,'cr-tab-rider')">
-      <i class="ti ti-motorbike"></i> Rider App
-    </button>
-    <button class="cr-tab-btn" onclick="crSwitchTab(this,'cr-tab-admin')">
-      <i class="ti ti-layout-dashboard"></i> Admin Panel
-    </button>
-  </div>
-
-  <!-- CUSTOMER APP -->
-  <div class="cr-tab-panel active" id="cr-tab-customer">
-    <div class="cr-phone-grid">
-      <!-- Screen 1: Home -->
-      <div>
-        <div class="cr-phone">
-          <div class="cr-phone-notch"></div>
-          <div class="cr-phone-screen">
-            <div class="cr-phone-placeholder" style="background:linear-gradient(180deg,#0f1923 0%,#111b26 100%);">
-              <div class="cr-ph-header">
-                <div class="cr-ph-avatar" style="background:#1D9E75;"></div>
-                <div class="cr-ph-title"></div>
-                <div style="width:20px;height:20px;border-radius:4px;background:rgba(255,255,255,0.08);flex-shrink:0;"></div>
-              </div>
-              <div style="height:72px;border-radius:10px;background:linear-gradient(135deg,rgba(29,158,117,0.25),rgba(29,158,117,0.08));border:1px solid rgba(29,158,117,0.2);display:flex;align-items:center;padding:0 10px;gap:8px;flex-shrink:0;">
-                <div style="flex:1;display:flex;flex-direction:column;gap:5px;">
-                  <div class="cr-ph-bar w60" style="background:rgba(29,158,117,0.4);"></div>
-                  <div class="cr-ph-bar w40"></div>
-                </div>
-                <div style="width:36px;height:36px;border-radius:8px;background:rgba(29,158,117,0.3);flex-shrink:0;"></div>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;flex-shrink:0;">
-                <div style="height:48px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;"><div style="width:16px;height:16px;border-radius:50%;background:rgba(29,158,117,0.4);"></div><div class="cr-ph-bar w80" style="height:5px;width:70%;"></div></div>
-                <div style="height:48px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;"><div style="width:16px;height:16px;border-radius:50%;background:rgba(107,99,255,0.35);"></div><div class="cr-ph-bar w80" style="height:5px;width:70%;"></div></div>
-                <div style="height:48px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;"><div style="width:16px;height:16px;border-radius:50%;background:rgba(231,76,60,0.35);"></div><div class="cr-ph-bar w80" style="height:5px;width:70%;"></div></div>
-                <div style="height:48px;border-radius:8px;background:rgba(255,255,255,0.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;"><div style="width:16px;height:16px;border-radius:50%;background:rgba(251,191,36,0.35);"></div><div class="cr-ph-bar w80" style="height:5px;width:70%;"></div></div>
-              </div>
-              <div class="cr-ph-bar w60" style="height:7px;"></div>
-              <div class="cr-ph-card"><div class="cr-ph-thumb" style="background:rgba(29,158,117,0.25);border-radius:8px;"></div><div class="cr-ph-lines"><div class="cr-ph-line w80"></div><div class="cr-ph-line" style="width:50%;"></div></div></div>
-              <div class="cr-ph-card"><div class="cr-ph-thumb" style="background:rgba(107,99,255,0.2);border-radius:8px;"></div><div class="cr-ph-lines"><div class="cr-ph-line w80"></div><div class="cr-ph-line" style="width:40%;"></div></div></div>
-              <div class="cr-ph-card"><div class="cr-ph-thumb" style="background:rgba(231,76,60,0.2);border-radius:8px;"></div><div class="cr-ph-lines"><div class="cr-ph-line" style="width:70%;"></div><div class="cr-ph-line" style="width:45%;"></div></div></div>
-            </div>
-          </div>
-        </div>
-        <div class="cr-phone-label">Home / Browse</div>
-      </div>
-      <!-- Screen 2: Menu & Cart -->
-      <div>
-        <div class="cr-phone">
-          <div class="cr-phone-notch"></div>
-          <div class="cr-phone-screen">
-            <div class="cr-phone-placeholder" style="background:#0f1923;">
-              <div style="height:60px;border-radius:10px;background:linear-gradient(135deg,rgba(29,158,117,0.2),rgba(17,27,38,0.9));margin-bottom:2px;display:flex;align-items:flex-end;padding:8px;flex-shrink:0;">
-                <div style="display:flex;flex-direction:column;gap:4px;width:100%;"><div class="cr-ph-bar w60" style="background:rgba(255,255,255,0.2);height:9px;"></div><div class="cr-ph-bar w40"></div></div>
-              </div>
-              <div style="display:flex;gap:5px;flex-shrink:0;overflow:hidden;">
-                <div style="height:22px;border-radius:100px;padding:0 8px;background:rgba(29,158,117,0.25);border:1px solid rgba(29,158,117,0.4);flex-shrink:0;"></div>
-                <div style="height:22px;border-radius:100px;padding:0 8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);flex-shrink:0;width:40px;"></div>
-                <div style="height:22px;border-radius:100px;padding:0 8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);flex-shrink:0;width:40px;"></div>
-              </div>
-              <div class="cr-ph-card"><div class="cr-ph-thumb" style="background:rgba(29,158,117,0.2);"></div><div class="cr-ph-lines"><div class="cr-ph-line w80"></div><div class="cr-ph-line" style="width:50%;"></div></div><div style="width:20px;height:20px;border-radius:50%;background:rgba(29,158,117,0.3);flex-shrink:0;"></div></div>
-              <div class="cr-ph-card"><div class="cr-ph-thumb" style="background:rgba(107,99,255,0.2);"></div><div class="cr-ph-lines"><div class="cr-ph-line w80"></div><div class="cr-ph-line" style="width:40%;"></div></div><div style="width:20px;height:20px;border-radius:50%;background:rgba(107,99,255,0.25);flex-shrink:0;"></div></div>
-              <div class="cr-ph-card"><div class="cr-ph-thumb" style="background:rgba(231,76,60,0.2);"></div><div class="cr-ph-lines"><div class="cr-ph-line" style="width:70%;"></div><div class="cr-ph-line" style="width:45%;"></div></div><div style="width:20px;height:20px;border-radius:50%;background:rgba(231,76,60,0.25);flex-shrink:0;"></div></div>
-              <div style="margin-top:auto;height:36px;border-radius:10px;background:rgba(29,158,117,0.9);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><div style="height:8px;width:60%;border-radius:4px;background:rgba(255,255,255,0.4);"></div></div>
-            </div>
-          </div>
-        </div>
-        <div class="cr-phone-label">Menu & Cart</div>
-      </div>
-      <!-- Screen 3: Payment (COD first) -->
-      <div>
-        <div class="cr-phone">
-          <div class="cr-phone-notch"></div>
-          <div class="cr-phone-screen">
-            <div class="cr-phone-placeholder" style="background:#0f1923;">
-              <div class="cr-ph-header"><div class="cr-ph-title"></div></div>
-              <div style="border-radius:10px;border:2px solid rgba(29,158,117,0.5);padding:10px;background:rgba(29,158,117,0.08);flex-shrink:0;">
-                <div style="display:flex;align-items:center;gap:6px;margin-bottom:7px;"><div style="width:14px;height:14px;border-radius:50%;border:2px solid #1D9E75;background:#1D9E75;flex-shrink:0;"></div><div class="cr-ph-bar w60" style="background:rgba(29,158,117,0.5);height:7px;"></div><div style="margin-left:auto;font-size:8px;color:rgba(29,158,117,0.8);font-weight:700;white-space:nowrap;">COD</div></div>
-                <div class="cr-ph-bar w80" style="height:6px;"></div>
-              </div>
-              <div style="border-radius:10px;border:1px solid rgba(255,255,255,0.07);padding:10px;flex-shrink:0;">
-                <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.15);flex-shrink:0;"></div><div class="cr-ph-bar w60" style="height:7px;"></div></div>
-              </div>
-              <div style="border-radius:10px;border:1px solid rgba(255,255,255,0.07);padding:10px;flex-shrink:0;">
-                <div style="display:flex;align-items:center;gap:6px;"><div style="width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.15);flex-shrink:0;"></div><div class="cr-ph-bar w50" style="height:7px;width:50%;"></div></div>
-              </div>
-              <div style="margin-top:6px;border-radius:8px;background:rgba(255,255,255,0.04);padding:10px;flex-shrink:0;display:flex;flex-direction:column;gap:5px;"><div style="display:flex;justify-content:space-between;"><div class="cr-ph-bar w40"></div><div class="cr-ph-bar" style="width:20%;"></div></div><div style="display:flex;justify-content:space-between;"><div class="cr-ph-bar w40"></div><div class="cr-ph-bar" style="width:20%;"></div></div><div style="height:1px;background:rgba(255,255,255,0.06);"></div><div style="display:flex;justify-content:space-between;"><div class="cr-ph-bar w40" style="background:rgba(255,255,255,0.15);"></div><div class="cr-ph-bar" style="width:25%;background:rgba(29,158,117,0.5);"></div></div></div>
-              <div style="margin-top:auto;height:36px;border-radius:10px;background:rgba(29,158,117,0.9);flex-shrink:0;display:flex;align-items:center;justify-content:center;"><div style="height:7px;width:55%;border-radius:3px;background:rgba(255,255,255,0.4);"></div></div>
-            </div>
-          </div>
-        </div>
-        <div class="cr-phone-label">Payment (COD First)</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- RIDER APP -->
-  <div class="cr-tab-panel" id="cr-tab-rider">
+  <!-- 01 Onboarding -->
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">01 · Onboarding</div>
     <div class="cr-phone-grid cr-phone-grid--wide">
-      <div>
-        <div class="cr-phone-img-wrap">
-          <img src="Thinqx%20Rider%20App%201.png" alt="Home – Duty Off" loading="lazy">
-        </div>
-        <div class="cr-phone-label">Home – Duty Off</div>
-      </div>
-      <div>
-        <div class="cr-phone-img-wrap">
-          <img src="Thinqx%20Rider%20App%202.png" alt="Home – Duty On" loading="lazy">
-        </div>
-        <div class="cr-phone-label">Home – Duty On</div>
-      </div>
-      <div>
-        <div class="cr-phone-img-wrap">
-          <img src="Thinqx%20Rider%20App%203.png" alt="Trip Detail" loading="lazy">
-        </div>
-        <div class="cr-phone-label">Trip Detail</div>
-      </div>
-      <div>
-        <div class="cr-phone-img-wrap">
-          <img src="Thinqx%20Rider%20App%204.png" alt="Rider Profile" loading="lazy">
-        </div>
-        <div class="cr-phone-label">Rider Profile</div>
-      </div>
-      <div>
-        <div class="cr-phone-img-wrap">
-          <img src="Thinqx%20Rider%20App%205.png" alt="Order History" loading="lazy">
-        </div>
-        <div class="cr-phone-label">Order History</div>
-      </div>
-      <div>
-        <div class="cr-phone-img-wrap">
-          <img src="Thinqx%20Rider%20App%206.png" alt="Payouts" loading="lazy">
-        </div>
-        <div class="cr-phone-label">Payouts</div>
-      </div>
-      <div>
-        <div class="cr-phone-img-wrap">
-          <img src="Thinqx%20Rider%20App%207.png" alt="Support" loading="lazy">
-        </div>
-        <div class="cr-phone-label">Support</div>
-      </div>
-      <div>
-        <div class="cr-phone-img-wrap">
-          <img src="Thinqx%20Rider%20App%208.png" alt="Screen 8" loading="lazy">
-        </div>
-        <div class="cr-phone-label">Incoming Order</div>
-      </div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%205.png" alt="Splash" loading="lazy"></div><div class="cr-phone-label">Splash Screen</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%202.png" alt="Onboarding 1" loading="lazy"></div><div class="cr-phone-label">Ride, Deliver & Earn</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%204.png" alt="Onboarding 2" loading="lazy"></div><div class="cr-phone-label">Track Every Move</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%209.png" alt="Onboarding 3" loading="lazy"></div><div class="cr-phone-label">Safe. Verified. Secure.</div></div>
     </div>
   </div>
 
-  <!-- ADMIN PANEL -->
-  <div class="cr-tab-panel" id="cr-tab-admin">
-    <div class="cr-desktop-grid">
-      <!-- Dashboard -->
-      <div>
-        <div class="cr-desktop">
-          <div class="cr-desktop-bar">
-            <div class="cr-desktop-dot" style="background:#FF5F57;"></div>
-            <div class="cr-desktop-dot" style="background:#FFBD2E;"></div>
-            <div class="cr-desktop-dot" style="background:#28C840;"></div>
-            <div style="flex:1;margin:0 10px;height:14px;border-radius:4px;background:rgba(255,255,255,0.05);"></div>
-          </div>
-          <div class="cr-desktop-screen">
-            <div class="cr-desktop-sidebar">
-              <div class="cr-desktop-nav-item active-nav"></div>
-              <div class="cr-desktop-nav-item"></div>
-              <div class="cr-desktop-nav-item"></div>
-              <div class="cr-desktop-nav-item"></div>
-              <div class="cr-desktop-nav-item"></div>
-            </div>
-            <div class="cr-desktop-content">
-              <div class="cr-desktop-row">
-                <div class="cr-desktop-stat"><div class="cr-desktop-stat-num" style="background:rgba(29,158,117,0.4);"></div><div class="cr-desktop-stat-lbl"></div></div>
-                <div class="cr-desktop-stat"><div class="cr-desktop-stat-num" style="background:rgba(107,99,255,0.35);"></div><div class="cr-desktop-stat-lbl"></div></div>
-                <div class="cr-desktop-stat"><div class="cr-desktop-stat-num" style="background:rgba(251,191,36,0.35);"></div><div class="cr-desktop-stat-lbl"></div></div>
-                <div class="cr-desktop-stat"><div class="cr-desktop-stat-num" style="background:rgba(231,76,60,0.3);"></div><div class="cr-desktop-stat-lbl"></div></div>
-              </div>
-              <div class="cr-desktop-table">
-                <div class="cr-desktop-th">
-                  <div style="width:50%;"></div><div style="width:40%;"></div><div style="width:55%;"></div><div style="width:45%;"></div><div style="width:60%;"></div>
-                </div>
-                <div class="cr-desktop-td"><div style="width:65%;"></div><div style="width:45%;"></div><div style="width:50%;"></div><div><div class="cr-badge-chip" style="background:rgba(29,158,117,0.2);"></div></div><div style="width:55%;"></div></div>
-                <div class="cr-desktop-td"><div style="width:70%;"></div><div style="width:40%;"></div><div style="width:55%;"></div><div><div class="cr-badge-chip" style="background:rgba(251,191,36,0.2);"></div></div><div style="width:45%;"></div></div>
-                <div class="cr-desktop-td"><div style="width:60%;"></div><div style="width:50%;"></div><div style="width:45%;"></div><div><div class="cr-badge-chip" style="background:rgba(29,158,117,0.2);"></div></div><div style="width:60%;"></div></div>
-                <div class="cr-desktop-td"><div style="width:75%;"></div><div style="width:35%;"></div><div style="width:50%;"></div><div><div class="cr-badge-chip" style="background:rgba(231,76,60,0.2);"></div></div><div style="width:50%;"></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="cr-desktop-label">Orders Dashboard</div>
-      </div>
-      <!-- Merchant Management -->
-      <div>
-        <div class="cr-desktop">
-          <div class="cr-desktop-bar">
-            <div class="cr-desktop-dot" style="background:#FF5F57;"></div>
-            <div class="cr-desktop-dot" style="background:#FFBD2E;"></div>
-            <div class="cr-desktop-dot" style="background:#28C840;"></div>
-            <div style="flex:1;margin:0 10px;height:14px;border-radius:4px;background:rgba(255,255,255,0.05);"></div>
-          </div>
-          <div class="cr-desktop-screen">
-            <div class="cr-desktop-sidebar">
-              <div class="cr-desktop-nav-item"></div>
-              <div class="cr-desktop-nav-item active-nav"></div>
-              <div class="cr-desktop-nav-item"></div>
-              <div class="cr-desktop-nav-item"></div>
-              <div class="cr-desktop-nav-item"></div>
-            </div>
-            <div class="cr-desktop-content">
-              <div style="display:flex;gap:8px;align-items:center;margin-bottom:2px;">
-                <div style="height:20px;flex:1;border-radius:6px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);"></div>
-                <div style="height:20px;width:60px;border-radius:6px;background:rgba(29,158,117,0.3);flex-shrink:0;"></div>
-              </div>
-              <div class="cr-desktop-table">
-                <div class="cr-desktop-th">
-                  <div style="width:55%;"></div><div style="width:45%;"></div><div style="width:50%;"></div><div style="width:40%;"></div><div style="width:65%;"></div>
-                </div>
-                <div class="cr-desktop-td"><div style="width:70%;"></div><div style="width:50%;"></div><div style="width:45%;"></div><div><div class="cr-badge-chip" style="background:rgba(29,158,117,0.2);"></div></div><div style="width:55%;"></div></div>
-                <div class="cr-desktop-td"><div style="width:65%;"></div><div style="width:40%;"></div><div style="width:55%;"></div><div><div class="cr-badge-chip" style="background:rgba(251,191,36,0.2);"></div></div><div style="width:50%;"></div></div>
-                <div class="cr-desktop-td"><div style="width:80%;"></div><div style="width:45%;"></div><div style="width:50%;"></div><div><div class="cr-badge-chip" style="background:rgba(29,158,117,0.2);"></div></div><div style="width:60%;"></div></div>
-                <div class="cr-desktop-td"><div style="width:60%;"></div><div style="width:55%;"></div><div style="width:40%;"></div><div><div class="cr-badge-chip" style="background:rgba(107,99,255,0.2);"></div></div><div style="width:45%;"></div></div>
-                <div class="cr-desktop-td"><div style="width:75%;"></div><div style="width:35%;"></div><div style="width:55%;"></div><div><div class="cr-badge-chip" style="background:rgba(231,76,60,0.2);"></div></div><div style="width:50%;"></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="cr-desktop-label">Merchant Management</div>
-      </div>
+  <!-- 02 Authentication -->
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">02 · Authentication</div>
+    <div class="cr-phone-grid cr-phone-grid--wide">
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/login.png" alt="Login" loading="lazy"></div><div class="cr-phone-label">Enter Phone Number</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/login-1.png" alt="Login 1" loading="lazy"></div><div class="cr-phone-label">Login — State 2</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/login-2.png" alt="Login 2" loading="lazy"></div><div class="cr-phone-label">Login — State 3</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/login-3.png" alt="Login 3" loading="lazy"></div><div class="cr-phone-label">Login — State 4</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/OTP.png" alt="OTP" loading="lazy"></div><div class="cr-phone-label">Verify OTP</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/OTP-1.png" alt="OTP 1" loading="lazy"></div><div class="cr-phone-label">OTP — State 2</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/OTP-2.png" alt="OTP 2" loading="lazy"></div><div class="cr-phone-label">OTP — State 3</div></div>
+    </div>
+  </div>
+
+  <!-- 03 Document Verification -->
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">03 · Document Verification</div>
+    <div class="cr-phone-grid cr-phone-grid--wide">
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/Documents.png" alt="Documents" loading="lazy"></div><div class="cr-phone-label">Documents List</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/Aadhar.png" alt="Aadhar" loading="lazy"></div><div class="cr-phone-label">Aadhaar Card</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/Pancard.png" alt="PAN" loading="lazy"></div><div class="cr-phone-label">PAN Card</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/Driving%20license.png" alt="DL" loading="lazy"></div><div class="cr-phone-label">Driving License</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/Driving%20license-1.png" alt="DL back" loading="lazy"></div><div class="cr-phone-label">Driving License — Back</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/Verify.png" alt="Verify" loading="lazy"></div><div class="cr-phone-label">Verification Pending</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/Verify-1.png" alt="Verified" loading="lazy"></div><div class="cr-phone-label">Verification Complete</div></div>
+    </div>
+  </div>
+
+  <!-- 04 Home & Dashboard -->
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">04 · Home & Dashboard</div>
+    <div class="cr-phone-grid cr-phone-grid--wide">
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%2012.png" alt="Home Duty Off" loading="lazy"></div><div class="cr-phone-label">Home — Duty Off</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%2013.png" alt="Home Duty On" loading="lazy"></div><div class="cr-phone-label">Home — Searching Orders</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%2072.png" alt="Incoming Order" loading="lazy"></div><div class="cr-phone-label">Incoming Order</div></div>
+    </div>
+  </div>
+
+  <!-- 05 Active Delivery -->
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">05 · Active Delivery</div>
+    <div class="cr-phone-grid cr-phone-grid--wide">
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%2069.png" alt="Navigation" loading="lazy"></div><div class="cr-phone-label">Navigation to Pickup</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%2070.png" alt="Route" loading="lazy"></div><div class="cr-phone-label">Pickup Route</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%2015.png" alt="At Store" loading="lazy"></div><div class="cr-phone-label">Arrived at Store</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%2016.png" alt="Picked Up" loading="lazy"></div><div class="cr-phone-label">Order Picked Up</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%2018.png" alt="Drop Location" loading="lazy"></div><div class="cr-phone-label">Heading to Drop</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%2019.png" alt="Delivered" loading="lazy"></div><div class="cr-phone-label">Arrived at Drop</div></div>
+    </div>
+  </div>
+
+  <!-- 06 Delivery Complete -->
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">06 · Delivery Complete</div>
+    <div class="cr-phone-grid cr-phone-grid--wide">
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%2023.png" alt="Delivered" loading="lazy"></div><div class="cr-phone-label">Order Delivered</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%2025.png" alt="Summary" loading="lazy"></div><div class="cr-phone-label">Delivery Summary</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/X%20-%2071.png" alt="Rating" loading="lazy"></div><div class="cr-phone-label">Rating & Feedback</div></div>
+    </div>
+  </div>
+
+  <!-- 07 Payouts -->
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">07 · Payouts</div>
+    <div class="cr-phone-grid cr-phone-grid--wide">
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/payout.png" alt="Payouts" loading="lazy"></div><div class="cr-phone-label">Payout History</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/payout-1.png" alt="Payout 1" loading="lazy"></div><div class="cr-phone-label">Payout Detail</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/payout-2.png" alt="Payout 2" loading="lazy"></div><div class="cr-phone-label">Payout Breakdown</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/payout-3.png" alt="Payout 3" loading="lazy"></div><div class="cr-phone-label">Withdraw Funds</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/payout-4.png" alt="Payout 4" loading="lazy"></div><div class="cr-phone-label">Payout Confirmation</div></div>
+    </div>
+  </div>
+
+  <!-- 08 Profile & Settings -->
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">08 · Profile & Settings</div>
+    <div class="cr-phone-grid cr-phone-grid--wide">
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/menu.png" alt="Menu" loading="lazy"></div><div class="cr-phone-label">Menu</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/profile.png" alt="Profile" loading="lazy"></div><div class="cr-phone-label">Rider Profile</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/Notifications.png" alt="Notifications" loading="lazy"></div><div class="cr-phone-label">Notifications</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20Rider%20App/Settings.png" alt="Settings" loading="lazy"></div><div class="cr-phone-label">Settings</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="cr-divider"></div>
+
+<div class="cr-section">
+  <div class="cr-eyebrow">User App — Screens</div>
+  <h2 class="cr-title">Customer Experience</h2>
+  <p class="cr-sub">Food, grocery, bike taxi, and medicine — all in one app, designed for everyday users across tier 2–3 cities.</p>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">01 · Onboarding</div>
+    <div class="cr-phone-grid cr-phone-grid--wide">
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/Splash.png" alt="Splash" loading="lazy"></div><div class="cr-phone-label">Splash Screen</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/onboarding.png" alt="Onboarding 1" loading="lazy"></div><div class="cr-phone-label">Welcome</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/onboarding-1.png" alt="Onboarding 2" loading="lazy"></div><div class="cr-phone-label">Explore Services</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/onboarding-2.png" alt="Onboarding 3" loading="lazy"></div><div class="cr-phone-label">Get Started</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">02 · Authentication</div>
+    <div class="cr-phone-grid cr-phone-grid--wide">
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/login.png" alt="Login" loading="lazy"></div><div class="cr-phone-label">Enter Phone Number</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/login-1.png" alt="Login 1" loading="lazy"></div><div class="cr-phone-label">Login — State 2</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/login-2.png" alt="Login 2" loading="lazy"></div><div class="cr-phone-label">Login — State 3</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/login-3.png" alt="Login 3" loading="lazy"></div><div class="cr-phone-label">Login — State 4</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/signup.png" alt="Sign Up" loading="lazy"></div><div class="cr-phone-label">Create Account</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/signup-1.png" alt="Sign Up 1" loading="lazy"></div><div class="cr-phone-label">Sign Up — Step 2</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/signup-2.png" alt="Sign Up 2" loading="lazy"></div><div class="cr-phone-label">Sign Up — Step 3</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/signup-3.png" alt="Sign Up 3" loading="lazy"></div><div class="cr-phone-label">Sign Up — Step 4</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/OTP.png" alt="OTP" loading="lazy"></div><div class="cr-phone-label">Verify OTP</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/OTP-1.png" alt="OTP 1" loading="lazy"></div><div class="cr-phone-label">OTP — State 2</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/OTP-2.png" alt="OTP 2" loading="lazy"></div><div class="cr-phone-label">OTP — State 3</div></div>
+
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">03 · Home & Discover</div>
+    <div class="cr-phone-grid cr-phone-grid--wide">
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/Home-1.png" alt="Home Dashboard" loading="lazy"></div><div class="cr-phone-label">Home Dashboard</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/Home.png" alt="Food" loading="lazy"></div><div class="cr-phone-label">Food Delivery</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/Grocery.png" alt="Grocery" loading="lazy"></div><div class="cr-phone-label">Grocery</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/medicine.png" alt="Medicine" loading="lazy"></div><div class="cr-phone-label">Medicine</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">04 · Bike Taxi</div>
+    <div class="cr-phone-grid cr-phone-grid--wide">
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2047.png" alt="Ride Booking" loading="lazy"></div><div class="cr-phone-label">Ride Booking</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2048.png" alt="Enter Start" loading="lazy"></div><div class="cr-phone-label">Enter Start Point</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2049.png" alt="Start Set" loading="lazy"></div><div class="cr-phone-label">Start Point Set</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2050.png" alt="Drop Search" loading="lazy"></div><div class="cr-phone-label">Drop Point Search</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2060.png" alt="Select Drop" loading="lazy"></div><div class="cr-phone-label">Select Drop Point</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2063.png" alt="Ride Selection" loading="lazy"></div><div class="cr-phone-label">Choose Ride Type</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2053.png" alt="Ride Type" loading="lazy"></div><div class="cr-phone-label">Ride Options</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2054.png" alt="Confirm Ride" loading="lazy"></div><div class="cr-phone-label">Confirm Ride</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2064.png" alt="Route" loading="lazy"></div><div class="cr-phone-label">Route Confirmed</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2055.png" alt="Arriving" loading="lazy"></div><div class="cr-phone-label">Rider Arriving</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2056.png" alt="Arrived" loading="lazy"></div><div class="cr-phone-label">Captain Arrived</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2057.png" alt="In Progress" loading="lazy"></div><div class="cr-phone-label">Ride in Progress</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2058.png" alt="Payment" loading="lazy"></div><div class="cr-phone-label">Payment</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/X%20-%2059.png" alt="Trip Details" loading="lazy"></div><div class="cr-phone-label">Trip Summary</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">05 · Orders & Profile</div>
+    <div class="cr-phone-grid cr-phone-grid--wide">
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/Order%20History.png" alt="Order History" loading="lazy"></div><div class="cr-phone-label">Order History</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/Order%20History-1.png" alt="Order Detail" loading="lazy"></div><div class="cr-phone-label">Order Detail</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/Profile.png" alt="Profile" loading="lazy"></div><div class="cr-phone-label">Profile</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">06 · Safety</div>
+    <div class="cr-phone-grid cr-phone-grid--wide">
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/sos.png" alt="SOS" loading="lazy"></div><div class="cr-phone-label">SOS — Emergency Call</div></div>
+      <div><div class="cr-phone-img-wrap"><img src="Thinqx%20User%20App%20/sos-1.png" alt="SOS Help" loading="lazy"></div><div class="cr-phone-label">Emergency Help</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="cr-divider"></div>
+
+<div class="cr-section">
+  <div class="cr-eyebrow">Admin Panel — Screens</div>
+  <h2 class="cr-title">Operations Dashboard</h2>
+  <p class="cr-sub">A centralised web dashboard for managing riders, orders, finances, and communications across the Thinqxuper ecosystem.</p>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">01 · Dashboard & Analytics</div>
+    <div class="iirm-screen-grid">
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard.png" alt="Main Dashboard" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Main Dashboard</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-6.png" alt="Dashboard Analytics" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Dashboard Analytics</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">02 · Rider Management</div>
+    <div class="iirm-screen-grid">
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-1.png" alt="Rider List" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Rider List</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-2.png" alt="Rider Profile" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Rider Profile</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-11.png" alt="Rider Overview" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Rider Overview</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-3.png" alt="Rider Orders" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Rider Orders</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-12.png" alt="Rider Order History" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Rider Order History</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-4.png" alt="Rider Complaints" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Rider Complaints</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-5.png" alt="Rider Payouts" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Rider Payouts</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-13.png" alt="Rider Addresses" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Rider Addresses</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-14.png" alt="Rider Payments" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Rider Payment Methods</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-15.png" alt="Rider Preferences" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Rider Preferences</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-16.png" alt="Rider Referrals" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Rider Referrals</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">03 · Order Management</div>
+    <div class="iirm-screen-grid">
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Order%20Management.png" alt="Order List" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Order List</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-7.png" alt="Orders Overview" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Orders Overview</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-8.png" alt="Orders Filtered" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Orders — Filtered View</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-9.png" alt="Order Assigned" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Order — Assigned</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Dashboard-10.png" alt="Order Pending" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Order — Pending</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">04 · Finance</div>
+    <div class="iirm-screen-grid">
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Finance.png" alt="Finance Dashboard" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Finance Dashboard</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Finance-1.png" alt="Payout Details" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Payout Details</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Finance-2.png" alt="Pricing Config" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Rider Pricing Config</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Finance-3.png" alt="Finance Detail" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Finance Detail</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">05 · Communication</div>
+    <div class="iirm-screen-grid">
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/communication.png" alt="Calls List" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Calls List</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/communication-1.png" alt="Calls View" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Calls View</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/communication-2.png" alt="Messages" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Messages</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/communication-3.png" alt="Emails" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Emails</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">06 · Customer & Role Management</div>
+    <div class="iirm-screen-grid">
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/customer.png" alt="Customer Management" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Customer Management</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Role%20Management.png" alt="Role Management" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Role Management</div></div>
+      <div><div class="iirm-screen-img"><img src="Thinqx%20Admin%20panel/Role%20Management-1.png" alt="User Roles" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">User Roles</div></div>
     </div>
   </div>
 </div>
@@ -5568,6 +5872,11 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
       } else {
         /* desktop / browser frame */
         mockupInner.style.width = '380px';
+        if (m.img) {
+          mockupInner.style.cssText = 'width:400px;display:flex;align-items:center;justify-content:center;';
+          mockupInner.innerHTML =
+            '<img src="' + m.img + '" alt="" style="width:100%;height:auto;border-radius:14px;object-fit:contain;filter:drop-shadow(0 24px 48px rgba(0,0,0,0.45));display:block;">';
+        } else {
         mockupInner.innerHTML =
           '<div style="border-radius:14px;overflow:hidden;border:1.5px solid rgba(255,255,255,0.14);background:rgba(0,0,0,0.3);backdrop-filter:blur(10px);">' +
             '<div style="height:26px;background:rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;padding:0 10px;gap:5px;">' +
@@ -5598,6 +5907,7 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
               '</div>' +
             '</div>' +
           '</div>';
+        } /* end else (no img) */
       }
       document.getElementById('caseHeroMockup').style.display = '';
     } else {
