@@ -22,7 +22,7 @@
 <link rel="preload" href="hero-photo-nobg.webp" as="image">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,700,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.11.0/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js">
 <style>
 /* ============================================================
@@ -2379,7 +2379,7 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
 }
 .cr-sub {
   font-size: 15px; color: var(--text-muted);
-  max-width: 600px; line-height: 1.75; margin-bottom: 36px;
+  max-width: 100%; line-height: 1.75; margin-bottom: 36px;
 }
 
 /* Stats row */
@@ -2683,15 +2683,13 @@ body.dark .cr-screen-group-label::after { background: rgba(255,255,255,0.08); }
 @media (max-width: 680px) { .iirm-screen-grid { grid-template-columns: 1fr; } }
 .iirm-screen-item { display: flex; flex-direction: column; }
 .iirm-screen-img {
-  border-radius: 12px; overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-  border: 1px solid rgba(0,0,0,0.07);
-  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease;
+  border-radius: 0; overflow: hidden;
+  box-shadow: none;
+  background: none;
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
   line-height: 0;
 }
-body.dark .iirm-screen-img { border-color: rgba(255,255,255,0.07); box-shadow: 0 4px 24px rgba(0,0,0,0.3); }
-.iirm-screen-img:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 16px 48px rgba(0,0,0,0.16); }
-body.dark .iirm-screen-img:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.45); }
+.iirm-screen-img:hover { transform: translateY(-5px) scale(1.01); }
 .iirm-screen-img img { width: 100%; height: auto; display: block; }
 .iirm-screen-lbl {
   font-family: 'Cabinet Grotesk', sans-serif; font-size: 11px; font-weight: 700;
@@ -2735,6 +2733,24 @@ body.dark .iirm-screen-img:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.45); }
   .cr-video-hint-label-tap { display: inline; }
   .cr-video-wrap.cr-video--playing .cr-video-hint { opacity: 0; }
 }
+
+/* ── HMI Case Study ───────────────────────────────── */
+.hmi-meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px; margin-top: 28px; }
+.hmi-meta-item { background: rgba(60,52,137,0.05); border-radius: 12px; padding: 16px 18px; border: 1px solid rgba(60,52,137,0.1); }
+body.dark .hmi-meta-item { background: rgba(108,99,255,0.07); border-color: rgba(108,99,255,0.14); }
+.hmi-meta-label { font-family: 'Cabinet Grotesk', sans-serif; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.13em; color: var(--purple); margin-bottom: 6px; }
+.hmi-meta-value { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.4; }
+.hmi-kp-list { list-style: none; padding: 0; margin: 20px 0 0; display: flex; flex-direction: column; gap: 10px; }
+.hmi-kp-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text); line-height: 1.5; }
+.hmi-kp-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--purple); margin-top: 8px; flex-shrink: 0; }
+.hmi-tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.hmi-tag { background: rgba(60,52,137,0.07); color: var(--purple); border: 1px solid rgba(60,52,137,0.14); border-radius: 100px; padding: 6px 14px; font-size: 12px; font-weight: 700; font-family: 'Cabinet Grotesk', sans-serif; letter-spacing: 0.04em; }
+body.dark .hmi-tag { background: rgba(108,99,255,0.1); border-color: rgba(108,99,255,0.2); }
+.hmi-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+@media (max-width: 640px) { .hmi-two-col { grid-template-columns: 1fr; } .hmi-meta-grid { grid-template-columns: 1fr 1fr; } }
+.hmi-card { background: rgba(60,52,137,0.04); border: 1px solid rgba(60,52,137,0.1); border-radius: 14px; padding: 20px 22px; }
+body.dark .hmi-card { background: rgba(108,99,255,0.06); border-color: rgba(108,99,255,0.13); }
+.hmi-card-title { font-family: 'Cabinet Grotesk', sans-serif; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: var(--purple); margin-bottom: 14px; }
 
 /* ── Mockup Tabs ──────────────────────────────────── */
 .cr-tabs-bar {
@@ -4821,17 +4837,199 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
       highlights: [{ num:'35%', label:'Less glance time' }, { num:'3', label:'Riding modes' }, { num:'9', label:'Screens shipped' }, { num:'2', label:'EV clients' }],
       tagline: 'Human–machine interfaces for the next generation of EVs.',
       gradient: 'linear-gradient(135deg,#1A1A2E 0%,#3C3489 100%)',
-      overview: 'Designed cluster and infotainment HMI for Tork Motors EV bikes and other automotive clients. The work spanned from initial concept sketches to production-ready design specifications — covering cluster displays, riding modes, and navigation UX.',
-      problem: 'EV riders faced a steep cognitive load from fragmented instrument cluster data. Battery range, regenerative braking strength, and riding mode were presented inconsistently, leading to anxiety and unsafe glancing behaviour.',
-      solution: 'Created a unified HMI language system with a "glance grammar" — a visual hierarchy that lets riders absorb critical information in under 200ms. Designed 3 riding modes (Eco, City, Sport) with distinct visual states for immediate mode recognition.',
-      outcome: 'HMI design approved for production on Tork Kratos R models. Reduced glance duration by ~35% in simulator testing. Design patterns adopted as internal HMI standards at People Tech Group.',
+      overview: 'Designed cluster and infotainment HMI for Tork Motors EV bikes and other automotive clients.',
+      problem: 'EV riders faced a steep cognitive load from fragmented instrument cluster data.',
+      solution: 'Created a unified HMI language system with a glance grammar — a visual hierarchy that lets riders absorb critical information in under 200ms.',
+      outcome: 'HMI design approved for production on Tork Kratos R models. Reduced glance duration by ~35% in simulator testing.',
       process: [
         { step:'01', title:'Domain Research & Benchmarking', desc:'Studied ISO 15008 and NHTSA guidelines, benchmarked 8 EV brands, and rode Tork bikes to understand real-world rider context.' },
         { step:'02', title:'Concept Exploration', desc:'Generated 40+ concept directions for cluster layout, icon language, and colour semantics. Narrowed to 3 directions through stakeholder reviews.' },
         { step:'03', title:'Prototyping & Simulation', desc:'Built interactive Figma prototypes with state transitions for all riding modes, and animated micro-interactions using Principle.' },
         { step:'04', title:'Specification & Validation', desc:'Delivered pixel-precise, dark-optimised design specs with motion timing, font metrics at display PPI, and contrast ratios for outdoor legibility.' }
       ],
-      behanceUrl: 'https://behance.net/kandularahul21'
+      behanceUrl: 'https://behance.net/kandularahul21',
+      richHTML: `
+<div class="cr-section">
+  <div class="cr-eyebrow">01 — Overview</div>
+  <h2 class="cr-title">Tork Motors HMI</h2>
+  <p class="cr-sub">A futuristic dashboard experience designed to enhance the interaction between riders and electric vehicles through a clean, intuitive, and distraction-free interface — combining real-time vehicle insights, navigation, ride analytics, and smart interactions into a modern riding experience.</p>
+  <div class="hmi-meta-grid">
+    <div class="hmi-meta-item"><div class="hmi-meta-label">Role</div><div class="hmi-meta-value">UI/UX Designer</div></div>
+    <div class="hmi-meta-item"><div class="hmi-meta-label">Platform</div><div class="hmi-meta-value">Electric Vehicle HMI System</div></div>
+    <div class="hmi-meta-item"><div class="hmi-meta-label">Tools</div><div class="hmi-meta-value">Figma</div></div>
+    <div class="hmi-meta-item"><div class="hmi-meta-label">Focus</div><div class="hmi-meta-value">Glanceable & Rider-Centric Experience</div></div>
+  </div>
+</div>
+
+<div class="cr-divider"></div>
+
+<div class="cr-section">
+  <div class="cr-eyebrow">02 — Problem & Objective</div>
+  <h2 class="cr-title">The Challenge</h2>
+  <p class="cr-sub">Modern EV dashboards often present excessive information with inconsistent layouts, making it difficult for riders to quickly access critical data while riding. The challenge was to design an interface that feels futuristic while maintaining clarity, usability, and safety.</p>
+  <div class="hmi-card" style="margin-top:28px;">
+    <div class="hmi-card-title">Objectives</div>
+    <ul class="hmi-kp-list">
+      <li>Improve readability during motion</li>
+      <li>Reduce rider distraction</li>
+      <li>Create a premium digital riding experience</li>
+      <li>Simplify access to essential information</li>
+      <li>Build a clean and scalable HMI system</li>
+    </ul>
+  </div>
+</div>
+
+<div class="cr-divider"></div>
+
+<div class="cr-section">
+  <div class="cr-eyebrow">03 — Design Principles</div>
+  <h2 class="cr-title">Rider-First Thinking</h2>
+  <p class="cr-sub">The interface was designed around a minimal and rider-focused interaction system that prioritises clarity and accessibility. Special attention was given to spacing, typography, and information grouping to ensure riders can access important data instantly without overwhelming the experience.</p>
+  <div class="hmi-tag-cloud">
+    <span class="hmi-tag">Clarity over complexity</span>
+    <span class="hmi-tag">Minimal distraction</span>
+    <span class="hmi-tag">High readability in motion</span>
+    <span class="hmi-tag">Consistent visual hierarchy</span>
+    <span class="hmi-tag">Futuristic yet functional</span>
+    <span class="hmi-tag">Quick-glance accessibility</span>
+  </div>
+</div>
+
+<div class="cr-divider"></div>
+
+<div class="cr-section">
+  <div class="cr-eyebrow">04 — Process & Visual Exploration</div>
+  <h2 class="cr-title">How It Was Built</h2>
+  <p class="cr-sub">The design process involved exploring dashboard layouts, interaction patterns, and mobility-focused UI systems commonly used in modern EV experiences. Interactions were carefully planned to reduce cognitive load and support quick-glance usability during rides.</p>
+  <div class="hmi-two-col" style="margin-top:28px;">
+    <div class="hmi-card">
+      <div class="hmi-card-title">Interface Built Using</div>
+      <ul class="hmi-kp-list">
+        <li>Simplified navigation structures</li>
+        <li>Clean component-based layouts</li>
+        <li>Dark themed visual system</li>
+        <li>High contrast readability</li>
+        <li>Minimal interaction patterns</li>
+      </ul>
+    </div>
+    <div class="hmi-card">
+      <div class="hmi-card-title">Design Process</div>
+      <ul class="hmi-kp-list">
+        <li>Domain research & ISO benchmarking</li>
+        <li>40+ concept explorations</li>
+        <li>Interactive Figma prototyping</li>
+        <li>Pixel-precise dark-mode specs</li>
+        <li>Simulator usability validation</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="cr-divider"></div>
+
+<div class="cr-section">
+  <div class="cr-eyebrow">05 — Final Experience & Features</div>
+  <h2 class="cr-title">The Outcome</h2>
+  <p class="cr-sub">The final HMI concept delivers a modern and intelligent rider experience that balances usability with futuristic aesthetics. The overall visual language emphasises premium consistency and seamless rider interaction across the system.</p>
+  <div class="hmi-tag-cloud">
+    <span class="hmi-tag">Real-time speed & battery</span>
+    <span class="hmi-tag">Smart navigation</span>
+    <span class="hmi-tag">Ride mode interactions</span>
+    <span class="hmi-tag">Alerts & notifications</span>
+    <span class="hmi-tag">Dashboard visualisation</span>
+    <span class="hmi-tag">Distraction-free UI</span>
+  </div>
+</div>
+
+<div class="cr-divider"></div>
+
+<div class="cr-section">
+  <div class="cr-eyebrow">06 — Outcome & Reflection</div>
+  <h2 class="cr-title">Key Takeaways</h2>
+  <p class="cr-sub">This project explores how thoughtful HMI design can improve the future of electric mobility through intuitive interaction, accessibility, and real-time communication. The final outcome reflects a clean, scalable, and futuristic EV dashboard experience designed for next-generation mobility products.</p>
+  <div class="hmi-card" style="margin-top:28px;">
+    <div class="hmi-card-title">Reflections</div>
+    <ul class="hmi-kp-list">
+      <li>Designing for motion requires simplified interaction patterns</li>
+      <li>Strong visual hierarchy improves quick-glance usability</li>
+      <li>Minimal interfaces enhance rider focus and safety</li>
+      <li>Balancing aesthetics with functionality is critical in HMI systems</li>
+    </ul>
+  </div>
+</div>
+
+<div class="cr-divider"></div>
+
+<div class="cr-section">
+  <div class="cr-eyebrow">07 — Screens</div>
+  <h2 class="cr-title">HMI Interface</h2>
+  <p class="cr-sub">All 18 screens across the full HMI system — from startup and navigation to media, settings, and rider profiles.</p>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">01 · Startup & Boot</div>
+    <div class="iirm-screen-grid">
+      <div><div class="iirm-screen-img"><img src="Tork%201.png" alt="Startup" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Vehicle Startup</div></div>
+      <div><div class="iirm-screen-img"><img src="Tork%202.png" alt="Engine Start" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Engine Starting</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">02 · Dashboard & Alerts</div>
+    <div class="iirm-screen-grid">
+      <div><div class="iirm-screen-img"><img src="Tork%203.png" alt="Low Battery" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Low Battery Warning</div></div>
+      <div><div class="iirm-screen-img"><img src="Tork%2014.png" alt="Reverse Gear" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Reverse Gear</div></div>
+      <div><div class="iirm-screen-img"><img src="Tork%2016.png" alt="Tire Pressure" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Tire Pressure Monitor</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">03 · Navigation</div>
+    <div class="iirm-screen-grid">
+      <div><div class="iirm-screen-img"><img src="Tork%204.png" alt="Navigation Map" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Navigation Map</div></div>
+      <div><div class="iirm-screen-img"><img src="Tork%205.png" alt="Location Search" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Location Search</div></div>
+      <div><div class="iirm-screen-img"><img src="Tork%206.png" alt="Keyboard Input" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Keyboard Input</div></div>
+      <div><div class="iirm-screen-img"><img src="Tork%2017.png" alt="Trip History" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Trip History</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">04 · Media & Connectivity</div>
+    <div class="iirm-screen-grid">
+      <div><div class="iirm-screen-img"><img src="Tork%207.png" alt="Music" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Music & Radio</div></div>
+      <div><div class="iirm-screen-img"><img src="Tork%208.png" alt="Phone Contacts" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Phone Contacts</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">05 · Settings & System</div>
+    <div class="iirm-screen-grid">
+      <div><div class="iirm-screen-img"><img src="Tork%209.png" alt="Settings" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Settings</div></div>
+      <div><div class="iirm-screen-img"><img src="Tork%2010.png" alt="Vacation Mode" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Vacation Mode</div></div>
+      <div><div class="iirm-screen-img"><img src="Tork%2011.png" alt="Switch Control" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Switch Control</div></div>
+      <div><div class="iirm-screen-img"><img src="Tork%2015.png" alt="Software Update" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Software Update</div></div>
+    </div>
+  </div>
+
+  <div class="cr-screen-group">
+    <div class="cr-screen-group-label">06 · Profile & Apps</div>
+    <div class="iirm-screen-grid">
+      <div><div class="iirm-screen-img"><img src="Tork%2012.png" alt="Profile" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Rider Profile</div></div>
+      <div><div class="iirm-screen-img"><img src="Tork%2013.png" alt="Gallery" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Photo Gallery</div></div>
+      <div><div class="iirm-screen-img"><img src="Tork%2018.png" alt="Apps" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Apps & Entertainment</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="case-cta-block" style="margin-top:48px;">
+  <div class="case-cta-copy">
+    <div class="case-cta-eyebrow">Want the full story?</div>
+    <div class="case-cta-headline">View all screens and interactions<br>on Behance.</div>
+  </div>
+  <a href="https://behance.net/kandularahul21" target="_blank" rel="noopener" class="case-cta-btn">
+    View on Behance <i class="ti ti-brand-behance"></i>
+  </a>
+</div>
+`
     },
     'global-dashboard': {
       title: 'Global Dashboard Manager', type: 'Enterprise Dashboard',
@@ -5541,7 +5739,7 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
       title: 'Redbucket', type: 'UI/UX Design',
       client: 'Redbucket', year: '2023', role: 'UI/UX Designer',
       tools: 'Figma · FigJam · Lottie',
-      heroMockup: { type: 'phone', accent: '#E74C3C' },
+      heroMockup: { type: 'phone', accent: '#E74C3C', img: 'Redbucket.png' },
       mockups: ['https://mir-s3-cdn-cf.behance.net/project_modules/max_3840_webp/1b86f9225674435.6821d9c866a14.png'],
       highlights: [{ num:'44%', label:'Less tool-switching' }, { num:'18h', label:'Feedback turnaround' }, { num:'91%', label:'Would recommend' }, { num:'8', label:'Teams audited' }],
       tagline: 'A creative platform that thinks like a designer.',
@@ -5687,10 +5885,12 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
       var m = d.heroMockup;
       if (m.type === 'phone') {
         if (m.img) {
-          mockupInner.style.cssText = 'width:320px;display:flex;align-items:center;justify-content:center;';
+          var pw = id === 'hmi-suite' ? '520px' : '640px';
+          mockupInner.style.cssText = 'width:' + pw + ';display:flex;align-items:center;justify-content:center;';
           mockupInner.innerHTML =
-            '<img src="' + m.img + '" alt="Tork HMI" style="width:100%;height:auto;border-radius:16px;object-fit:contain;filter:drop-shadow(0 24px 48px rgba(0,0,0,0.45));display:block;">';
+            '<img src="' + m.img + '" alt="" style="width:100%;height:auto;border-radius:16px;object-fit:contain;filter:drop-shadow(0 24px 48px rgba(0,0,0,0.45));display:block;">';
         } else {
+        mockupInner.style.width = '640px';
         mockupInner.innerHTML =
           '<div class="case-hero-mockup-frame">' +
             '<div class="case-hero-mockup-frame-bar"><div class="case-hero-mockup-frame-notch"></div></div>' +
@@ -5720,7 +5920,7 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
         /* desktop / browser frame */
         mockupInner.style.width = '380px';
         if (m.img) {
-          mockupInner.style.cssText = 'width:400px;display:flex;align-items:center;justify-content:center;';
+          mockupInner.style.cssText = 'width:640px;display:flex;align-items:center;justify-content:center;';
           mockupInner.innerHTML =
             '<img src="' + m.img + '" alt="" style="width:100%;height:auto;border-radius:14px;object-fit:contain;filter:drop-shadow(0 24px 48px rgba(0,0,0,0.45));display:block;">';
         } else {
