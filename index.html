@@ -1371,7 +1371,7 @@ body.dark .contact-page-header { background: rgba(14,14,15,0.92); }
 .contact-page-close-btn:hover { background: var(--purple); border-color: var(--purple); color: white; }
 
 .contact-page-body {
-  padding: 40px 6vw 60px;
+  padding: 100px 6vw 60px;
 }
 .contact-page-grid {
   display: grid; grid-template-columns: 1fr 360px; gap: 8%; align-items: start;
@@ -1514,7 +1514,7 @@ body.dark .contact-info-card { border-color: rgba(255,255,255,0.08); }
 }
 @media (max-width: 600px) {
   .cf-row { grid-template-columns: 1fr; }
-  .contact-page-body { padding: 24px 5vw 32px; }
+  .contact-page-body { padding: 90px 5vw 32px; }
   .contact-page-grid { grid-template-columns: 1fr; }
   .contact-info-panel { margin-top: 24px; }
 }
@@ -2296,7 +2296,7 @@ body.dark .case-sidebar-card { border-color: rgba(255,255,255,0.06); }
 
   /* CONTACT FORM OVERLAY */
   .contact-page-intro p { margin-left: 0; }
-  .contact-page-body { padding: 32px 5vw 48px; }
+  .contact-page-body { padding: 90px 5vw 48px; }
 
   /* PROJECTS PAGE */
   .projects-page-body   { padding: 40px 5vw 60px; }
@@ -3591,17 +3591,6 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
      ====================================================== -->
 <div class="contact-page" id="contactPage" role="dialog" aria-modal="true" aria-label="Contact form">
 
-  <div class="contact-page-header">
-    <div class="contact-page-header-left">
-      <button class="contact-page-back-btn" id="contactPageBack" aria-label="Go back">
-        <i class="ti ti-arrow-left"></i>
-      </button>
-      <span class="contact-page-title">Hire Me &nbsp;·&nbsp; Kandula Rahul</span>
-    </div>
-    <button class="contact-page-close-btn" id="contactPageClose" aria-label="Close">
-      <i class="ti ti-x"></i>
-    </button>
-  </div>
 
   <div class="contact-page-body">
     <div class="contact-page-intro">
@@ -3609,7 +3598,7 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
         <button class="contact-back-inline" id="contactBackInline2">
           <i class="ti ti-arrow-left"></i>
         </button>
-        <h2>Let's build something<br>great together.</h2>
+        <h2>Let's build something great together.</h2>
       </div>
       <p>Available for full-time roles and select freelance projects. Usually reply within 24 hours.</p>
     </div>
@@ -4706,14 +4695,18 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
     contactPage.classList.add('open');
     document.body.style.overflow = 'hidden';
     contactPage.scrollTop = 0;
-    // Reset form & success state
     document.getElementById('cfSuccess').classList.remove('visible');
     document.getElementById('contactForm').style.display = 'flex';
     document.getElementById('contactForm').reset();
+    document.querySelectorAll('.nav-links a').forEach(function(a){ a.classList.remove('active'); });
+    var contactNavLink = document.querySelector('.nav-links a[data-open-contact]');
+    if (contactNavLink) contactNavLink.classList.add('active');
   }
   function closeContact() {
     contactPage.classList.remove('open');
     document.body.style.overflow = '';
+    var contactNavLink = document.querySelector('.nav-links a[data-open-contact]');
+    if (contactNavLink) contactNavLink.classList.remove('active');
   }
 
   // Wire up all hire / contact triggers
@@ -4735,10 +4728,10 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
     el.addEventListener('click', function (e) { e.preventDefault(); openContact(); });
   });
 
-  document.getElementById('contactPageBack').addEventListener('click', closeContact);
+  var cpb = document.getElementById('contactPageBack'); if (cpb) cpb.addEventListener('click', closeContact);
   var cbi = document.getElementById('contactBackInline'); if (cbi) cbi.addEventListener('click', closeContact);
   var cbi2 = document.getElementById('contactBackInline2'); if (cbi2) cbi2.addEventListener('click', closeContact);
-  document.getElementById('contactPageClose').addEventListener('click', closeContact);
+  var cpc = document.getElementById('contactPageClose'); if (cpc) cpc.addEventListener('click', closeContact);
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && contactPage.classList.contains('open')) closeContact();
   });
@@ -4976,7 +4969,7 @@ body.dark .cr-desktop { border-color: rgba(255,255,255,0.08); }
   <div class="cr-screen-group">
     <div class="cr-screen-group-label">02 · Dashboard & Alerts</div>
     <div class="iirm-screen-grid">
-      <div><div class="iirm-screen-img"><img src="Tork%203.png" alt="Low Battery" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Low Battery Warning</div></div>
+      <div><div class="iirm-screen-img"><img src="Tork%203.png" alt="Low Battery" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">FF Mode</div></div>
       <div><div class="iirm-screen-img"><img src="Tork%2014.png" alt="Reverse Gear" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Reverse Gear</div></div>
       <div><div class="iirm-screen-img"><img src="Tork%2016.png" alt="Tire Pressure" loading="lazy" style="width:100%;height:auto;display:block;"></div><div class="iirm-screen-lbl">Tire Pressure Monitor</div></div>
     </div>
